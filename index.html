@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avangard Autocheck | Inspecții Auto Profesionale</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="icon" type="image/png" href="masinaverificareautocheck.png">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -91,7 +92,7 @@
         footer { background: var(--darker-bg); padding: 3rem 2rem 1.5rem; border-top: 1px solid var(--border-gray); }
         .footer-content { max-width: 1600px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
         .footer-section h3 { font-family: 'Rajdhani', sans-serif; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.3rem; }
-        .footer-section p, .footer-section a { color: #999; line-height: 1.8; text-decoration: none; display: block; margin-bottom: 0.5rem; }
+        .footer-section p, .footer-section a { color: #999; line-height: 1.2; text-decoration: none; display: block; margin-bottom: 0.3rem; }
         .footer-section a:hover { color: var(--primary-blue); }
         .copy-email { cursor: pointer; transition: color 0.3s ease; }
         .copy-email:hover { color: var(--primary-blue) !important; }
@@ -330,9 +331,7 @@
                     <p id="message-text"></p>
                 </div>
                 <div id="loading-spinner" class="loading-spinner"></div>
-                <form class="contact-form" id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-                    <input type="hidden" name="form-name" value="contact">
-                    <p style="display:none;"><label>Nu completa: <input name="bot-field"></label></p>
+                <form class="contact-form" id="contact-form">
                     <div class="form-group">
                         <label for="name">Nume Complet *</label>
                         <input type="text" id="name" name="name" required>
@@ -394,10 +393,22 @@
             </div>
             <div class="footer-section">
                 <h3>CONTACT</h3>
-                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4e7.svg" alt="Email" width="22" height="22"> <a href="#" class="copy-email" onclick="copyToClipboard(event, 'avangardautocheck@gmail.com', 'Email')">avangardautocheck@gmail.com</a></p>
-                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4de.svg" alt="Telefon" width="22" height="22"> <a href="#" class="copy-email" onclick="copyToClipboard(event, '069 448 878', 'Telefon')">069 448 878</a></p>
-                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4f1.svg" alt="Instagram" width="22" height="22"> <a href="https://www.instagram.com/verificare_auto" target="_blank">@verificare_auto</a></p>
-                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/23f0.svg" alt="Program" width="22" height="22"> Luni - Duminică: 09:00 - 18:00</p>
+                <p style="display:flex; align-items:center; gap:12px;">
+                    <i class="fa-regular fa-envelope" style="font-size:16px; color:#999; width:18px; text-align:center; flex-shrink:0;"></i>
+                    <a href="#" class="copy-email" onclick="copyEmail(event, 'avangardautocheck@gmail.com')"><span class="__cf_email__" data-cfemail="0b6a7d6a656c6a796f6a7e7f6468636e68604b6c666a626725686466">[email&#160;protected]</span></a>
+                </p>
+                <p style="display:flex; align-items:center; gap:12px;">
+                    <i class="fa-solid fa-phone" style="font-size:16px; color:#999; width:18px; text-align:center; flex-shrink:0;"></i>
+                    <a href="tel:069448878" class="copy-email" onclick="copyEmail(event, '069448878')">069 448 878</a>
+                </p>
+                <p style="display:flex; align-items:center; gap:12px;">
+                    <i class="fa-brands fa-instagram" style="font-size:16px; color:#999; width:18px; text-align:center; flex-shrink:0;"></i>
+                    <a href="https://www.instagram.com/verificare_auto" target="_blank">@verificare_auto</a>
+                </p>
+                <p style="display:flex; align-items:center; gap:12px;">
+                    <i class="fa-regular fa-clock" style="font-size:16px; color:#999; width:18px; text-align:center; flex-shrink:0;"></i>
+                    <span style="color:#999;">Luni - Duminică: 09:00 - 18:00</span>
+                </p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -405,11 +416,58 @@
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const form = document.getElementById('contact-form');
             const submitBtn = document.getElementById('submit-btn');
+            const messageBox = document.getElementById('message-box');
+            const messageTitle = document.getElementById('message-title');
+            const messageText = document.getElementById('message-text');
+            const loadingSpinner = document.getElementById('loading-spinner');
+
+            loadingSpinner.style.display = 'block';
             submitBtn.disabled = true;
             submitBtn.textContent = 'Se trimite...';
+            messageBox.classList.remove('show', 'success', 'error');
+
+            const formData = new FormData(form);
+            formData.append('access_key', '69b0a3a7-eb57-4590-9215-9182f78b5ab2');
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                loadingSpinner.style.display = 'none';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Trimite Cerere';
+                messageBox.classList.add('show');
+                if (data.success) {
+                    messageBox.classList.add('success');
+                    messageTitle.textContent = '✓ Mesaj Trimis!';
+                    messageText.textContent = 'Vă mulțumim! Vă vom contacta în curând.';
+                    form.reset();
+                    messageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setTimeout(function() { messageBox.classList.remove('show'); }, 5000);
+                } else {
+                    messageBox.classList.add('error');
+                    messageTitle.textContent = '✗ Eroare';
+                    messageText.textContent = 'A apărut o eroare. Te rugăm să ne contactezi direct.';
+                    messageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            })
+            .catch(error => {
+                loadingSpinner.style.display = 'none';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Trimite Cerere';
+                messageBox.classList.add('show', 'error');
+                messageTitle.textContent = '✗ Eroare de Conexiune';
+                messageText.textContent = 'Nu s-a putut trimite mesajul. Te rugăm să ne contactezi direct.';
+                console.error('Error:', error);
+            });
         });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -445,30 +503,20 @@
             });
         }
 
-        function copyToClipboard(event, text, label) {
+        function copyEmail(event, email) {
             event.preventDefault();
             const notification = document.getElementById('copyNotification');
-            notification.innerHTML = '&#10003; ' + label + ' copiat!';
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(() => showNotification(notification)).catch(() => fallbackCopy(text, notification));
-            } else { fallbackCopy(text, notification); }
+                navigator.clipboard.writeText(email).then(() => showNotification(notification)).catch(() => fallbackCopy(email, notification));
+            } else { fallbackCopy(email, notification); }
         }
 
         function fallbackCopy(text, notification) {
             const textarea = document.createElement('textarea');
-            textarea.value = text;
-            textarea.style.position = 'fixed';
-            textarea.style.top = '0';
-            textarea.style.left = '0';
-            textarea.style.opacity = '0';
-            document.body.appendChild(textarea);
-            textarea.focus();
-            textarea.select();
-            textarea.setSelectionRange(0, text.length);
-            let success = false;
-            try { success = document.execCommand('copy'); } catch(err) { success = false; }
+            textarea.value = text; textarea.style.position = 'fixed'; textarea.style.opacity = '0';
+            document.body.appendChild(textarea); textarea.select();
+            try { document.execCommand('copy'); showNotification(notification); } catch(err) { alert('Copiază manual: ' + text); }
             document.body.removeChild(textarea);
-            if (success) { showNotification(notification); } else { alert('Copiază manual: ' + text); }
         }
 
         function showNotification(notification) {
@@ -476,5 +524,6 @@
             setTimeout(() => notification.classList.remove('show'), 2500);
         }
     </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"70eff42fa5ef4993860750320a9b7e61","r":1}' crossorigin="anonymous"></script>
 </body>
 </html>
