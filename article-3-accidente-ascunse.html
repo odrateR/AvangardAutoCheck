@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="masinaverificareautocheck.png">
+    <title>Elemente Vopsite, Chit, Accidente Ascunse – Cum Recunoaștem o Mașină Lovită | Avangard Autocheck</title>
+    <meta name="description" content="Ghid complet pentru detectarea accidentelor ascunse: grosimetru vopsea, verificare suduri, identificare chit, geometrie caroserie. Evită mașinile lovite!">
+    <meta name="keywords" content="accident auto, elemente vopsite, daune ascunse, grosimetru vopsea, chit caroserie, masina lovita, daune structurale">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-blue: #1E88E5;
+            --primary-green: #4CAF50;
+            --dark-bg: #0A0A0A;
+            --darker-bg: #050505;
+            --border-gray: #222;
+            --mid-gray: #666;
+        }
+        body { font-family: 'Outfit', sans-serif; background: var(--dark-bg); color: #fff; line-height: 1.8; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid var(--border-gray); }
+        .nav-container { max-width: 1600px; margin: 0 auto; padding: 1.2rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { height: 50px; width: auto; }
+        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: #fff; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: all 0.3s ease; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--primary-blue), var(--primary-green)); transition: width 0.3s ease; }
+        .nav-links a:hover::after { width: 100%; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+        .article-hero { padding-top: 120px; padding-bottom: 4rem; background: linear-gradient(135deg, #0A0A0A 0%, #0D1B2A 50%, #0A1929 100%); position: relative; }
+        .article-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(30,136,229,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(76,175,80,0.15) 0%, transparent 50%); pointer-events: none; }
+        .article-container { max-width: 900px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 2; }
+        .breadcrumb { display: none; margin-bottom: 2rem; color: var(--mid-gray); font-size: 0.9rem; }
+        .breadcrumb a { color: var(--primary-blue); text-decoration: none; }
+        .article-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1.1; margin-bottom: 1.5rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .article-meta { display: flex; gap: 2rem; margin-bottom: 3rem; color: var(--mid-gray); font-size: 0.95rem; }
+        .article-content { background: var(--darker-bg); padding: 4rem; border: 1px solid var(--border-gray); }
+        .article-content h2 { font-family: 'Rajdhani', sans-serif; font-size: 2rem; color: var(--primary-blue); margin: 3rem 0 1.5rem 0; font-weight: 700; }
+        .article-content h3 { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; color: var(--primary-green); margin: 2rem 0 1rem 0; font-weight: 600; }
+        .article-content p { margin-bottom: 1.5rem; color: #ccc; font-size: 1.05rem; }
+        .article-content ul, .article-content ol { margin: 1.5rem 0; padding-left: 2rem; color: #ccc; }
+        .article-content li { margin-bottom: 1rem; line-height: 1.8; }
+        .highlight-box { background: linear-gradient(135deg, rgba(30,136,229,0.1) 0%, rgba(76,175,80,0.1) 100%); border-left: 4px solid var(--primary-blue); padding: 2rem; margin: 2rem 0; }
+        .highlight-box h4 { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; margin-bottom: 1rem; color: var(--primary-blue); }
+        .warning-box { background: rgba(244,67,54,0.1); border-left: 4px solid #F44336; padding: 2rem; margin: 2rem 0; }
+        .warning-box h4 { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; margin-bottom: 1rem; color: #F44336; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .stat-card { background: var(--dark-bg); padding: 1.5rem; border: 1px solid var(--border-gray); text-align: center; }
+        .stat-number { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .stat-label { color: var(--mid-gray); font-size: 0.9rem; }
+        .external-link { color: var(--primary-blue); text-decoration: none; border-bottom: 1px dotted var(--primary-blue); }
+        .external-link:hover { color: var(--primary-green); }
+        .cta-section { background: linear-gradient(135deg, rgba(30,136,229,0.15) 0%, rgba(76,175,80,0.15) 100%); padding: 3rem; text-align: center; margin: 3rem 0; border: 2px solid var(--primary-blue); }
+        .cta-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .btn-primary { display: inline-block; padding: 1.1rem 2.5rem; font-size: 1rem; font-weight: 600; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); color: #fff; text-decoration: none; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(30,136,229,0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(30,136,229,0.5); }
+        footer { background: var(--darker-bg); padding: 3rem 2rem 1.5rem; border-top: 1px solid var(--border-gray); margin-top: 4rem; }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .footer-section h3 { font-family: 'Rajdhani', sans-serif; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.3rem; }
+        .footer-section p, .footer-section a { color: #999; line-height: 1.8; text-decoration: none; display: block; margin-bottom: 0.5rem; }
+        .footer-section a:hover { color: var(--primary-blue); }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid var(--border-gray); color: #666; }
+        
+        /* Mobile styles */
+        @media (max-width: 768px) { 
+            .nav-links { display: none; } 
+            .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: rgba(10,10,10,0.98); padding: 2rem; z-index: 999; } 
+            .mobile-menu-btn { display: block; } 
+            .article-content { padding: 2rem 1.5rem; } 
+            .breadcrumb { display: block; font-size: 0.8rem; }
+            .nav-container { padding: 0.8rem 1rem; }
+            .nav-logo { height: 35px; }
+            .logo-text { font-size: 1.3rem; }
+        }
+
+        /* Copy to Clipboard Styles */
+        .copy-email {
+            cursor: pointer;
+            transition: color 0.3s ease;
+            display: inline-block;
+        }
+        .copy-email:hover { color: var(--primary-blue) !important; }
+        
+        .copy-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 10px 40px rgba(30, 136, 229, 0.4);
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+        .copy-notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .footer-section p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.footer-section p img {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    display: block;
+}
+
+.footer-section p a,
+.footer-section p span {
+    display: inline-block;
+    line-height: 1.2;
+    vertical-align: middle;
+}
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="masinaverificareautocheck.png" alt="Avangard Autocheck" class="nav-logo">
+                <span class="logo-text">AVANGARD AUTOCHECK</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html">Servicii</a></li>
+                <li><a href="index.html">Prețuri</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="index.html">Reviews</a></li>
+                <li><a href="index.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / <a href="blog.html">Blog</a> / Accidente Ascunse
+            </div>
+            <h1 class="article-title">Elemente Vopsite, Chit, Accidente Ascunse – Cum Recunoaștem o Mașină Lovită</h1>
+            <div class="article-meta">
+                <span>📅 3 Februarie 2025</span>
+                <span>⏱️ 11 min citire</span>
+                <span>👤 Expert Avangard</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="article-container">
+        <div class="article-content">
+            <p style="font-size:1.2rem; color:var(--primary-blue); font-weight:500;">
+                O mașină lovită și bine reparată vizual poate arăta impecabil la prima vedere. Dar sub vopsea se pot ascunde daune structurale grave, chit aplicat gros și suduri neprofesionale care pun în pericol siguranța ta. Iată cum le descoperim noi la <strong>verificarea auto profesională</strong>.
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">45%</div>
+                    <div class="stat-label">Mașini cu accidente nedeclarate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">€5,200</div>
+                    <div class="stat-label">Cost mediu reparații structurale</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Puncte măsurare grosime vopsea</div>
+                </div>
+            </div>
+
+
+            <h2>🚨 De Ce Este Greu să Detectezi un Accident Bine Camuflat?</h2>
+            <p>
+                Reparațiile moderne de caroserie pot fi extrem de bine executate. Un vopsitor priceput poate face o mașină lovită să arate ca nouă în 2-3 zile. Problema? Sub acea vopsea perfectă se poate ascunde chit aplicat în straturi groase, suduri improvizate, lonjeroane deformate și panouri înlocuite cu piese aftermarket de calitate slabă.
+            </p>
+            <p>
+                Conform datelor <a href="https://www.carvertical.com/ro" target="_blank" class="external-link">CarVertical</a>, 45% din mașinile importate în România au cel puțin un element de caroserie vopsit sau înlocuit după un accident, fără ca acest lucru să fie declarat la vânzare.
+            </p>
+
+            <div class="warning-box">
+                <h4>⚠️ De Ce Contează Mai Mult Decât Crezi?</h4>
+                <ul>
+                    <li><strong>Siguranță în accident</strong> – o caroserie reparată prost nu absoarbe impactul corect</li>
+                    <li><strong>Valoare de revânzare</strong> – o mașină accidentată valorează cu 20-40% mai puțin</li>
+                    <li><strong>Probleme pe termen lung</strong> – rugină, crăpături în chit, vopsea care cade</li>
+                    <li><strong>Costuri ascunse</strong> – reparații repetate la panouri prost fixate</li>
+                </ul>
+            </div>
+
+            <h2>🔍 Metoda 1: Grosimetrul – Cel Mai Important Instrument</h2>
+            <p>
+                Grosimetrul digital profesional este arma noastră principală împotriva caroseriei camuflajeate. Acest instrument măsoară cu precizie de 0.1 micron grosimea stratului de vopsea pe orice panou metalic.
+            </p>
+            <h3>Cum Funcționează?</h3>
+            <p>
+                Fiecare producător auto aplică vopsea în straturi standardizate: grund + bază + lac = de obicei 80-150 microni. Când un panou este revopsit sau are chit aplicat, grosimea crește dramatic – uneori la 300-800+ microni.
+            </p>
+            <div class="highlight-box">
+                <h4>📊 Valorile Normale vs. Suspecte</h4>
+                <ul>
+                    <li><strong>80-150 microni</strong> – vopsea originală de fabrică ✅</li>
+                    <li><strong>150-250 microni</strong> – posibil revopsit, investigăm mai departe ⚠️</li>
+                    <li><strong>250-500 microni</strong> – revopsit sigur, posibil chit ⚠️⚠️</li>
+                    <li><strong>Peste 500 microni</strong> – chit gros, daune semnificative ascunse 🚨</li>
+                    <li><strong>0 microni</strong> – panou înlocuit (plastic sau alt material) 🚨</li>
+                </ul>
+            </div>
+            <h3>Cum Interpretăm Rezultatele?</h3>
+            <p>
+                Nu verificăm un singur punct – verificăm 50-60 de puncte pe toată caroseria și comparăm valorile între panouri adiacente. Dacă aripa dreaptă față arată 95 microni și aripa stângă față arată 380 microni, răspunsul este clar: aripa stângă a fost vopsită după un accident.
+            </p>
+
+            <h2>📏 Metoda 2: Verificarea Geometriei Caroseriei</h2>
+            <p>
+                Chiar și după o reparație vizual perfectă, caroseria unei mașini accidentate grav rămâne ușor deformată. Noi verificăm sistematic:
+            </p>
+            <ul>
+                <li><strong>Spațiile dintre panouri</strong> – trebuie să fie uniforme pe toată lungimea. O diferență de 2-3mm față de cealaltă parte indică deformare</li>
+                <li><strong>Alinierea capotei</strong> – capota trebuie să fie perfect centrată față de aripile față</li>
+                <li><strong>Liniile de design</strong> – liniile caroseriei trebuie să continue fără întrerupere de la un panou la altul</li>
+                <li><strong>Portierele</strong> – trebuie să se deschidă și închidă ușor, fără a freca sau a necesita forță</li>
+                <li><strong>Hayon/Portbagaj</strong> – verificăm uniformitatea spațiului față de laterale</li>
+            </ul>
+
+            <div class="warning-box">
+                <h4>🚨 Semne Clare de Accident Grav</h4>
+                <ul>
+                    <li>Spații neuniforme de peste 3mm între panouri adiacente</li>
+                    <li>Capotă care nu se aliniază perfect cu farurile</li>
+                    <li>Portieră care frecă de prag la închidere</li>
+                    <li>Hayon care se deschide greu sau nu stă singur ridicat</li>
+                    <li>Linie de design întreruptă sau ondulată</li>
+                </ul>
+            </div>
+
+            <h2>🔧 Metoda 3: Inspecția Sudurilor și Punctelor de Fixare</h2>
+            <p>
+                Sudurile originale de fabrică sunt realizate cu roboți și au un aspect specific, uniform și precis. Sudurile manuale realizate în service-uri auto arată complet diferit – neuniform, cu stropiri sau prea groase.
+            </p>
+            <h3>Ce Căutăm:</h3>
+            <ul>
+                <li><strong>Suduri suplimentare</strong> – în locuri unde nu ar trebui să existe</li>
+                <li><strong>Suduri manuale</strong> – aspect neuniform, diferit de restul caroseriei</li>
+                <li><strong>Vopsea aplicată peste suduri</strong> – tentativă de camuflare</li>
+                <li><strong>Șuruburi noi în zone vechi</strong> – indică demontare și remontare panouri</li>
+                <li><strong>Găuri astupate</strong> – din reparații sau înlocuiri de piese</li>
+            </ul>
+            <p>
+                Folosim o lanternă puternică și oglindă de inspecție pentru a examina toate zonele greu accesibile: sub praguri, în arcurile roților, în portbagaj la margini, sub capotă la lonjeroane.
+            </p>
+
+            <h2>💡 Metoda 4: Identificarea Chitului Sub Vopsea</h2>
+            <p>
+                Chitul este o pastă folosită pentru a umple denivelările după o lovitură. Aplicat în straturi subțiri, este normal și acceptabil. Aplicat gros pentru a ascunde deformări majore – este o problemă serioasă.
+            </p>
+            <h3>Cum Detectăm Chitul?</h3>
+            <ul>
+                <li><strong>Grosimetrul</strong> – valorile ridicate indică prezența chitului</li>
+                <li><strong>Magnetul</strong> – un magnet nu va lipi puternic acolo unde e chit gros (chitul nu e magnetic)</li>
+                <li><strong>Inspecție vizuală la unghi</strong> – lumina rasantă scoate la iveală denivelări chiar sub vopsea</li>
+                <li><strong>Palpare</strong> – diferențe de temperatură și textură la atingere</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>💡 Trucul cu Lumina Rasantă</h4>
+                <p>
+                    Aplecă-te la nivelul panoului și privește de-a lungul acestuia cu o sursă de lumină puternică din lateral. 
+                    Orice denivelație, ondulație sau urmă de chit va fi vizibilă ca umbre și reliefuri pe suprafața vopselei. 
+                    Această metodă simplu detectează până și cele mai bine mascate reparații.
+                </p>
+            </div>
+
+            <h2>🎨 Metoda 5: Diferențe de Nuanță și Calitate Vopsea</h2>
+            <p>
+                Chiar și cei mai buni vopsitori au dificultăți în a potrivi perfect nuanța originală a vopselei. În timp, vopseaua originală se oxidează și capătă o nuanță ușor diferită față de vopseaua proaspătă aplicată după accident.
+            </p>
+            <ul>
+                <li><strong>La lumina naturală</strong> – comparăm nuanțele panourilor adiacente</li>
+                <li><strong>La lumina artificială</strong> – metalicele și perlate arată diferit sub lumina artificială</li>
+                <li><strong>Textura vopselei</strong> – vopseaua proaspătă are altă textură față de cea veche</li>
+                <li><strong>Luciul</strong> – panoul revopsit poate fi mai lucios sau mai mat decât restul</li>
+            </ul>
+
+            <h2>🔐 Metoda 6: Verificarea Airbag-urilor Declanșate</h2>
+            <p>
+                Un accident suficient de puternic declanșează airbag-urile. Înlocuirea și recondiționarea lor costă €2,000-5,000, motiv pentru care mulți vânzători aleg să instaleze airbag-uri false (bucăți de spumă sau plastic în locul celor reale) sau să reseteze modulul fără înlocuire.
+            </p>
+            <div class="warning-box">
+                <h4>🚨 Pericolul Airbag-urilor False</h4>
+                <p>
+                    Un airbag fals sau un modul resetat incorect înseamnă că în caz de accident NU vei beneficia de protecție. 
+                    Aceasta poate fi diferența dintre viață și moarte! 
+                    Verificăm prin scanare electronică dacă modulul SRS a înregistrat declanșare și dacă starea actuală corespunde cu istoricul.
+                </p>
+            </div>
+
+            <h2>📊 Studiu de Caz Real: BMW X5 cu Accident Grav Ascuns</h2>
+            <div class="highlight-box">
+                <h4>📋 BMW X5 xDrive30d, 2018, 98,000 km declarați, preț €32,000</h4>
+                <p><strong>La prima vedere:</strong> Mașina arăta impecabil. Vopsea uniformă, fără zgrâieturi, interior perfect.</p>
+                <p><strong>Ce am descoperit la verificare:</strong></p>
+                <ul>
+                    <li>Grosimetru aripa stângă față: <strong>680 microni</strong> (față de 95 normali) – chit gros 🚨</li>
+                    <li>Grosimetru portieră față stângă: <strong>420 microni</strong> – revopsită 🚨</li>
+                    <li>Longeron față stâng: <strong>deformat și sudurat manual</strong> 🚨</li>
+                    <li>Modul airbag: <strong>eroare declanșare airbag frontal stânga</strong> 🚨</li>
+                    <li>Airbag volan: <strong>înlocuit recent</strong> (număr serie diferit de airbag pasager) 🚨</li>
+                    <li>Spațiu neuniform capotă-aripă stângă: <strong>diferență de 8mm</strong> 🚨</li>
+                </ul>
+                <p><strong>Verdictul nostru:</strong> Accident frontal grav pe partea stângă, reparație cosmetică, longeron structural deformat – mașina era PERICULOASĂ!</p>
+                <p><strong>Economia clientului:</strong> €32,000 + minim €8,000 reparații structurale = €40,000 pierdere evitată!</p>
+            </div>
+
+            <h2>💰 Cât Te Costă o Mașină Accidentată Nedeclarată?</h2>
+            <ul>
+                <li><strong>Suprapreț inițial:</strong> €5,000-12,000 (diferență de valoare față de prețul corect)</li>
+                <li><strong>Reparații structurale</strong> dacă se descoperă ulterior: €3,000-10,000</li>
+                <li><strong>Revopsire corectă:</strong> €1,500-4,000</li>
+                <li><strong>Airbag-uri originale:</strong> €2,000-5,000</li>
+                <li><strong>Depreciere accelerată</strong> la revânzare: 20-40% din valoare</li>
+                <li><strong>Risc de siguranță</strong> în caz de accident: INESTIMABIL</li>
+            </ul>
+
+             <div class="cta-section">
+                <h3>🛡️ Nu Cumpăra O Mașină Accidentată Fără Să Știi!</h3>
+                <p style="color:#ccc; margin-bottom:2rem;">
+                    Grosimetrul nostru profesional și inspecția în 50+ puncte dezvăluie orice accident ascuns. Programează verificarea acum!
+                </p>
+                <a href="index.html" class="btn-primary">Programează Inspecție Caroserie →</a>
+                <p style="margin-top:1.5rem; color:var(--mid-gray); font-size:0.95rem;">
+                    ✅ Grosimetru profesional | 🔍 50+ puncte măsurate | 📊 Raport foto detaliat
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- COPY NOTIFICATION - plasat înainte de footer -->
+    <div id="copyNotification" class="copy-notification">
+        ✓ Email copiat!
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>AVANGARD AUTOCHECK</h3>
+                <p>Servicii profesionale de inspecție și diagnostic auto. Protejează-ți investiția cu expertiză de încredere.</p>
+            </div>
+            <div class="footer-section">
+                <h3>LINK-URI RAPIDE</h3>
+                <a href="index.html">Home</a>
+                <a href="index.html">Servicii</a>
+                <a href="index.html">Prețuri</a>
+                <a href="blog.html">Blog</a>
+                <a href="index.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>ARTICOLE POPULARE</h3>
+                <a href="article-1-verificare-profesionala.html">Verificare Auto Profesională</a>
+                <a href="article-2-kilometri-dati-inapoi.html">Kilometri Dați Înapoi</a>
+                <a href="article-3-accidente-ascunse.html">Accidente Ascunse</a>
+            </div>
+            <div class="footer-section">
+                <h3>CONTACT</h3>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4e7.svg" alt="Email" width="22" height="22">
+ <a href="#" href="#" class="copy-email" onclick="copyToClipboard(event, 'avangardautocheck@gmail.com', 'Email')">avangardautocheck@gmail.com</a></p>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4de.svg" alt="Telefon" width="22" height="22">
+ <a href="#" class="copy-email" onclick="copyToClipboard(event, '069 448 878', 'Telefon')">069 448 878</a></p>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4f1.svg" alt="Instagram" width="22" height="22">
+ <span><a href="https://www.instagram.com/verificare_auto" target="_blank">@verificare_auto</a></p></span></p>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/23f0.svg" alt="Program" width="22" height="22">
+ Luni - Duminică: 09:00 - 18:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Avangard Autocheck. Toate drepturile rezervate.</p>
+        </div>
+    </footer>
+
+   <script>
+        // Mobile menu
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        const navLinksEl = document.querySelector('.nav-links');
+        if (mobileBtn && navLinksEl) {
+            mobileBtn.addEventListener('click', function() {
+                const isOpen = navLinksEl.classList.contains('open');
+                navLinksEl.classList.toggle('open');
+                this.innerHTML = isOpen ? '☰' : '✕';
+                document.body.style.overflow = isOpen ? '' : 'hidden';
+            });
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinksEl.classList.remove('open');
+                    mobileBtn.innerHTML = '☰';
+                    document.body.style.overflow = '';
+                });
+            });
+            window.addEventListener('scroll', () => {
+                if (navLinksEl.classList.contains('open')) {
+                    navLinksEl.classList.remove('open');
+                    mobileBtn.innerHTML = '☰';
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        // Copy email to clipboard
+        function copyToClipboard(event, text, label) {
+            event.preventDefault();
+            const notification = document.getElementById('copyNotification');
+            notification.innerHTML = '&#10003; ' + label + ' copiat!';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => showNotification(notification)).catch(() => fallbackCopy(text, notification));
+            } else { fallbackCopy(text, notification); }
+        }
+
+        function fallbackCopy(text, notification) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.top = '0';
+            textarea.style.left = '0';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            textarea.setSelectionRange(0, text.length);
+            let success = false;
+            try { success = document.execCommand('copy'); } catch(err) { success = false; }
+            document.body.removeChild(textarea);
+            if (success) { showNotification(notification); } else { alert('Copiază manual: ' + text); }
+        }
+    </script>
+</body>
+</html>

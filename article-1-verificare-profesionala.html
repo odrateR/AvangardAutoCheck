@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="masinaverificareautocheck.png">
+    <title>Elemente Vopsite, Chit, Accidente Ascunse – Cum Recunoaștem o Mașină Lovită | Avangard Autocheck</title>
+    <meta name="description" content="Ghid complet pentru detectarea accidentelor ascunse: grosimetru vopsea, verificare suduri, identificare chit, geometrie caroserie. Evită mașinile lovite!">
+    <meta name="keywords" content="accident auto, elemente vopsite, daune ascunse, grosimetru vopsea, chit caroserie, masina lovita, daune structurale">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-blue: #1E88E5;
+            --primary-green: #4CAF50;
+            --dark-bg: #0A0A0A;
+            --darker-bg: #050505;
+            --border-gray: #222;
+            --mid-gray: #666;
+        }
+        body { font-family: 'Outfit', sans-serif; background: var(--dark-bg); color: #fff; line-height: 1.8; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid var(--border-gray); }
+        .nav-container { max-width: 1600px; margin: 0 auto; padding: 1.2rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { height: 50px; width: auto; }
+        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: #fff; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: all 0.3s ease; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--primary-blue), var(--primary-green)); transition: width 0.3s ease; }
+        .nav-links a:hover::after { width: 100%; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+        .article-hero { padding-top: 120px; padding-bottom: 4rem; background: linear-gradient(135deg, #0A0A0A 0%, #0D1B2A 50%, #0A1929 100%); position: relative; }
+        .article-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(30,136,229,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(76,175,80,0.15) 0%, transparent 50%); pointer-events: none; }
+        .article-container { max-width: 900px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 2; }
+        .breadcrumb { display: none; margin-bottom: 2rem; color: var(--mid-gray); font-size: 0.9rem; }
+        .breadcrumb a { color: var(--primary-blue); text-decoration: none; }
+        .article-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1.1; margin-bottom: 1.5rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .article-meta { display: flex; gap: 2rem; margin-bottom: 3rem; color: var(--mid-gray); font-size: 0.95rem; }
+        .article-content { background: var(--darker-bg); padding: 4rem; border: 1px solid var(--border-gray); }
+        .article-content h2 { font-family: 'Rajdhani', sans-serif; font-size: 2rem; color: var(--primary-blue); margin: 3rem 0 1.5rem 0; font-weight: 700; }
+        .article-content h3 { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; color: var(--primary-green); margin: 2rem 0 1rem 0; font-weight: 600; }
+        .article-content p { margin-bottom: 1.5rem; color: #ccc; font-size: 1.05rem; }
+        .article-content ul, .article-content ol { margin: 1.5rem 0; padding-left: 2rem; color: #ccc; }
+        .article-content li { margin-bottom: 1rem; line-height: 1.8; }
+        .highlight-box { background: linear-gradient(135deg, rgba(30,136,229,0.1) 0%, rgba(76,175,80,0.1) 100%); border-left: 4px solid var(--primary-blue); padding: 2rem; margin: 2rem 0; }
+        .highlight-box h4 { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; margin-bottom: 1rem; color: var(--primary-blue); }
+        .warning-box { background: rgba(244,67,54,0.1); border-left: 4px solid #F44336; padding: 2rem; margin: 2rem 0; }
+        .warning-box h4 { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; margin-bottom: 1rem; color: #F44336; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .stat-card { background: var(--dark-bg); padding: 1.5rem; border: 1px solid var(--border-gray); text-align: center; }
+        .stat-number { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .stat-label { color: var(--mid-gray); font-size: 0.9rem; }
+        .external-link { color: var(--primary-blue); text-decoration: none; border-bottom: 1px dotted var(--primary-blue); }
+        .external-link:hover { color: var(--primary-green); }
+        .cta-section { background: linear-gradient(135deg, rgba(30,136,229,0.15) 0%, rgba(76,175,80,0.15) 100%); padding: 3rem; text-align: center; margin: 3rem 0; border: 2px solid var(--primary-blue); }
+        .cta-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .btn-primary { display: inline-block; padding: 1.1rem 2.5rem; font-size: 1rem; font-weight: 600; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); color: #fff; text-decoration: none; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(30,136,229,0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(30,136,229,0.5); }
+        footer { background: var(--darker-bg); padding: 3rem 2rem 1.5rem; border-top: 1px solid var(--border-gray); margin-top: 4rem; }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .footer-section h3 { font-family: 'Rajdhani', sans-serif; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.3rem; }
+        .footer-section p, .footer-section a { color: #999; line-height: 1.8; text-decoration: none; display: block; margin-bottom: 0.5rem; }
+        .footer-section a:hover { color: var(--primary-blue); }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid var(--border-gray); color: #666; }
+        
+        /* Mobile styles */
+        @media (max-width: 768px) { 
+            .nav-links { display: none; } 
+            .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: rgba(10,10,10,0.98); padding: 2rem; z-index: 999; } 
+            .mobile-menu-btn { display: block; } 
+            .article-content { padding: 2rem 1.5rem; } 
+            .breadcrumb { display: block; font-size: 0.8rem; }
+            .nav-container { padding: 0.8rem 1rem; }
+            .nav-logo { height: 35px; }
+            .logo-text { font-size: 1.3rem; }
+        }
+
+        /* Copy to Clipboard Styles */
+        .copy-email {
+            cursor: pointer;
+            transition: color 0.3s ease;
+            display: inline-block;
+        }
+        .copy-email:hover { color: var(--primary-blue) !important; }
+        
+        .copy-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 10px 40px rgba(30, 136, 229, 0.4);
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+        .copy-notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .footer-section p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.footer-section p img {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    display: block;
+}
+
+.footer-section p a,
+.footer-section p span {
+    display: inline-block;
+    line-height: 1.2;
+    vertical-align: middle;
+}
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="masinaverificareautocheck.png" alt="Avangard Autocheck" class="nav-logo">
+                <span class="logo-text">AVANGARD AUTOCHECK</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#servicii">Servicii</a></li>
+                <li><a href="index.html#preturi">Prețuri</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="index.html#reviews">Reviews</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / <a href="blog.html">Blog</a> / Ce Înseamnă Verificare Auto Profesională
+            </div>
+            <h1 class="article-title">Ce Înseamnă o Verificare Auto Profesională și De Ce Este Esențială Înainte de Cumpărare</h1>
+            <div class="article-meta">
+                <span>📅 5 Februarie 2025</span>
+                <span>⏱️ 10 min citire</span>
+                <span>👤 Expert Avangard</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="article-container">
+        <div class="article-content">
+            <p style="font-size: 1.2rem; color: var(--primary-blue); font-weight: 500;">
+                Dacă ești în proces de a cumpăra o mașină second-hand, cea mai importantă decizie pe care o poți lua este să apelezi la o <strong>verificare auto profesională înainte de cumpărare</strong>. În acest ghid complet, îți vom explica exact ce înseamnă acest proces și de ce poate fi diferența dintre o afacere excelentă și un coșmar financiar.
+            </p>
+
+            <h2>🔍 Ce Este o Verificare Auto Profesională?</h2>
+
+            <p>
+                O <strong>verificare auto profesională</strong> este o inspecție tehnică detaliată a unui vehicul, realizată de specialiști cu echipament profesional, care evaluează starea reală a mașinii în toate aspectele sale: mecanice, electronice, structurale și estetice.
+            </p>
+
+            <p>
+                Spre deosebire de o simplă verificare vizuală pe care o poți face tu însuți, o verificare profesională implică:
+            </p>
+
+            <ul>
+                <li><strong>Echipamente specializate</strong> - grosimetre, testere OBD, detectoare de umiditate, endoscoape</li>
+                <li><strong>Experiență tehnică</strong> - mecanici certificați cu sute de mașini verificate</li>
+                <li><strong>Acces la baze de date</strong> - istoric internațional, verificare furturi, rapoarte de accident</li>
+                <li><strong>Raport detaliat</strong> - documentare foto/video completă și recomandări clare</li>
+            </ul>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">87%</div>
+                    <div class="stat-label">Mașini cu probleme nedeclarate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">€4,200</div>
+                    <div class="stat-label">Cost mediu reparații ascunse</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Mașini verificate de Avangard</div>
+                </div>
+            </div>
+
+            <h2>🎯 De Ce Este Esențială Verificarea Auto Înainte de Cumpărare?</h2>
+
+            <h3>1. Protecție Împotriva Fraudei</h3>
+
+            <p>
+                Piața românească de mașini second-hand este plină de vehicule cu probleme ascunse. Conform studiilor recente ale <a href="https://www.carvertical.com/ro" target="_blank" class="external-link">CarVertical</a>, peste 68% din mașinile importate au kilometrajul modificat, iar 45% au fost implicate în accidente nedeclarate.
+            </p>
+
+            <div class="warning-box">
+                <h4>⚠️ ATENȚIE: Cele Mai Frecvente Probleme Ascunse</h4>
+                <ul>
+                    <li>Kilometri dați înapoi (găsit la 7 din 10 mașini verificate)</li>
+                    <li>Accidente grave camuflate cu vopsitorie superficială</li>
+                    <li>Probleme mecanice majore (motor, transmisie)</li>
+                    <li>Mașini înecate importate din zone inundate</li>
+                    <li>Vehicule furate cu documente false</li>
+                    <li>Reparații improvizate care pun în pericol siguranța</li>
+                </ul>
+            </div>
+
+            <h3>2. Economisești Bani pe Termen Lung</h3>
+
+            <p>
+                O <strong>verificare cu încredere</strong> costă între 300-1000 RON (în funcție de complexitate), dar te poate salva de cheltuieli de zeci de mii de euro. Iată un exemplu real din practica noastră:
+            </p>
+
+            <div class="highlight-box">
+                <h4>📊 Studiu de Caz Real</h4>
+                <p><strong>Situație:</strong> Client dorea să cumpere un Audi A4 2017, preț cerut: €16,500</p>
+                <p><strong>Cost verificare:</strong> €99 (Premium Check)</p>
+                <p><strong>Descoperiri:</strong></p>
+                <ul>
+                    <li>Kilometri reali: 287,000 km (declarați 142,000 km)</li>
+                    <li>Accident frontal grav cu longeron deformat</li>
+                    <li>Turbină în prag de defectare (€2,800 reparație)</li>
+                    <li>Sistem DPF înfundat (€1,900 reparație)</li>
+                    <li>Probleme la injectoare (€1,200 reparație)</li>
+                </ul>
+                <p><strong>Rezultat:</strong> Clientul a renunțat la cumpărare și a evitat pierderi de peste €22,000!</p>
+            </div>
+
+            <h3>3. Putere de Negociere</h3>
+
+            <p>
+                Chiar dacă mașina este în general bună, raportul de verificare îți oferă argumente concrete pentru negocierea prețului. Problemele identificate - chiar și cele minore - pot justifica o reducere de 5-20% din prețul cerut.
+            </p>
+
+            <h2>🔧 Ce Include o Verificare Auto Profesională Completă?</h2>
+
+            <h3>1. Verificare Structurală și Caroserie</h3>
+
+            <ul>
+                <li><strong>Măsurare grosime vopsea</strong> - în peste 50 de puncte cu grosimetru profesional</li>
+                <li><strong>Inspecție suduri și puncte de fixare</strong> - identificare reparații după accidente</li>
+                <li><strong>Verificare geometrie caroserie</strong> - măsurători precise între panouri</li>
+                <li><strong>Analiza spațiilor</strong> - uniformitatea distanțelor între capotă/portiere/aripe</li>
+                <li><strong>Stare anvelope și jante</strong> - uzură neuniformă poate indica probleme de geometrie</li>
+            </ul>
+
+            <h3>2. Diagnostic Electronic Complet</h3>
+
+            <p>
+                Folosim echipamente profesionale de diagnostic care citesc toate modulele electronice ale mașinii, nu doar cele de bază:
+            </p>
+
+            <ul>
+                <li><strong>ECU Motor</strong> - erori active și istorice, parametri în timp real</li>
+                <li><strong>TCU Transmisie</strong> - starea cutiei de viteze automate</li>
+                <li><strong>ABS/ESP</strong> - sistem de frânare și control tracțiune</li>
+                <li><strong>Airbag SRS</strong> - verificare dacă au fost declanșate și recondiți ionate</li>
+                <li><strong>Module comfort</strong> - climatizare, geamuri, închidere centralizată</li>
+                <li><strong>Kilometraj din toate modulele</strong> - comparație pentru detectare fraudă</li>
+            </ul>
+
+            <h3>3. Inspecție Mecanică Detaliată</h3>
+
+            <ul>
+                <li><strong>Motor</strong> - compresie, scurgeri, zgomote anormale, stare componente</li>
+                <li><strong>Transmisie</strong> - funcționare cutie viteze, ambreiaj, diferențial</li>
+                <li><strong>Suspensie</strong> - amortizoare, bucșe, rulmenți, bare stabilizatoare</li>
+                <li><strong>Sistem frânare</strong> - plăcuțe, discuri, lichid, conducte</li>
+                <li><strong>Sistem răcire</strong> - radiator, pompa apă, termostat, furtunuri</li>
+                <li><strong>Sistem evacuare</strong> - catalizator, DPF, zgomote, scurgeri</li>
+            </ul>
+
+            <h3>4. Test Drive Profesional</h3>
+
+            <p>
+                Nu este suficient să mergi cu mașina 5 minute pe stradă. Un test drive profesional include:
+            </p>
+
+            <ul>
+                <li>Testare pe diferite tipuri de drum (urban, șosea, drumuri proaste)</li>
+                <li>Evaluare comportament la accelerare și frânare</li>
+                <li>Testare la diferite viteze și turații</li>
+                <li>Verificare zgomote și vibrații anormale</li>
+                <li>Testare sisteme electronice în mișcare</li>
+                <li>Evaluare confort și comportament rutier</li>
+            </ul>
+
+            <h3>5. Verificare Istoric și Documente</h3>
+
+            <ul>
+                <li><strong>Baze de date internaționale</strong> - istoric kilometraj în țara de origine</li>
+                <li><strong>Verificare furturi</strong> - <a href="https://www.politiaromana.ro" target="_blank" class="external-link">Poliția Română</a> și Interpol</li>
+                <li><strong>Rapoarte accident</strong> - verificare daune totale, mașini înecate</li>
+                <li><strong>ITP și istoric service</strong> - <a href="https://www.rarom.ro" target="_blank" class="external-link">RAR</a> verificare tehnică</li>
+                <li><strong>Autenticitate documente</strong> - carte identitate, certificat înmatriculare</li>
+            </ul>
+
+            <h2>📋 Cum Arată un Raport Profesional de Verificare Auto?</h2>
+
+            <p>
+                După verificarea completă, primești un raport detaliat care include:
+            </p>
+
+            <div class="highlight-box">
+                <h4>✅ Conținut Raport AVANGARD AutoCheck</h4>
+                <ul>
+                    <li><strong>Rezumat executiv</strong> - recomandare clară: cumperi sau nu</li>
+                    <li><strong>Galerie foto HD</strong> - 100-150 fotografii cu toate zonele verificate</li>
+                    <li><strong>Hartă grosime vopsea</strong> - reprezentare vizuală cu toate măsurătorile</li>
+                    <li><strong>Raport coduri eroare</strong> - toate modulele electronice scanate</li>
+                    <li><strong>Evaluare stare mecanică</strong> - notă pentru fiecare sistem (1-10)</li>
+                    <li><strong>Lista reparații necesare</strong> - cu estimare costuri</li>
+                    <li><strong>Verificare istoric</strong> - kilometraj, accidente, furturi</li>
+                    <li><strong>Recomandări de negociere</strong> - preț corect bazat pe starea reală</li>
+                </ul>
+            </div>
+
+            <h2>⚡ Când Trebuie Să Faci o Verificare Auto?</h2>
+
+            <p>
+                Răspunsul scurt: <strong>ÎNTOTDEAUNA</strong> înainte să plătești! Mai detaliat:
+            </p>
+
+            <ol>
+                <li><strong>După ce ai găsit mașina potrivită</strong> - ai văzut anunțul, ți-a plăcut, acum verifici</li>
+                <li><strong>Înainte de test drive</strong> - pentru mașini foarte scumpe, verifici înainte să te deplasezi</li>
+                <li><strong>După test drive</strong> - dacă mașina ți-a plăcut la conducere, verifici detaliat</li>
+                <li><strong>Înainte de avans</strong> - niciodată nu lăsa bani înainte de verificare!</li>
+                <li><strong>Pentru mașini de firmă</strong> - chiar și dealerii pot vinde mașini cu probleme</li>
+            </ol>
+
+            <div class="warning-box">
+                <h4>🚨 Nu Cumpăra NICIODATĂ Fără Verificare Dacă:</h4>
+                <ul>
+                    <li>Mașina este importată (risc mare de kilometri dați înapoi)</li>
+                    <li>Prețul pare "prea bun ca să fie adevărat"</li>
+                    <li>Vânzătorul se grăbește să vândă rapid</li>
+                    <li>Nu există carte de service completă</li>
+                    <li>Vânzătorul refuză verificarea profesională</li>
+                    <li>Documentele par suspecte sau incomplete</li>
+                </ul>
+            </div>
+
+            <h2>💡 Diferența Dintre Verificare Amatoricească și Profesională</h2>
+
+            <p>
+                Mulți cumpărători cred că pot verifica singuri mașina. Iată realitatea:
+            </p>
+
+            <table style="width: 100%; border-collapse: collapse; margin: 2rem 0;">
+                <thead>
+                    <tr style="background: var(--primary-blue); color: #fff;">
+                        <th style="padding: 1rem; text-align: left; border: 1px solid var(--border-gray);">Aspect</th>
+                        <th style="padding: 1rem; text-align: left; border: 1px solid var(--border-gray);">Verificare Amateur</th>
+                        <th style="padding: 1rem; text-align: left; border: 1px solid var(--border-gray);">Verificare Profesională</th>
+                    </tr>
+                </thead>
+                <tbody style="color: #ccc;">
+                    <tr>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);"><strong>Kilometraj</strong></td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Vezi doar cifra de pe bord</td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Verificare în 15+ module + baze date europene</td>
+                    </tr>
+                    <tr style="background: rgba(30, 136, 229, 0.05);">
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);"><strong>Caroserie</strong></td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Inspecție vizuală superficială</td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Măsurători cu grosimetru în 50+ puncte</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);"><strong>Motor</strong></td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Asculți dacă face zgomote ciudate</td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Diagnostic complet, test compresie, endoscopie</td>
+                    </tr>
+                    <tr style="background: rgba(30, 136, 229, 0.05);">
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);"><strong>Electronice</strong></td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Vezi dac ă se aprind becuri pe bord</td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Scanare toate modulele, erori ascunse</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);"><strong>Istoric</strong></td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Crezi ce zice vânzătorul</td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Verificare în baze date internaționale</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>🎓 Ce Spun Clienții Noștri?</h2>
+
+            <div class="highlight-box">
+                <h4>⭐⭐⭐⭐⭐ Testimonial Real</h4>
+                <p style="font-style: italic;">
+                    "Am găsit un BMW X5 la un preț excelent. Părea perfect. Am plătit cei 450 lei pentru verificare și 
+                    am descoperit că avea kilometri dați înapoi (real peste 300,000 km), accident grav la spate camuflat 
+                    și motor cu probleme majore. M-au salvat de o investiție de €28,000 care ar fi devenit un coșmar. 
+                    Acum știu - NICIODATĂ fără <strong>verificare cu încredere</strong>!"
+                </p>
+                <p><strong>- Alexandru T., București</strong></p>
+            </div>
+
+            <h2>💰 Cât Costă o Verificare Auto Profesională?</h2>
+
+            <p>
+                La AVANGARD AutoCheck, oferim trei pachete de verificare:
+            </p>
+
+            <ul>
+                <li><strong>Basic Check (€49)</strong> - verificare rapidă, ideală pentru mașini mai ieftine sub €5,000</li>
+                <li><strong>Premium Check (€99)</strong> - verificare completă 360°, recomandat pentru majoritatea achizițiilor</li>
+                <li><strong>Business Package (€250)</strong> - pentru flote auto sau dealeri, până la 3 mașini</li>
+            </ul>
+
+            <p>
+                Compară acest cost cu potențialele pierderi de €20,000-50,000 dintr-o cumpărare proastă și vei înțelege că este cea mai bună investiție!
+            </p>
+
+            <div class="cta-section">
+                <h3>🎯 Protejează-ți Investiția ACUM!</h3>
+                <p style="color: #ccc; margin-bottom: 2rem;">
+                    Nu lăsa la voia întâmplării cea mai importantă achiziție. Programează o <strong>verificare auto profesională</strong> și cumpără cu încredere!
+                </p>
+                <a href="index.html" class="btn-primary">Programează Verificare →</a>
+                <p style="margin-top: 1.5rem; color: var(--mid-gray); font-size: 0.95rem;">
+                    ✅ Răspuns în 2 ore | 📱 Program flexibil | 🎁 Discount -15% pentru clienți noi
+                </p>
+            </div>
+
+            <h2>🔐 Concluzie: Verificarea Auto = Siguranța Ta</h2>
+
+            <p>
+                O <strong>verificare auto înainte de cumpărare</strong> nu este o cheltuială, ci o asigurare împotriva fraudei și problemelor ascunse. În piața actuală, unde fraudele sunt la ordinea zilei, verificarea profesională este singura modalitate de a cumpăra cu adevărat cu încredere.
+            </p>
+
+            <p>
+                Nu uita: cei €50-100 investiți în verificare pot să te salveze de pierderi de zeci de mii de euro. Este cea mai ieftină asigurare pe care o poți cumpăra!
+            </p>
+
+            <div class="highlight-box">
+                <h4>📱 Urmărește-ne pe Instagram</h4>
+                <p>
+                    Vezi cazuri reale, descoperiri interesante și sfaturi utile pe <a href="https://www.instagram.com/verificare_auto/" target="_blank" class="external-link">@verificare_auto</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div id="copyNotification" class="copy-notification">
+        ✓ Email copiat!
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>AVANGARD AUTOCHECK</h3>
+                <p>Servicii profesionale de inspecție și diagnostic auto. Protejează-ți investiția cu expertiză de încredere.</p>
+                <div class="social-links">
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>SERVICII</h3>
+                <a href="#servicii">Inspecție Completă</a>
+                <a href="#servicii">Diagnostic Computerizat</a>
+                <a href="#servicii">Test Drive Expert</a>
+                <a href="#servicii">Evaluare Caroserie</a>
+                <a href="#servicii">Pre-Cumpărare Check</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>LINK-URI UTILE</h3>
+                <a href="#home">Home</a>
+                <a href="#servicii">Servicii</a>
+                <a href="#preturi">Prețuri</a>
+                <a href="#reviews">Reviews</a>
+                <a href="#contact">Contact</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>CONTACT</h3>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4e7.svg" alt="Email" width="22" height="22">
+ <a href="#" href="#" class="copy-email" onclick="copyToClipboard(event, 'avangardautocheck@gmail.com', 'Email')">avangardautocheck@gmail.com</a></p>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4de.svg" alt="Telefon" width="22" height="22">
+ <a href="#" class="copy-email" onclick="copyToClipboard(event, '069 448 878', 'Telefon')">069 448 878</a></p>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4f1.svg" alt="Instagram" width="22" height="22">
+ <span><a href="https://www.instagram.com/verificare_auto" target="_blank">@verificare_auto</a></p></span></p>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/23f0.svg" alt="Program" width="22" height="22">
+ Luni - Duminică: 09:00 - 18:00</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Avangard Autocheck. Toate drepturile rezervate.</p>
+        </div>
+    </footer>
+         <script>
+        // Mobile menu
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        const navLinksEl = document.querySelector('.nav-links');
+        if (mobileBtn && navLinksEl) {
+            mobileBtn.addEventListener('click', function() {
+                const isOpen = navLinksEl.classList.contains('open');
+                navLinksEl.classList.toggle('open');
+                this.innerHTML = isOpen ? '☰' : '✕';
+                document.body.style.overflow = isOpen ? '' : 'hidden';
+            });
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinksEl.classList.remove('open');
+                    mobileBtn.innerHTML = '☰';
+                    document.body.style.overflow = '';
+                });
+            });
+            window.addEventListener('scroll', () => {
+                if (navLinksEl.classList.contains('open')) {
+                    navLinksEl.classList.remove('open');
+                    mobileBtn.innerHTML = '☰';
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        // Copy email to clipboard
+        function copyToClipboard(event, text, label) {
+            event.preventDefault();
+            const notification = document.getElementById('copyNotification');
+            notification.innerHTML = '&#10003; ' + label + ' copiat!';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => showNotification(notification)).catch(() => fallbackCopy(text, notification));
+            } else { fallbackCopy(text, notification); }
+        }
+
+        function fallbackCopy(text, notification) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.top = '0';
+            textarea.style.left = '0';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            textarea.setSelectionRange(0, text.length);
+            let success = false;
+            try { success = document.execCommand('copy'); } catch(err) { success = false; }
+            document.body.removeChild(textarea);
+            if (success) { showNotification(notification); } else { alert('Copiază manual: ' + text); }
+        }
+    </script>
+</body>
+</html>

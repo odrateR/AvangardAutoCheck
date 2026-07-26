@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="masinaverificareautocheck.png">
+    <title>Cum Descoperim Kilometrii Dați Înapoi: Metode Reale de Verificare | Avangard Autocheck</title>
+    <meta name="description" content="Metode profesionale de detectare a kilometrilor dați înapoi: OBD, ECU, verificare istoric, indicii fizice. Află cum identificăm frauda kilometrajului la verificare auto.">
+    <meta name="keywords" content="kilometri dati inapoi, kilometri reali, frauda kilometraj, OBD kilometraj, verificare kilometri, kilometraj real auto">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-blue: #1E88E5;
+            --primary-green: #4CAF50;
+            --dark-bg: #0A0A0A;
+            --darker-bg: #050505;
+            --border-gray: #222;
+            --mid-gray: #666;
+        }
+        body { font-family: 'Outfit', sans-serif; background: var(--dark-bg); color: #fff; line-height: 1.8; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid var(--border-gray); }
+        .nav-container {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo { height: 50px; width: auto; }
+        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: #fff; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: all 0.3s ease; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--primary-blue), var(--primary-green)); transition: width 0.3s ease; }
+        .nav-links a:hover::after,
+        .nav-links a.active::after { width: 100%; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+        .article-hero { padding-top: 120px; padding-bottom: 4rem; background: linear-gradient(135deg, #0A0A0A 0%, #0D1B2A 50%, #0A1929 100%); position: relative; }
+        .article-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(30,136,229,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(76,175,80,0.15) 0%, transparent 50%); pointer-events: none; }
+        .article-container { max-width: 900px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 2; }
+        .breadcrumb { display: block; margin-bottom: 2rem; color: var(--mid-gray); font-size: 0.9rem; }
+        .breadcrumb a { color: var(--primary-blue); text-decoration: none; }
+        .article-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1.1; margin-bottom: 1.5rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .article-meta { display: flex; gap: 2rem; margin-bottom: 3rem; color: var(--mid-gray); font-size: 0.95rem; }
+        .article-content { background: var(--darker-bg); padding: 4rem; border: 1px solid var(--border-gray); }
+        .article-content h2 { font-family: 'Rajdhani', sans-serif; font-size: 2rem; color: var(--primary-blue); margin: 3rem 0 1.5rem 0; font-weight: 700; }
+        .article-content h3 { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; color: var(--primary-green); margin: 2rem 0 1rem 0; font-weight: 600; }
+        .article-content p { margin-bottom: 1.5rem; color: #ccc; font-size: 1.05rem; }
+        .article-content ul, .article-content ol { margin: 1.5rem 0; padding-left: 2rem; color: #ccc; }
+        .article-content li { margin-bottom: 1rem; line-height: 1.8; }
+        .highlight-box { background: linear-gradient(135deg, rgba(30,136,229,0.1) 0%, rgba(76,175,80,0.1) 100%); border-left: 4px solid var(--primary-blue); padding: 2rem; margin: 2rem 0; }
+        .highlight-box h4 { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; margin-bottom: 1rem; color: var(--primary-blue); }
+        .warning-box { background: rgba(244,67,54,0.1); border-left: 4px solid #F44336; padding: 2rem; margin: 2rem 0; }
+        .warning-box h4 { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; margin-bottom: 1rem; color: #F44336; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .stat-card { background: var(--dark-bg); padding: 1.5rem; border: 1px solid var(--border-gray); text-align: center; }
+        .stat-number { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .stat-label { color: var(--mid-gray); font-size: 0.9rem; }
+        .external-link { color: var(--primary-blue); text-decoration: none; border-bottom: 1px dotted var(--primary-blue); }
+        .external-link:hover { color: var(--primary-green); }
+        .cta-section { background: linear-gradient(135deg, rgba(30,136,229,0.15) 0%, rgba(76,175,80,0.15) 100%); padding: 3rem; text-align: center; margin: 3rem 0; border: 2px solid var(--primary-blue); }
+        .cta-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .btn-primary { display: inline-block; padding: 1.1rem 2.5rem; font-size: 1rem; font-weight: 600; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); color: #fff; text-decoration: none; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(30,136,229,0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(30,136,229,0.5); }
+        footer { background: var(--darker-bg); padding: 3rem 2rem 1.5rem; border-top: 1px solid var(--border-gray); margin-top: 4rem; }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .footer-section h3 { font-family: 'Rajdhani', sans-serif; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.3rem; }
+        .footer-section p, .footer-section a { color: #999; line-height: 1.8; text-decoration: none; display: block; margin-bottom: 0.5rem; }
+        .footer-section a:hover { color: var(--primary-blue); }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid var(--border-gray); color: #666; }
+
+        /* Mobile styles */
+        @media (max-width: 768px) { 
+            .nav-links { display: none; } 
+            .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: rgba(10,10,10,0.98); padding: 2rem; } 
+            .mobile-menu-btn { display: block; } 
+            .article-content { padding: 2rem 1.5rem; } 
+            .breadcrumb { display: block; font-size: 0.8rem; }
+        }
+
+        /* Copy to Clipboard Styles */
+        .copy-email {
+            cursor: pointer;
+            transition: color 0.3s ease;
+            display: inline-block;
+        }
+        .copy-email:hover { color: var(--primary-blue) !important; }
+        .copy-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 10px 40px rgba(30, 136, 229, 0.4);
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+        .copy-notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .footer-section p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.footer-section p img {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    display: block;
+}
+
+.footer-section p a,
+.footer-section p span {
+    display: inline-block;
+    line-height: 1.2;
+    vertical-align: middle;
+}
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="masinaverificareautocheck.png" alt="Avangard Autocheck" class="nav-logo">
+                <span class="logo-text">AVANGARD AUTOCHECK</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#servicii">Servicii</a></li>
+                <li><a href="index.html#preturi">Prețuri</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="index.html#reviews">Reviews</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / <a href="blog.html">Blog</a> / Kilometri Dați Înapoi
+            </div>
+            <h1 class="article-title">Cum Descoperim Kilometrii Dați Înapoi: Metode Reale Folosite la Verificarea Auto</h1>
+            <div class="article-meta">
+                <span>📅 4 Februarie 2025</span>
+                <span>⏱️ 12 min citire</span>
+                <span>👤 Expert Avangard</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="article-container">
+        <div class="article-content">
+            <p style="font-size: 1.2rem; color: var(--primary-blue); font-weight: 500;">
+                Modificarea kilometrajului este cea mai răspândită fraudă pe piața auto din România. Peste 68% din mașinile verificate de noi au <strong>kilometri dați înapoi</strong>. În acest ghid detaliat, îți vom arăta exact cum detectăm această fraudă folosind metode profesionale și echipamente specializate.
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">68%</div>
+                    <div class="stat-label">Mașini cu kilometri modificați</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">150,000</div>
+                    <div class="stat-label">Diferență medie km ascunși</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Module unde verificăm km</div>
+                </div>
+            </div>
+            <h2>🚨 De Ce Este Atât de Răspândită Frauda cu Kilometrajul?</h2>
+
+            <p>
+                Motivul este simplu: <strong>BANII</strong>. O mașină cu 100,000 km valorează cu 30-40% mai mult decât aceeași mașină cu 250,000 km. Dând kilometrii înapoi de la 250,000 la 120,000, un vânzător poate câștiga €3,000-5,000 în plus.
+            </p>
+
+            <p>
+                Conform studiilor <a href="https://www.carvertical.com/ro/blog/kilometrii-dati-inapoi" target="_blank" class="external-link">CarVertical</a>, România este în top 3 țări europene la frauda kilometrajului, alături de Polonia și Bulgaria.
+            </p>
+
+            <div class="warning-box">
+                <h4>⚠️ Costul Modificării = 30-100 EUR</h4>
+                <p>
+                    Modificarea kilometrajului costă între 30-100 EUR și se face în 15-30 minute. 
+                    Există sute de "specialiști" care oferă acest serviciu în toată țara. 
+                    Din păcate, este foarte ușor și ieftin de făcut!
+                </p>
+            </div>
+
+            <h2>🔍 Metoda 1: Scanare OBD Profesională - Citire din Toate Modulele</h2>
+
+            <p>
+                Aceasta este metoda noastră PRINCIPALĂ și cea mai de încredere. Spre deosebire de scanerele ieftine care citesc doar kilometrajul din tabloul de bord, echipamentul nostru profesional accesează TOATE modulele electronice ale mașinii.
+            </p>
+
+            <h3>De Ce Funcționează Această Metodă?</h3>
+
+            <p>
+                Mașinile moderne (după 2005-2008) stochează kilometrajul în multiple locații:
+            </p>
+
+            <ul>
+                <li><strong>ECU Motor</strong> - calculatorul principal al motorului</li>
+                <li><strong>TCU Transmisie</strong> - calculatorul cutiei de viteze automate</li>
+                <li><strong>ABS Module</strong> - sistemul de frânare</li>
+                <li><strong>Airbag SRS</strong> - sistemul de airbag-uri</li>
+                <li><strong>BCM (Body Control Module)</strong> - calculatorul sistemelor de caroserie</li>
+                <li><strong>Instrument Cluster</strong> - tabloul de bord</li>
+                <li><strong>Infotainment</strong> - sistemul multimedia</li>
+                <li><strong>Clima Control</strong> - climatizarea</li>
+                <li><strong>Steering Angle Sensor</strong> - senzor unghi volan</li>
+                <li><strong>Parking Sensors</strong> - senzori parcare</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>💡 Cum Prind Modificările?</h4>
+                <p>
+                    Fraudatorii de obicei modifică doar kilometrajul din tabloul de bord și, eventual, ECU. 
+                    DAR, majoritatea uită sau nu pot modifica toate celelalte module! 
+                </p>
+                <p>
+                    <strong>Exemplu real:</strong> Tablou de bord arată 132,000 km, dar:
+                </p>
+                <ul>
+                    <li>ECU Motor: 132,000 km (modificat)</li>
+                    <li>TCU Transmisie: 287,450 km (REAL!)</li>
+                    <li>ABS Module: 287,430 km (REAL!)</li>
+                    <li>Airbag: 287,400 km (REAL!)</li>
+                </ul>
+                <p>
+                    <strong>Verdict:</strong> Kilometraj REAL = ~287,000 km! Diferență de 155,000 km ascunsă!
+                </p>
+            </div>
+
+            <h2>🌍 Metoda 2: Verificare în Baze de Date Europene</h2>
+
+            <p>
+                Majoritatea mașinilor de pe piața românească sunt importate din Germania, Belgia, Olanda, Austria, Italia. 
+                În aceste țări, kilometrajul este raportat la fiecare ITP (inspecție tehnică) și stocate în baze de date naționale.
+            </p>
+
+            <h3>Ce Baze de Date Folosim?</h3>
+
+            <ul>
+                <li><strong>CarVertical</strong> - cel mai complet raport istoric european</li>
+                <li><strong>AutoDNA</strong> - baze de date din 20+ țări</li>
+                <li><strong>CARFAX Europe</strong> - istoric pentru mașini din SUA/Canada importate</li>
+                <li><strong>DAT/SilverDAT</strong> - sistem german de valorizare</li>
+                <li><strong>AutoCheck</strong> - verificări europene extinse</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>📊 Exemplu Raport Istoric Real</h4>
+                <p><strong>BMW 320d, 2016, import Germania 2023</strong></p>
+                <ul>
+                    <li>2017 Ianuarie - Germania: 15,420 km (ITP)</li>
+                    <li>2018 Martie - Germania: 47,850 km (ITP)</li>
+                    <li>2019 Mai - Germania: 89,200 km (ITP)</li>
+                    <li>2020 Iulie - Germania: 134,600 km (ITP)</li>
+                    <li>2021 Septembrie - Germania: 182,300 km (ITP)</li>
+                    <li>2022 Noiembrie - Germania: 228,950 km (ITP)</li>
+                    <li>2024 Februarie - România: 119,000 km (la vânzare) ⚠️</li>
+                </ul>
+                <p><strong>Concluzie:</strong> Kilometri dați înapoi cu peste 110,000 km!</p>
+            </div>
+
+            <h2>👀 Metoda 3: Indicii Fizice de Uzură - "Kilometrii Nu Mint"</h2>
+
+            <p>
+                Chiar dacă cineva reușește să modifice toate modulele electronice (rar, dar posibil), 
+                FIZIC mașina nu minte. Uzura reală nu poate fi ștearsă sau modificată!
+            </p>
+
+            <h3>Ce Verificăm la Nivel Fizic?</h3>
+
+            <ol>
+                <li>
+                    <strong>Volan</strong> - uzura pielii, luciu, crăpături
+                    <ul>
+                        <li>Sub 100,000 km: volan aproape perfect</li>
+                        <li>150,000-200,000 km: semne de uzură vizibile</li>
+                        <li>Peste 250,000 km: volan foarte uzat, posibil re-căptușit</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Pedale</strong> - cel mai greu de falsificat!
+                    <ul>
+                        <li>Pedalele de cauciuc se uzează specific</li>
+                        <li>Pedala frână se uzează diferit de accelerație</li>
+                        <li>Pedală nouă pe mașină "cu 80,000 km" = RED FLAG!</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Schimbător de Viteze</strong>
+                    <ul>
+                        <li>Piele uzată, cusături deteriorate</li>
+                        <li>Plastic șters pe maneta automată</li>
+                        <li>Butoane uzate (P, R, N, D)</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Scaune</strong>
+                    <ul>
+                        <li>Piele crăpată sau foarte lustruită</li>
+                        <li>Spumă lăsată în zona șoldului șoferului</li>
+                        <li>Butoane reglaj uzate</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Butoane și Comenzi</strong>
+                    <ul>
+                        <li>Buton START/STOP cu inscripție ștearsă</li>
+                        <li>Butoane geamuri lucioase</li>
+                        <li>Comenzi climatizare cu cifre șterse</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Covoare și Tapițerie</strong>
+                    <ul>
+                        <li>Uzură pe covor șofer (talonul stâng)</li>
+                        <li>Pedalier foarte zgâriat</li>
+                        <li>Tapițerie portiere uzată la cotul stâng</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <div class="warning-box">
+                <h4>🚨 ATENȚIE: Recondiționări Cosmetice!</h4>
+                <p>
+                    Unii vânzători încearcă să mascheze uzura prin:
+                </p>
+                <ul>
+                    <li>Înlocuire volan (ieftin, €50-150)</li>
+                    <li>Pedale noi (€20-40)</li>
+                    <li>Schimbător nou (€100-200)</li>
+                    <li>Recăptușire scaune (€300-800)</li>
+                </ul>
+                <p>
+                    <strong>Cum detectăm:</strong> Dacă volanul e nou-nouț pe o mașină "cu 90,000 km", 
+                    dar pedalele, schimbătorul și scaunele sunt FOARTE uzate - e clar că volanul 
+                    a fost înlocuit recent pentru a ascunde kilometrii reali!
+                </p>
+            </div>
+
+            <h2>📄 Metoda 4: Analiză Carte Service și Documente</h2>
+
+            <p>
+                Cartea de service poate fi falsificată, DAR e greu s-o faci perfect. Iată ce căutăm:
+            </p>
+
+            <h3>Inconsecvențe în Carte Service:</h3>
+
+            <ul>
+                <li><strong>Sărituri mari de kilometraj</strong> - ex: de la 120,000 la 240,000 km apoi înapoi la 135,000</li>
+                <li><strong>Stiluri diferite de scris</strong> - schimbări de stilou, caligrafie diferită</li>
+                <li><strong>Ștampile suspecte</strong> - ștampilă "germană" dar cu greșeli de ortografie</li>
+                <li><strong>Date inconsecvente</strong> - revizie în "15.13.2020" (nu există luna 13!)</li>
+                <li><strong>Pagini lipite</strong> - pagini lipite sau rupte din carnet</li>
+                <li><strong>Facturi lipsă</strong> - "am făcut service dar nu am păstrat factura" (de fiecare dată)</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>✅ Carte Service Autentică Arată Așa:</h4>
+                <ul>
+                    <li>Creștere CONSTANTĂ a kilometrajului</li>
+                    <li>Intervale regulate (10,000-30,000 km între service-uri)</li>
+                    <li>Ștampile clare, profesionale</li>
+                    <li>Facturi originale pentru lucrări majore</li>
+                    <li>Fără ștersături sau corecții</li>
+                    <li>Consistency în caligrafie (dacă scrisă manual)</li>
+                </ul>
+            </div>
+
+            <h2>🔧 Metoda 5: Starea Mecanică - Uzura NU Minte</h2>
+
+            <p>
+                O mașină cu 100,000 km REALI are o stare mecanică complet diferită de una cu 250,000 km:
+            </p>
+
+            <table style="width: 100%; border-collapse: collapse; margin: 2rem 0;">
+                <thead>
+                    <tr style="background: var(--primary-blue); color: #fff;">
+                        <th style="padding: 1rem; border: 1px solid var(--border-gray);">Component</th>
+                        <th style="padding: 1rem; border: 1px solid var(--border-gray);">100,000 km</th>
+                        <th style="padding: 1rem; border: 1px solid var(--border-gray);">250,000 km</th>
+                    </tr>
+                </thead>
+                <tbody style="color: #ccc;">
+                    <tr>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);"><strong>Amortizoare</strong></td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Încă bune</td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Slăbite/schimbate de 2 ori</td>
+                    </tr>
+                    <tr style="background: rgba(30, 136, 229, 0.05);">
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);"><strong>Discuri frână</strong></td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Primele sau al doilea set</td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Al 3-lea/4-lea set</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);"><strong>Rulmenți roți</strong></td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Originali, fără joc</td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Schimbați sau cu joc</td>
+                    </tr>
+                    <tr style="background: rgba(30, 136, 229, 0.05);">
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);"><strong>Bucșe suspensie</strong></td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Bune, fără crăpături</td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Uscate, crăpate, schimbate</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);"><strong>Motor</strong></td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Silențios, fără scurgeri</td>
+                        <td style="padding: 1rem; border: 1px solid var(--border-gray);">Posibile zgomote/scurgeri</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>🎯 Studiu de Caz Real: Audi A6 2015</h2>
+
+            <div class="highlight-box">
+                <h4>📋 Cazul Audi A6 3.0 TDI Quattro</h4>
+                <p><strong>Situație:</strong> Client voia să cumpere Audi A6, preț €19,500, vânzător declara 147,000 km</p>
+                
+                <p><strong>Verificările noastre:</strong></p>
+                
+                <p><strong>1. Scanare OBD:</strong></p>
+                <ul>
+                    <li>Tablou bord: 147,200 km</li>
+                    <li>ECU Motor: 147,180 km</li>
+                    <li>TCU Transmisie: 312,450 km ⚠️</li>
+                    <li>ABS Module: 312,420 km ⚠️</li>
+                    <li>Airbag: 312,380 km ⚠️</li>
+                </ul>
+                
+                <p><strong>2. Baze de date Germania:</strong></p>
+                <ul>
+                    <li>2021 Octombrie: 298,700 km (ultimul ITP în Germania)</li>
+                    <li>2024 Import România: 147,000 km (declarat) ⚠️</li>
+                </ul>
+                
+                <p><strong>3. Uzură fizică:</strong></p>
+                <ul>
+                    <li>Volan RE-CĂPTUȘIT recent (se vedea cusătura nouă)</li>
+                    <li>Pedale FOARTE uzate (inconsistent cu 147k km)</li>
+                    <li>Scaune piele crăpată în multe zone</li>
+                    <li>Butoane cu inscripții șterse complet</li>
+                </ul>
+                
+                <p><strong>4. Stare mecanică:</strong></p>
+                <ul>
+                    <li>Amortizoare slăbite (schimbate recent după uzură)</li>
+                    <li>Discuri frână la al 4-lea set (confirmat de mecanic)</li>
+                    <li>Turbină cu joc (semn de kilometraj mare)</li>
+                    <li>Cutie automată cu treceri mai dure (uzură)</li>
+                </ul>
+                
+                <p><strong>VERDICT FINAL: Kilometraj REAL ~312,000 km (nu 147,000!)</strong></p>
+                <p><strong>Economie client: €19,500 + reparații viitoare estimate €6,000 = €25,500!</strong></p>
+            </div>
+
+            <h2>💰 Cât Te Costă o Mașină cu Kilometri Dați Înapoi?</h2>
+
+            <p>
+                Nu este doar despre prețul prea mare plătit. Este despre:
+            </p>
+
+            <ul>
+                <li><strong>Supraprețul inițial:</strong> €3,000-7,000 (diferență de valoare)</li>
+                <li><strong>Reparații neprevăzute:</strong> €4,000-10,000 (componente uzate care cedează)</li>
+                <li><strong>Depreciere accelerată:</strong> Mașina se va deprecia mai rapid</li>
+                <li><strong>Probleme la revânzare:</strong> Greu de vândut cu istoric compromis</li>
+                <li><strong>Risc siguranță:</strong> Componente de siguranță (frâne, suspensie) foarte uzate</li>
+            </ul>
+
+            <div class="cta-section">
+                <h3>🛡️ Nu Lăsa Frauda să te Prindă!</h3>
+                <p style="color: #ccc; margin-bottom: 2rem;">
+                    Verificarea kilometrilor reali este ESENȚIALĂ. Investește €99 în Premium Check și economisește mii de euro!
+                </p>
+                <a href="index.html" class="btn-primary">Programează Verificare Kilometraj →</a>
+                <p style="margin-top: 1.5rem; color: var(--mid-gray); font-size: 0.95rem;">
+                    ✅ Scanare OBD completă | 🌍 Verificare baze date EU | 📊 Raport detaliat
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- COPY NOTIFICATION - plasat înainte de footer pentru a fi sigur că există -->
+    <div id="copyNotification" class="copy-notification">
+        ✓ Email copiat!
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>AVANGARD AUTOCHECK</h3>
+                <p>Servicii profesionale de inspecție și diagnostic auto. Protejează-ți investiția cu expertiză de încredere.</p>
+            </div>
+            <div class="footer-section">
+                <h3>LINK-URI RAPIDE</h3>
+                <a href="index.html">Home</a>
+                <a href="index.html">Servicii</a>
+                <a href="index.html">Prețuri</a>
+                <a href="blog.html">Blog</a>
+                <a href="index.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>ARTICOLE POPULARE</h3>
+                <a href="article-1-verificare-profesionala.html">Verificare Auto Profesională</a>
+                <a href="article-2-kilometri-dati-inapoi.html">Kilometri Dați Înapoi</a>
+                <a href="article-3-accidente-ascunse.html">Accidente Ascunse</a>
+            </div>
+            <div class="footer-section">
+                <h3>CONTACT</h3>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4e7.svg" alt="Email" width="22" height="22">
+ <a href="#" href="#" class="copy-email" onclick="copyToClipboard(event, 'avangardautocheck@gmail.com', 'Email')">avangardautocheck@gmail.com</a></p>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4de.svg" alt="Telefon" width="22" height="22">
+ <a href="#" class="copy-email" onclick="copyToClipboard(event, '069 448 878', 'Telefon')">069 448 878</a></p>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4f1.svg" alt="Instagram" width="22" height="22">
+ <span><a href="https://www.instagram.com/verificare_auto" target="_blank">@verificare_auto</a></p></span></p>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/23f0.svg" alt="Program" width="22" height="22">
+ Luni - Duminică: 09:00 - 18:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Avangard Autocheck. Toate drepturile rezervate.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        const navLinksEl = document.querySelector('.nav-links');
+        if (mobileBtn && navLinksEl) {
+            mobileBtn.addEventListener('click', function() {
+                const isOpen = navLinksEl.classList.contains('open');
+                navLinksEl.classList.toggle('open');
+                this.innerHTML = isOpen ? '☰' : '✕';
+                document.body.style.overflow = isOpen ? '' : 'hidden';
+            });
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinksEl.classList.remove('open');
+                    mobileBtn.innerHTML = '☰';
+                    document.body.style.overflow = '';
+                });
+            });
+            window.addEventListener('scroll', () => {
+                if (navLinksEl.classList.contains('open')) {
+                    navLinksEl.classList.remove('open');
+                    mobileBtn.innerHTML = '☰';
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        // Copy email to clipboard
+        function copyToClipboard(event, text, label) {
+            event.preventDefault();
+            const notification = document.getElementById('copyNotification');
+            notification.innerHTML = '&#10003; ' + label + ' copiat!';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => showNotification(notification)).catch(() => fallbackCopy(text, notification));
+            } else { fallbackCopy(text, notification); }
+        }
+
+        function fallbackCopy(text, notification) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.top = '0';
+            textarea.style.left = '0';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            textarea.setSelectionRange(0, text.length);
+            let success = false;
+            try { success = document.execCommand('copy'); } catch(err) { success = false; }
+            document.body.removeChild(textarea);
+            if (success) { showNotification(notification); } else { alert('Copiază manual: ' + text); }
+        }
+    </script>
+</body>
+</html>

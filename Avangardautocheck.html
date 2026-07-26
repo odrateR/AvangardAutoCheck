@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avangard Autocheck | Inspecții Auto Profesionale</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1E88E5;
+            --primary-green: #4CAF50;
+            --accent-cyan: #00BCD4;
+            --dark-bg: #0A0A0A;
+            --darker-bg: #050505;
+            --dark-blue: #0D47A1;
+            --light-green: #66BB6A;
+            --light-gray: #F5F5F5;
+            --mid-gray: #666;
+            --border-gray: #222;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            height: 40px;
+            width: auto;
+            display: block;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-green));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0A0A0A 0%, #0D1B2A 50%, #0A1929 100%);
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(30, 136, 229, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(76, 175, 80, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(30, 136, 229, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(76, 175, 80, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+            display: flex;
+    flex-direction: column;
+    align-items: center;       /* CENTRAT ORIZONTAL */
+    justify-content: center;   /* CENTRAT VERTICAL */
+    text-align: center;        /* textul să fie centrat */
+    min-height: calc(100vh - 80px); /* ia tot ecranul minus navbar */
+}
+            
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5em, 10vw, 9rem);
+            line-height: 0.9;
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+            animation: slideUp 1s ease-out;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin-bottom: 3rem;
+            color: #ccc;
+            line-height: 1.6;
+            animation: slideUp 1s ease-out 0.2s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            animation: slideUp 1s ease-out 0.4s both;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1.1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(30, 136, 229, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(30, 136, 229, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            border-color: var(--primary-green);
+            color: #fff;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .services-preview {
+            padding: 6rem 2rem;
+            background: var(--darker-bg);
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            text-align: center;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--mid-gray);
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+        }
+
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+         .service-card {
+    background: var(--dark-bg);
+    border: 1px solid var(--border-gray);
+    padding: 2.5rem;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-green));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 10px 40px rgba(30, 136, 229, 0.2);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .service-card p {
+            color: #999;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-price {
+    margin-top: auto;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 1px;
+}
+
+
+        .pricing {
+            padding: 6rem 2rem;
+            background: var(--dark-bg);
+        }
+
+        .pricing-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background: var(--darker-bg);
+            border: 2px solid var(--border-gray);
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary-blue);
+            transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(30, 136, 229, 0.3);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .pricing-card h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .pricing-card .price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.7rem 0;
+            border-bottom: 1px solid var(--border-gray);
+            color: #ccc;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--primary-green);
+            margin-right: 0.8rem;
+            font-weight: bold;
+        }
+
+        .reviews {
+            padding: 6rem 2rem;
+            background: var(--darker-bg);
+        }
+
+        .reviews-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .instagram-feed {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .instagram-post {
+            aspect-ratio: 1;
+            background: var(--dark-bg);
+            border: 1px solid var(--border-gray);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: block;
+            text-decoration: none;
+        }
+
+        .instagram-post:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-blue);
+        }
+
+        .instagram-post img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .instagram-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.9) 0%, rgba(76, 175, 80, 0.9) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .instagram-post:hover .instagram-overlay {
+            opacity: 1;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial {
+            background: var(--dark-bg);
+            padding: 2rem;
+            border-left: 3px solid var(--primary-blue);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stars {
+            color: #FFD700;
+            margin-bottom: 1rem;
+        }
+
+        .contact {
+            padding: 6rem 2rem;
+            background: var(--dark-bg);
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background: var(--darker-bg);
+            padding: 3rem;
+            border: 1px solid var(--border-gray);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #ccc;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: var(--dark-bg);
+            border: 1px solid var(--border-gray);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 20px rgba(30, 136, 229, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 2rem;
+            background: var(--darker-bg);
+            border: 1px solid var(--border-gray);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            border-color: var(--primary-blue);
+            box-shadow: 0 10px 30px rgba(30, 136, 229, 0.2);
+        }
+
+        .contact-item h3 {
+            font-family: 'Rajdhani', sans-serif;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.3rem;
+        }
+
+        .contact-item a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary-blue);
+        }
+
+        .message-box {
+            display: none;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-radius: 5px;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .message-box.show {
+            display: block;
+        }
+
+        .message-box.success {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+        }
+
+        .message-box.error {
+            background: linear-gradient(135deg, #D32F2F 0%, #F44336 100%);
+        }
+
+        .message-box h3 {
+            color: #fff;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Bebas Neue', sans-serif;
+        }
+
+        .message-box p {
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        .loading-spinner {
+            display: none;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid var(--primary-blue);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .promo-box {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.1) 0%, rgba(76, 175, 80, 0.1) 100%);
+            max-width: 800px;
+            margin: 4rem auto 0;
+            border: 2px solid var(--primary-blue);
+        }
+
+        .promo-box h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: var(--darker-bg);
+            padding: 3rem 2rem 1.5rem;
+            border-top: 1px solid var(--border-gray);
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Rajdhani', sans-serif;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #999;
+            line-height: 1.8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* Copy to Clipboard Styles */
+        .copy-email {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .copy-email:hover {
+            color: var(--primary-blue) !important;
+        }
+
+        .copy-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 10px 40px rgba(30, 136, 229, 0.4);
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            font-size: 1.1rem;
+        }
+
+        .copy-notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-gray);
+            color: #666;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-gray);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            border-color: var(--primary-blue);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+
+            .nav-container { padding: 0.8rem 1rem; }
+            .nav-logo { height: 34px !important; }
+            .logo a span { font-size: 1.2rem !important; letter-spacing: 0.5px !important; }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 66px;
+                left: 0; right: 0;
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                padding: 1.5rem 2rem;
+                flex-direction: column;
+                gap: 1.2rem;
+                border-bottom: 1px solid var(--border-gray);
+                z-index: 999;
+                text-align: center;
+            }
+            .nav-links.open { display: flex; }
+            .nav-links a { font-size: 1.1rem; padding: 0.5rem 0; }
+            .mobile-menu-btn { display: block !important; font-size: 1.8rem; padding: 5px 8px; }
+
+            .hero { padding-top: 66px; min-height: 100svh; }
+            .hero-content { padding: 0 1.2rem; }
+            .hero h1 { font-size: 2.4rem; line-height: 1; margin-bottom: 1rem; }
+            .hero p { font-size: 1rem; margin-bottom: 2rem; }
+
+            .cta-buttons { flex-direction: column; gap: 1rem; }
+            .btn-primary, .btn-secondary {
+                width: 100%; text-align: center;
+                padding: 1rem 1.5rem; font-size: 0.95rem;
+            }
+
+            .services-preview, .pricing, .reviews, .contact { padding: 3rem 1.2rem; }
+            .section-title { font-size: 2rem; }
+            .section-subtitle { font-size: 0.93rem; margin-bottom: 2rem; }
+
+            .services-grid, .pricing-grid, .testimonials-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+            .service-card, .pricing-card { padding: 1.8rem 1.4rem; }
+            .pricing-card.featured { transform: scale(1); }
+            .pricing-card .price { font-size: 2.8rem; }
+
+            .instagram-feed { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .testimonial { padding: 1.4rem; }
+
+            .contact-form { padding: 1.8rem 1.2rem; }
+            .contact-info { grid-template-columns: 1fr; gap: 1rem; }
+
+            .promo-box { padding: 1.5rem 1.2rem; margin-top: 2rem; }
+            .promo-box h3 { font-size: 1.5rem; }
+
+            .footer-content { grid-template-columns: 1fr; gap: 1.8rem; }
+            footer { padding: 2.5rem 1.2rem 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .logo a span { font-size: 1rem !important; }
+            .nav-logo { height: 28px !important; }
+            .hero h1 { font-size: 2rem; }
+            .section-title { font-size: 1.7rem; }
+            .instagram-feed { grid-template-columns: 1fr; }
+        }
+
+        html { scroll-behavior: smooth; }
+	.footer-section p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.footer-section p .icon-emoji {
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+}
+
+.footer-section p a {
+    display: inline;
+    vertical-align: middle;
+}
+.contact-row {
+    display: flex;
+    align-items: center;   /* AICI se rezolvă tot */
+    gap: 10px;
+    line-height: 1.2;
+}
+
+.icon-emoji {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+}
+
+.contact-row a {
+    display: inline-flex;
+    align-items: center;
+}
+
+.copy-btn {
+    display: inline-flex;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+    </style>
+</head>
+<body>
+    <nav>
+    <div class="nav-container">
+        <div class="logo">
+            <a href="#home" style="display: flex; align-items: center; gap: 15px; text-decoration: none;">
+                <img src="masinaverificareautocheck.png" alt="Avangard Autocheck" class="nav-logo" style="height: 50px;">
+                <span style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; background: linear-gradient(135deg, #1E88E5 0%, #4CAF50 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    AVANGARD AUTOCHECK
+                </span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#servicii">Servicii</a></li>
+            <li><a href="#preturi">Prețuri</a></li>
+            <li><a href="blog.html">Blog</a></li> <!-- LINK NOU CĂTRE BLOG -->
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-btn">☰</button>
+    </div>
+</nav>
+
+     <div id="home" class="page-content">
+        <section class="hero">
+            <div class="hero-grid"></div>
+            <div class="hero-content">
+                <h1>
+                    INSPECȚII AUTO
+                    <span class="highlight">PROFESIONALE</span>
+                </h1>
+                <p>
+                    Verificăm starea tehnică completă a mașinii tale cu echipamente profesionale 
+                    și rapoarte detaliate. Protejează-te de surprize neplăcute!
+                </p>
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn-primary nav-link" data-page="contact">Programează Inspecție</a>
+                    <a href="#servicii" class="btn-secondary nav-link" data-page="servicii">Vezi Servicii</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicii" class="services-preview">
+            <h2 class="section-title">SERVICIILE NOASTRE</h2>
+            <p class="section-subtitle">Soluții complete pentru verificarea automobilului tău</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🔍</div>
+                    <h3>Inspecție Completă</h3>
+                    <p>Inspecție completă a automobilului, realizată cu echipamente profesionale.
+Verificăm starea tehnică generală: motor, transmisie, suspensie, frâne, caroserie, sistem electric și electronic.
+Primești un raport detaliat, care te ajută să iei o decizie sigură înainte de cumpărare.</p>
+                    <div class="service-price">99 €</div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🔑</div>
+                    <h3>Cumpărarea mașinii „la cheie”</h3>
+                    <p>Ne ocupăm de întreg procesul de căutare și verificare a mașinii potrivite pentru tine.<br>
+✔️ Verificăm un număr nelimitat de mașini, în funcție de preferințele tale <br>
+✔️ Durată: 3–4 săptămâni<br>
+✔️ Analizăm istoricul, starea tehnică și prețul<br>
+✔️ Te asistăm până la achiziția finală a autovehiculului<br>
+</p>
+                    <div class="service-price">249 €</div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">⚙️</div>
+                    <h3>Activarea funcțiilor ascunse</h3>
+                    <p>Activăm și codăm funcțiile ascunse din fabrică ale automobilului tău.
+Serviciul include:<br>
+
+✔️codări software <br>
+
+✔️activări opțiuni dezactivate din uzină <br>
+
+✔️personalizarea funcțiilor disponibile <br>
+
+Totul realizat în siguranță, fără intervenții mecanice.</p>
+                    <div class="service-price">49 €</div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">👨‍🔧</div>
+                    <h3>Expert pentru o zi</h3>
+                    <p>Ai un expert auto dedicat pentru o zi întreagă.<br>
+✔️ Verificare nelimitată de mașini<br>
+✔️ În medie 7–8 automobile inspectate<br>
+✔️ Consultanță tehnică completă<br>
+✔️ Alegem împreună cea mai bună variantă<br></p>
+                    <div class="service-price">249 €</div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🌍</div>
+                    <h3>Import Auto</h3>
+                    <p>Import de automobile neaccidentate din:<br>
+
+Europa<br>
+
+Coreea<br>
+
+America<br>
+
+Oferim ghidaj complet, de la:<br>
+✔️ alegerea mașinii<br>
+✔️ verificare<br>
+✔️ achiziție<br>
+✔️ transport<br>
+✔️ până la primirea autoturismului</p>
+                    <div class="service-price">499 €</div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🎉</div>
+                    <h3>Promoție specială <br> 5 mașini</h3>
+                    <p>Verificare completă pentru 5 automobile, la un preț promoțional.
+Ideal pentru:<br>
+
+✔️dealeri<br>
+
+✔️cumpărători activi<br>    
+
+✔️flote mici</p>
+                    <div class="service-price">250 €</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="preturi" class="pricing">
+            <h2 class="section-title">PREȚURI & PROMOȚII</h2>
+            <p class="section-subtitle">Pachete transparente fără costuri ascunse</p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Flote Auto & Dealeri</h3>
+                    <div class="price">49 €</div>
+                    <ul class="pricing-features">
+                        <li>Pentru dealeri auto și flote care doresc o parcare complet verificată, oferim o promoție specială:<br>
+
+<li> De la 50 de mașini<br>
+
+<li>25 € / verificare<br>
+
+<li>Inspecții profesionale pentru întreaga flotă<br>
+
+<li>Ideal pentru parcuri auto, dealeri și companii<br>
+                    </ul>
+                    <a href="#" class="btn-secondary nav-link" data-page="contact" style="width: 100%; text-align: center;">Programează</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Recomandat</div>
+                    <h3>Premium Check</h3>
+                    <div class="price">99 €</div>
+                    <ul class="pricing-features">
+                        <li>Inspecție completă 360°</li>
+                        <li>Diagnostic computerizat avansat</li>
+                        <li>Test drive cu evaluare</li>
+                        <li>Verificare caroserie + vopsea</li>
+                        <li>Raport foto detaliat</li>
+                        <li>Consultanță tehnică</li>
+                        <li>90 minute</li>
+                    </ul>
+                    <a href="#" class="btn-primary nav-link" data-page="contact" style="width: 100%; text-align: center;">Programează</a>
+                </div>
+
+                <div class="pricing-card">
+                    <h3>Promoție 1 + 1 = 3</h3>
+                    <div class="price">199 €</div>
+                    <ul class="pricing-features">
+                        <li>A treia verificare este GRATUITĂ.</li>
+                        <li>Valabil pentru persoane fizice și comerciale</li>
+                        <li>Economisești bani fără a face compromisuri la calitate</li>
+                    </ul>
+                    <a href="#" class="btn-secondary nav-link" data-page="contact" style="width: 100%; text-align: center;">Contactează</a>
+                </div>
+            </div>
+
+            <div class="promo-box">
+                <h3>🎉 PROMOȚIE SPECIALĂ</h3>
+                <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 1rem;">
+                    <strong style="color: var(--primary-green);">-15% DISCOUNT</strong> la prima inspecție pentru clienți noi!
+                </p>
+                <p style="color: #999;">
+                    Folosește codul <strong style="background: linear-gradient(135deg, #1E88E5 0%, #4CAF50 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">AVANGARD2026</strong> la programare
+                </p>
+            </div>
+        </section>
+
+    <section id="reviews" class="reviews">
+        <h2 class="section-title">CE SPUN CLIENȚII NOȘTRI</h2>
+        <p class="section-subtitle">Peste 500+ mașini verificate cu succes</p>
+
+        <div class="instagram-feed">
+            <a href="https://www.instagram.com/p/DTXcNo1DBhf/?img_index=1" target="_blank" class="instagram-post">
+                <img src="Volvo.jpg" alt="Volvo Inspecție">
+                <div class="instagram-overlay">
+                    <span style="font-size: 2rem; color: #fff;">📸 Vezi pe Instagram</span>
+                </div>
+            </a>
+            <a href="https://www.instagram.com/p/DTunYIFDDv3/?img_index=1" target="_blank" class="instagram-post">
+                <img src="BMW.jpg" alt="BMW Inspecție">
+                <div class="instagram-overlay">
+                    <span style="font-size: 2rem; color: #fff;">📸 Vezi pe Instagram</span>
+                </div>
+            </a>
+        </div>
+
+        <div style="text-align: center; margin: 2rem 0;">
+            <a href="https://www.instagram.com/verificare_auto" target="_blank" class="btn-primary">
+                Vezi Mai Multe pe Instagram →
+            </a>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">
+                    "Am cumpărat un BMW second-hand și m-am bucurat că am apelat la Avangard. 
+                    Au descoperit probleme pe care vânzătorul le ascundea. M-au salvat de o achiziție proastă!"
+                </p>
+                <div class="testimonial-author">- Alexandru M.</div>
+            </div>
+
+            <div class="testimonial">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">
+                    "Profesionalism maxim! Raportul a fost foarte detaliat cu fotografii și explicații clare. 
+                    Am negociat prețul mașinii cu 2000 EUR mai jos datorită raportului lor."
+                </p>
+                <div class="testimonial-author">- Maria P.</div>
+            </div>
+
+            <div class="testimonial">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">
+                    "Echipament profesional și expertiză la nivel înalt. Am verificat 3 mașini până 
+                    să găsesc una bună. Banii sunt foarte bine investiți pentru siguranța ta!"
+                </p>
+                <div class="testimonial-author">- Andrei T.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2 class="section-title">CONTACTEAZĂ-NE</h2>
+        <p class="section-subtitle">Programează o inspecție sau solicită informații</p>
+        
+        <div class="contact-container">
+            <div id="message-box" class="message-box">
+                <h3 id="message-title"></h3>
+                <p id="message-text"></p>
+            </div>
+
+            <div id="loading-spinner" class="loading-spinner"></div>
+
+            <form class="contact-form" id="contact-form">
+                <div class="form-group">
+                    <label for="name">Nume Complet *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Telefon *</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="service">Serviciu Dorit</label>
+                    <select id="service" name="service">
+                        <option>Inspecție Completă</option>
+                        <option>Diagnostic Computerizat</option>
+                        <option>Test Drive Expert</option>
+                        <option>Evaluare Caroserie</option>
+                        <option>Verificare Pre-Cumpărare</option>
+                        <option>Inspecție Urgentă</option>
+                        <option>Altceva</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Mesaj</label>
+                    <textarea id="message" name="message" placeholder="Detalii despre mașină, preferințe de programare, întrebări..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%;" id="submit-btn">Trimite Cerere</button>
+            </form>
+            
+    </section>
+
+    <!-- Copy Notification -->
+    <div id="copyNotification" class="copy-notification">
+        ✓ Email copiat!
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>AVANGARD AUTOCHECK</h3>
+                <p>Servicii profesionale de inspecție și diagnostic auto. Protejează-ți investiția cu expertiză de încredere.</p>
+                <div class="social-links">
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>SERVICII</h3>
+                <a href="#servicii">Inspecție Completă</a>
+                <a href="#servicii">Diagnostic Computerizat</a>
+                <a href="#servicii">Test Drive Expert</a>
+                <a href="#servicii">Evaluare Caroserie</a>
+                <a href="#servicii">Pre-Cumpărare Check</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>LINK-URI UTILE</h3>
+                <a href="#home">Home</a>
+                <a href="#servicii">Servicii</a>
+                <a href="#preturi">Prețuri</a>
+                <a href="#reviews">Reviews</a>
+                <a href="#contact">Contact</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>CONTACT</h3>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4e7.svg" alt="Email" width="22" height="22">
+ <a href="#" class="copy-email" data-email="avangardautocheck@gmail.com" onclick="copyEmail(event, 'avangardautocheck@gmail.com')"><span class="__cf_email__" data-cfemail="e9889f88878e889b8d889c9d868a818c8a82a98e84888085c78a8684">[email&#160;protected]</span></a></p>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4f1.svg" alt="Telefon" width="22" height="22">
+ <span><a href="https://www.instagram.com/verificare_auto" target="_blank">@verificare_auto</a></p></span></p>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/23f0.svg" alt="Program" width="22" height="22">
+ Luni - Duminică: 09:00 - 18:00</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Avangard Autocheck. Toate drepturile rezervate.</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const form = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const messageBox = document.getElementById('message-box');
+            const messageTitle = document.getElementById('message-title');
+            const messageText = document.getElementById('message-text');
+            const loadingSpinner = document.getElementById('loading-spinner');
+            
+            loadingSpinner.style.display = 'block';
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Se trimite...';
+            
+            messageBox.classList.remove('show', 'success', 'error');
+            
+            const formData = new FormData(form);
+            
+            fetch('send_email_gmail.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                loadingSpinner.style.display = 'none';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Trimite Cerere';
+                
+                messageBox.classList.add('show');
+                
+                if (data.success) {
+                    messageBox.classList.add('success');
+                    messageTitle.textContent = '✓ Mesaj Trimis!';
+                    messageText.textContent = data.message;
+                    
+                    form.reset();
+                    
+                    messageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    setTimeout(function() {
+                        messageBox.classList.remove('show');
+                    }, 5000);
+                } else {
+                    messageBox.classList.add('error');
+                    messageTitle.textContent = '✗ Eroare';
+                    messageText.textContent = data.message;
+                    
+                    messageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            })
+            .catch(error => {
+                loadingSpinner.style.display = 'none';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Trimite Cerere';
+                
+                messageBox.classList.add('show', 'error');
+                messageTitle.textContent = '✗ Eroare de Conexiune';
+                messageText.textContent = 'Nu s-a putut trimite mesajul. Te rugăm să încerci din nou sau să ne contactezi direct.';
+                
+                console.error('Error:', error);
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .pricing-card, .testimonial, .instagram-post').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Mobile menu
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        const navLinksEl = document.querySelector('.nav-links');
+        if (mobileBtn && navLinksEl) {
+            mobileBtn.addEventListener('click', function() {
+                const isOpen = navLinksEl.classList.contains('open');
+                navLinksEl.classList.toggle('open');
+                this.innerHTML = isOpen ? '☰' : '✕';
+                document.body.style.overflow = isOpen ? '' : 'hidden';
+            });
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinksEl.classList.remove('open');
+                    mobileBtn.innerHTML = '☰';
+                    document.body.style.overflow = '';
+                });
+            });
+            window.addEventListener('scroll', () => {
+                if (navLinksEl.classList.contains('open')) {
+                    navLinksEl.classList.remove('open');
+                    mobileBtn.innerHTML = '☰';
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        // Copy email to clipboard
+        function copyEmail(event, email) {
+            event.preventDefault();
+            
+            const notification = document.getElementById('copyNotification');
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(email).then(() => {
+                    showNotification(notification);
+                }).catch(() => {
+                    fallbackCopy(email, notification);
+                });
+            } else {
+                fallbackCopy(email, notification);
+            }
+        }
+
+        function fallbackCopy(text, notification) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                showNotification(notification);
+            } catch (err) {
+                alert('Nu s-a putut copia. Copiază manual: ' + text);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        function showNotification(notification) {
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2500);
+        }
+    </script>
+</body>
+</html>

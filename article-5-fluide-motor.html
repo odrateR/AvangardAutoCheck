@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="masinaverificareautocheck.png">
+    <title>Elemente Vopsite, Chit, Accidente Ascunse – Cum Recunoaștem o Mașină Lovită | Avangard Autocheck</title>
+    <meta name="description" content="Ghid complet pentru detectarea accidentelor ascunse: grosimetru vopsea, verificare suduri, identificare chit, geometrie caroserie. Evită mașinile lovite!">
+    <meta name="keywords" content="accident auto, elemente vopsite, daune ascunse, grosimetru vopsea, chit caroserie, masina lovita, daune structurale">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-blue: #1E88E5;
+            --primary-green: #4CAF50;
+            --dark-bg: #0A0A0A;
+            --darker-bg: #050505;
+            --border-gray: #222;
+            --mid-gray: #666;
+        }
+        body { font-family: 'Outfit', sans-serif; background: var(--dark-bg); color: #fff; line-height: 1.8; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid var(--border-gray); }
+        .nav-container { max-width: 1600px; margin: 0 auto; padding: 1.2rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { height: 50px; width: auto; }
+        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: #fff; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: all 0.3s ease; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--primary-blue), var(--primary-green)); transition: width 0.3s ease; }
+        .nav-links a:hover::after { width: 100%; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+        .article-hero { padding-top: 120px; padding-bottom: 4rem; background: linear-gradient(135deg, #0A0A0A 0%, #0D1B2A 50%, #0A1929 100%); position: relative; }
+        .article-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(30,136,229,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(76,175,80,0.15) 0%, transparent 50%); pointer-events: none; }
+        .article-container { max-width: 900px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 2; }
+        .breadcrumb { display: none; margin-bottom: 2rem; color: var(--mid-gray); font-size: 0.9rem; }
+        .breadcrumb a { color: var(--primary-blue); text-decoration: none; }
+        .article-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1.1; margin-bottom: 1.5rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .article-meta { display: flex; gap: 2rem; margin-bottom: 3rem; color: var(--mid-gray); font-size: 0.95rem; }
+        .article-content { background: var(--darker-bg); padding: 4rem; border: 1px solid var(--border-gray); }
+        .article-content h2 { font-family: 'Rajdhani', sans-serif; font-size: 2rem; color: var(--primary-blue); margin: 3rem 0 1.5rem 0; font-weight: 700; }
+        .article-content h3 { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; color: var(--primary-green); margin: 2rem 0 1rem 0; font-weight: 600; }
+        .article-content p { margin-bottom: 1.5rem; color: #ccc; font-size: 1.05rem; }
+        .article-content ul, .article-content ol { margin: 1.5rem 0; padding-left: 2rem; color: #ccc; }
+        .article-content li { margin-bottom: 1rem; line-height: 1.8; }
+        .highlight-box { background: linear-gradient(135deg, rgba(30,136,229,0.1) 0%, rgba(76,175,80,0.1) 100%); border-left: 4px solid var(--primary-blue); padding: 2rem; margin: 2rem 0; }
+        .highlight-box h4 { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; margin-bottom: 1rem; color: var(--primary-blue); }
+        .warning-box { background: rgba(244,67,54,0.1); border-left: 4px solid #F44336; padding: 2rem; margin: 2rem 0; }
+        .warning-box h4 { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; margin-bottom: 1rem; color: #F44336; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .stat-card { background: var(--dark-bg); padding: 1.5rem; border: 1px solid var(--border-gray); text-align: center; }
+        .stat-number { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .stat-label { color: var(--mid-gray); font-size: 0.9rem; }
+        .external-link { color: var(--primary-blue); text-decoration: none; border-bottom: 1px dotted var(--primary-blue); }
+        .external-link:hover { color: var(--primary-green); }
+        .cta-section { background: linear-gradient(135deg, rgba(30,136,229,0.15) 0%, rgba(76,175,80,0.15) 100%); padding: 3rem; text-align: center; margin: 3rem 0; border: 2px solid var(--primary-blue); }
+        .cta-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .btn-primary { display: inline-block; padding: 1.1rem 2.5rem; font-size: 1rem; font-weight: 600; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); color: #fff; text-decoration: none; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(30,136,229,0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(30,136,229,0.5); }
+        footer { background: var(--darker-bg); padding: 3rem 2rem 1.5rem; border-top: 1px solid var(--border-gray); margin-top: 4rem; }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .footer-section h3 { font-family: 'Rajdhani', sans-serif; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.3rem; }
+        .footer-section p, .footer-section a { color: #999; line-height: 1.8; text-decoration: none; display: block; margin-bottom: 0.5rem; }
+        .footer-section a:hover { color: var(--primary-blue); }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid var(--border-gray); color: #666; }
+        
+        /* Mobile styles */
+        @media (max-width: 768px) { 
+            .nav-links { display: none; } 
+            .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 80px; left: 0; right: 0; background: rgba(10,10,10,0.98); padding: 2rem; z-index: 999; } 
+            .mobile-menu-btn { display: block; } 
+            .article-content { padding: 2rem 1.5rem; } 
+            .breadcrumb { display: block; font-size: 0.8rem; }
+            .nav-container { padding: 0.8rem 1rem; }
+            .nav-logo { height: 35px; }
+            .logo-text { font-size: 1.3rem; }
+        }
+
+        /* Copy to Clipboard Styles */
+        .copy-email {
+            cursor: pointer;
+            transition: color 0.3s ease;
+            display: inline-block;
+        }
+        .copy-email:hover { color: var(--primary-blue) !important; }
+        
+        .copy-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 10px 40px rgba(30, 136, 229, 0.4);
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+        .copy-notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .footer-section p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.footer-section p img {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    display: block;
+}
+
+.footer-section p a,
+.footer-section p span {
+    display: inline-block;
+    line-height: 1.2;
+    vertical-align: middle;
+}
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="masinaverificareautocheck.png" alt="Avangard Autocheck" class="nav-logo">
+                <span class="logo-text">AVANGARD AUTOCHECK</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#servicii">Servicii</a></li>
+                <li><a href="index.html#preturi">Prețuri</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="index.html#reviews">Reviews</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / <a href="blog.html">Blog</a> / Fluide Motor
+            </div>
+            <h1 class="article-title">Nivel Mic de Ulei sau Lichid de Răcire: Problemă Minoră sau Semn de Avarie Majoră?</h1>
+            <div class="article-meta">
+                <span>📅 1 Februarie 2025</span>
+                <span>⏱️ 8 min citire</span>
+                <span>👤 Expert Avangard</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="article-container">
+        <div class="article-content">
+            <p style="font-size:1.2rem; color:var(--primary-blue); font-weight:500;">
+                Vânzătorul îți spune că "mai consumă un pic de ulei, e normal la toate mașinile". Dar cât e normal și cât înseamnă că motorul are probleme serioase? Acest ghid îți dă răspunsuri clare cu cifre concrete, ca să știi exact când să fugi de o mașină.
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">0.5L</div>
+                    <div class="stat-label">Consum ulei normal la 10,000 km</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">€3,200</div>
+                    <div class="stat-label">Cost mediu reparație garnitură chiulasă</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">€6,500</div>
+                    <div class="stat-label">Cost motor recondiționat complet</div>
+                </div>
+            </div>
+
+            <h2>🛢️ Consumul de Ulei: Normal vs. Anormal</h2>
+            <p>
+                Orice motor consumă o mică cantitate de ulei – acesta este un fapt tehnic acceptat de toți producătorii auto. Problema este când consumul depășește limitele normale și devine un indicator al uzurii interne.
+            </p>
+
+            <div class="green-box">
+                <h4>✅ Consum de Ulei NORMAL</h4>
+                <ul>
+                    <li><strong>Motoare moderne (post-2010):</strong> sub 0.3-0.5 litri la 10,000 km</li>
+                    <li><strong>Motoare mai vechi (pre-2005):</strong> până la 0.7-1 litru la 10,000 km</li>
+                    <li><strong>Motoare sport/turbo performante:</strong> până la 1 litru la 10,000 km</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Consum de Ulei ANORMAL – Investigare Necesară</h4>
+                <ul>
+                    <li><strong>1-2 litri la 10,000 km:</strong> problemă în curs de dezvoltare</li>
+                    <li><strong>2-4 litri la 10,000 km:</strong> problemă serioasă confirmată</li>
+                    <li><strong>Peste 4 litri la 10,000 km (sau 1L/2,500 km):</strong> motor grav uzat sau defect</li>
+                </ul>
+            </div>
+
+            <h2>🔍 Unde Se Duce Uleiul? Principalele Cauze</h2>
+
+            <h3>1. Segmenți de Piston Uzați – Cauza Nr. 1</h3>
+            <p>
+                Segmenții sunt inele metalice care etanșează pistonul față de pereții cilindrului. Pe măsură ce se uzează, nu mai rețin uleiul din carterul motorului și acesta trece în camera de ardere unde se arde.
+            </p>
+            <ul>
+                <li><strong>Simptome:</strong> fum albastru la eșapament, consum mare ulei, compresie scăzută</li>
+                <li><strong>Diagnosticare:</strong> test de compresie, test de scurgere (leak-down test)</li>
+                <li><strong>Costul reparației:</strong> €1,500-4,000 (rectificare motor sau motor reconditionat)</li>
+                <li><strong>Apare frecvent la:</strong> mașini cu kilometraj mare real, motoare turbo cu schimburi ulei rare</li>
+            </ul>
+
+            <h3>2. Ghiduri și Simering Supape Uzate</h3>
+            <p>
+                Supapele se ghidează prin niște bucșe (ghiduri) și sunt etanșate cu garnituri tip simering. Când acestea se uzează, uleiul se scurge pe tijele supapelor direct în cilindri.
+            </p>
+            <ul>
+                <li><strong>Simptome:</strong> fum albastru la pornire rece (după staționare), la frânare, în coborâri lungi</li>
+                <li><strong>Diagnosticare:</strong> inspecție vizuală chiulasă demontată, endoscopie</li>
+                <li><strong>Costul reparației:</strong> €400-900 (garnituri supape) sau €800-2,000 (ghiduri supape)</li>
+            </ul>
+
+            <h3>3. Turbosuflantă cu Garnituri Uzate</h3>
+            <p>
+                Turbosuflanta funcționează cu presiuni și temperaturi extreme și este lubrifiată cu ulei de motor. Când garniturile axului turbinei cedează, uleiul este aspirat în fluxul de aer sau gaze de evacuare.
+            </p>
+            <ul>
+                <li><strong>Simptome:</strong> fum albastru la accelerare bruscă, consum ulei fără scurgeri vizibile, urme uleioase la eșapament</li>
+                <li><strong>Diagnosticare:</strong> inspecție vizuală furtun intercooler (urme ulei), endoscopie tub admisie</li>
+                <li><strong>Costul reparației:</strong> €600-1,500 (recondiționare turbo) sau €1,500-4,000 (turbo nou)</li>
+            </ul>
+
+            <h3>4. Scurgeri Externe – Garnituri și Simering-uri</h3>
+            <p>
+                Nu tot consumul de ulei înseamnă ardere internă. Uleiul poate scăpa și prin garnituri exterioare:
+            </p>
+            <ul>
+                <li><strong>Garnitură capac supape</strong> – scurgere pe exterior motor, miros de ars (€80-250)</li>
+                <li><strong>Simering arbore cotit față/spate</strong> – scurgere la cutia de viteze sau curea distribuție (€200-500)</li>
+                <li><strong>Garnitură carterul uleiului</strong> – băltoace de ulei sub mașină (€100-300)</li>
+                <li><strong>Răcitor ulei</strong> – la unele motoare diesel, poate scurge ulei în antigel (€300-800)</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>💡 Cum Detectăm Scurgerile la Verificare</h4>
+                <p>
+                    Examinăm vizual toate zonele motorului cu o lanternă puternică: sub capac supape, la baza motorului, 
+                    în jurul turbosuflantei, pe furtunurile de ulei. Orice urmă de ulei proaspăt sau negru ars 
+                    indică o scurgere activă. Verificăm și sub mașină – pete de ulei pe sol sunt un semn clar.
+                </p>
+            </div>
+
+            <h2>💧 Pierderea de Lichid de Răcire – Red Flag Major!</h2>
+            <p>
+                Spre deosebire de ulei, <strong>lichidul de răcire (antigelul) nu ar trebui să scadă niciodată</strong>. 
+                Sistemul de răcire este etanș. Dacă nivelul scade, există o scurgere – fie externă, fie internă.
+            </p>
+
+            <h3>Scurgeri Externe – Diagnosticare Ușoară</h3>
+            <ul>
+                <li><strong>Radiator spart sau fisurat</strong> – bălți roz/verde sub mașină în față</li>
+                <li><strong>Furtunuri deteriorate</strong> – crăpături, îmbătrânire, coliere slabe</li>
+                <li><strong>Pompa de apă defectă</strong> – scurgere la simering, zgomot în rulment</li>
+                <li><strong>Robinet calorifer defect</strong> – scurgere în habitaclu sau sub capotă</li>
+                <li><strong>Vas de expansiune fisurat</strong> – scurgere lentă, greu de observat</li>
+            </ul>
+
+            <h3>Scurgeri Interne – Semnalul de ALARMĂ</h3>
+            <div class="warning-box">
+                <h4>🚨 Antigelul Dispare Fără Urmă Vizibilă = PERICOL MAJOR</h4>
+                <p>
+                    Dacă nivelul antigelului scade și nu găsești nicio scurgere externă, antigelul intră 
+                    în motor. Aceasta înseamnă aproape sigur o <strong>garnitură de chiulasă crăpată</strong> 
+                    sau, în cazuri grave, chiulasă fisurată. Este cea mai scumpă reparație la motor!
+                </p>
+            </div>
+
+            <h3>Cum Detectăm Garnitura de Chiulasă Crăpată?</h3>
+            <ol>
+                <li><strong>Test combustie în antigel</strong> – un kit special detectează prezența gazelor de ardere în lichidul de răcire. Dacă testul e pozitiv, garnitura e compromisă</li>
+                <li><strong>Verificare ulei</strong> – ulei cu aspect de ciocolată cu lapte (cremă maronie pe jojă sau capac) = antigel în ulei</li>
+                <li><strong>Fum alb persistent</strong> – antigelul ars în cilindri produce abur alb cu miros dulceag</li>
+                <li><strong>Bule în vasul de expansiune</strong> – gazele de ardere care trec prin garnitură creează bule în lichid</li>
+                <li><strong>Pierdere presiune răcire</strong> – testul de presiune a sistemului de răcire arată pierderi</li>
+            </ol>
+
+            <h2>⚠️ Simptome de Garnitură Chiulasă Crăpată</h2>
+            <ul>
+                <li>Temperatura motorului urcă și coboară neregulat</li>
+                <li>Supraîncălzire periodică la trafic intens</li>
+                <li>Fum alb dens la eșapament mai ales după pornire la rece</li>
+                <li>Miros dulceag de antigel ars în evacuare</li>
+                <li>Putere scăzută a motorului, mers neregulat</li>
+                <li>Nivel antigel scade constant fără scurgeri vizibile</li>
+                <li>Ulei cu bule sau cu aspect lăptos pe jojă</li>
+            </ul>
+
+            <h2>📊 Studiu de Caz Real: Mercedes C220 CDI – "Consumă un pic de ulei"</h2>
+            <div class="highlight-box">
+                <h4>📋 Mercedes C220 CDI, 2014, 168,000 km, preț €12,800</h4>
+                <p><strong>Ce zicea vânzătorul:</strong> "Consumă cam un litru de ulei la 3,000 km, e normal la diesel-urile Mercedes din generația asta."</p>
+                <p><strong>Ce am descoperit la verificare:</strong></p>
+                <ul>
+                    <li>Consum ulei real măsurat: <strong>1 litru la 1,800 km</strong> (extrem de mare) 🚨</li>
+                    <li>Fum albastru persistent la accelerare 🚨</li>
+                    <li>Test compresie cilindru 2 și 3: <strong>7.8 și 8.1 bar</strong> (normal 14-16 bar) 🚨</li>
+                    <li>Nivel antigel scăzut, <strong>fără scurgeri externe</strong> detectate 🚨</li>
+                    <li>Test gaze în antigel: <strong>POZITIV</strong> – gaze de ardere în lichid 🚨</li>
+                    <li>Jojă ulei: urme fine de emulsie (ulei + apă) 🚨</li>
+                </ul>
+                <p><strong>Verdictul:</strong> Motor cu segmenți uzați + garnitură chiulasă compromisă. Motor compromis funcțional.</p>
+                <p><strong>Costuri reparație estimate:</strong> €5,500-7,000 (motor reconditionat sau schimbat)</p>
+                <p><strong>Economia clientului:</strong> €12,800 + €6,500 reparații = <strong>€19,300 pierduți evitați!</strong></p>
+            </div>
+
+            <h2>🚨 Când Să Renunți Definitiv la Cumpărare</h2>
+            <div class="warning-box">
+                <h4>🚫 NU CUMPĂRA dacă:</h4>
+                <ul>
+                    <li>Consumul de ulei depășește 1 litru la 3,000 km</li>
+                    <li>Nivelul antigelului scade fără scurgeri externe vizibile</li>
+                    <li>Uleiul are aspect lăptos sau cu bule</li>
+                    <li>Testul de gaze în antigel este pozitiv</li>
+                    <li>Temperatura oscilează sau motorul se supraîncălzește</li>
+                    <li>Compresia în cilindri este sub 70% față de valoarea nominală</li>
+                </ul>
+                <p style="margin-top:1rem;">
+                    Aceste probleme înseamnă motor compromis. Costul reparației va depăși adesea valoarea mașinii!
+                </p>
+            </div>
+
+            <h2>✅ Condiție Bună – Cum Arată un Motor Sănătos</h2>
+            <div class="green-box">
+                <h4>✅ Motor în Stare Bună</h4>
+                <ul>
+                    <li>Nivel ulei stabil sau cu pierdere sub 0.5L/10,000 km</li>
+                    <li>Antigel la nivel constant, fără pierderi</li>
+                    <li>Ulei curat sau ușor maroniu (normal), fără emulsie</li>
+                    <li>Antigel cu culoare uniformă, fără particule sau ulei</li>
+                    <li>Fără fum la eșapament (după primele secunde la rece)</li>
+                    <li>Compresie uniformă în toți cilindrii, valori normale</li>
+                    <li>Temperatura motorului stabilă în zona normală</li>
+                </ul>
+            </div>
+
+            <div class="cta-section">
+                <h3>🔬 Verificăm Fluide, Compresie și Tot Motorul!</h3>
+                <p style="color:#ccc; margin-bottom:2rem;">
+                    Nu te lăsa păcălit de "consumă normal". Verificăm cu instrumente profesionale exact cât consumă și de ce. Programează acum!
+                </p>
+                <a href="index.html" class="btn-primary">Programează Verificare Motor →</a>
+                <p style="margin-top:1.5rem; color:var(--mid-gray); font-size:0.95rem;">
+                    ✅ Test compresie | 🧪 Test gaze antigel | 🔍 Inspecție completă motor
+                </p>
+            </div>
+
+            <h2>🎓 Concluzie: Fluidele Spun Adevărul despre Motor</h2>
+            <p>
+                Starea și nivelul fluidelor – uleiul și antigelul – sunt printre cele mai rapide moduri de a evalua sănătatea unui motor. Un motor bine îngrijit are fluide curate, la nivel și fără pierderi anormale.
+            </p>
+            <p>
+                Nu accepta niciodată explicații vagi despre "consum normal". Cu cifre și instrumente, noi determinăm exact ce se întâmplă în motorul mașinii pe care vrei să o cumperi – înainte să fie prea târziu!
+            </p>
+            <div class="highlight-box">
+                <h4>📱 Urmărește-ne pe Instagram</h4>
+                <p>
+                    Postăm cazuri reale cu motoare defecte pe <a href="https://www.instagram.com/verificare_auto/" target="_blank" class="external-link">@verificare_auto</a> – jojă cu emulsie, teste de compresie live, antigel compromis.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div id="copyNotification" class="copy-notification">
+        ✓ Email copiat!
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>AVANGARD AUTOCHECK</h3>
+                <p>Servicii profesionale de inspecție și diagnostic auto. Protejează-ți investiția cu expertiză de încredere.</p>
+            </div>
+            <div class="footer-section">
+                <h3>LINK-URI RAPIDE</h3>
+                <a href="index.html#home">Home</a>
+                <a href="index.html#servicii">Servicii</a>
+                <a href="index.html#preturi">Prețuri</a>
+                <a href="blog.html">Blog</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>ARTICOLE POPULARE</h3>
+                <a href="article-1-verificare-profesionala.html">Verificare Auto Profesională</a>
+                <a href="article-2-kilometri-dati-inapoi.html">Kilometri Dați Înapoi</a>
+                <a href="article-3-accidente-ascunse.html">Accidente Ascunse</a>
+                <a href="article-4-fum-motor.html">De Ce Scoate Fum Mașina?</a>
+                <a href="article-5-fluide-motor.html">Ulei și Lichid de Răcire</a>
+            </div>
+            <div class="footer-section">
+                <h3>CONTACT</h3>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4e7.svg" alt="Email" width="22" height="22">
+ <a href="#" href="#" class="copy-email" onclick="copyToClipboard(event, 'avangardautocheck@gmail.com', 'Email')">avangardautocheck@gmail.com</a></p>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4de.svg" alt="Telefon" width="22" height="22">
+ <a href="#" class="copy-email" onclick="copyToClipboard(event, '069 448 878', 'Telefon')">069 448 878</a></p>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4f1.svg" alt="Instagram" width="22" height="22">
+ <span><a href="https://www.instagram.com/verificare_auto" target="_blank">@verificare_auto</a></p></span></p>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/23f0.svg" alt="Program" width="22" height="22">
+ Luni - Duminică: 09:00 - 18:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Avangard Autocheck. Toate drepturile rezervate.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        const navLinksEl = document.querySelector('.nav-links');
+        if (mobileBtn && navLinksEl) {
+            mobileBtn.addEventListener('click', function() {
+                const isOpen = navLinksEl.classList.contains('open');
+                navLinksEl.classList.toggle('open');
+                this.innerHTML = isOpen ? '☰' : '✕';
+                document.body.style.overflow = isOpen ? '' : 'hidden';
+            });
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinksEl.classList.remove('open');
+                    mobileBtn.innerHTML = '☰';
+                    document.body.style.overflow = '';
+                });
+            });
+            window.addEventListener('scroll', () => {
+                if (navLinksEl.classList.contains('open')) {
+                    navLinksEl.classList.remove('open');
+                    mobileBtn.innerHTML = '☰';
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        // Copy email to clipboard
+        function copyToClipboard(event, text, label) {
+            event.preventDefault();
+            const notification = document.getElementById('copyNotification');
+            notification.innerHTML = '&#10003; ' + label + ' copiat!';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => showNotification(notification)).catch(() => fallbackCopy(text, notification));
+            } else { fallbackCopy(text, notification); }
+        }
+
+        function fallbackCopy(text, notification) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.top = '0';
+            textarea.style.left = '0';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            textarea.setSelectionRange(0, text.length);
+            let success = false;
+            try { success = document.execCommand('copy'); } catch(err) { success = false; }
+            document.body.removeChild(textarea);
+            if (success) { showNotification(notification); } else { alert('Copiază manual: ' + text); }
+        }
+    </script>
+</body>
+</html>

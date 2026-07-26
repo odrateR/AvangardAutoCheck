@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="masinaverificareautocheck.png">
+    <title>Ghid Complet: Verificare Auto Înainte de Cumpărare | Avangard Autocheck</title>
+    <meta name="description" content="Descoperiți cum să evitați mașinile cu kilometri dați înapoi, daune ascunse și accidente ascunse. Ghid complet verificare auto profesională.">
+    <meta name="keywords" content="verificare auto inainte de cumparare, kilometri dati inapoi, accident auto ascuns, daune ascunse auto, verificare kilometri adevarati, masina inecata, elemente vopsite, verificare cu incredere">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1E88E5;
+            --primary-green: #4CAF50;
+            --accent-cyan: #00BCD4;
+            --dark-bg: #0A0A0A;
+            --darker-bg: #050505;
+            --dark-blue: #0D47A1;
+            --light-green: #66BB6A;
+            --light-gray: #F5F5F5;
+            --mid-gray: #666;
+            --border-gray: #222;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--dark-bg);
+            color: #fff;
+            line-height: 1.8;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-green));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .article-hero {
+            padding-top: 120px;
+            padding-bottom: 4rem;
+            background: linear-gradient(135deg, #0A0A0A 0%, #0D1B2A 50%, #0A1929 100%);
+            position: relative;
+        }
+
+        .article-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(30, 136, 229, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(76, 175, 80, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .article-container {
+            width: 75%;
+            max-width: 75%;
+            margin: 0 auto;
+            padding: 0 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .breadcrumb {
+            margin-bottom: 2rem;
+            color: var(--mid-gray);
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Default - ascuns pe desktop */
+.breadcrumb {
+    display: none;
+}
+
+/* Doar pe telefon */
+@media (max-width: 768px) {
+    .breadcrumb {
+        display: block;
+    }
+}
+
+        .article-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            color: var(--mid-gray);
+            font-size: 0.95rem;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border: 1px solid var(--border-gray);
+            margin-bottom: 3rem;
+        }
+
+        .article-content {
+            background: var(--darker-bg);
+            padding: 4rem;
+            border: 1px solid var(--border-gray);
+        }
+
+        .article-content h2 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin: 3rem 0 1.5rem 0;
+            font-weight: 700;
+        }
+
+        .article-content h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            margin: 2rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            color: #ccc;
+            font-size: 1.05rem;
+        }
+
+        .article-content ul, 
+        .article-content ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+            color: #ccc;
+        }
+
+        .article-content li {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.1) 0%, rgba(76, 175, 80, 0.1) 100%);
+            border-left: 4px solid var(--primary-blue);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .highlight-box h4 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+
+        .warning-box {
+            background: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid #F44336;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .warning-box h4 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #F44336;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--dark-bg);
+            padding: 1.5rem;
+            border: 1px solid var(--border-gray);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--mid-gray);
+            font-size: 0.9rem;
+        }
+
+        .external-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--primary-blue);
+            transition: all 0.3s ease;
+        }
+
+        .external-link:hover {
+            color: var(--primary-green);
+            border-bottom-color: var(--primary-green);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.15) 0%, rgba(76, 175, 80, 0.15) 100%);
+            padding: 3rem;
+            text-align: center;
+            margin: 3rem 0;
+            border: 2px solid var(--primary-blue);
+        }
+
+        .cta-section h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 1.1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(30, 136, 229, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(30, 136, 229, 0.5);
+        }
+
+        .related-articles {
+            padding: 4rem 2rem;
+            background: var(--dark-bg);
+        }
+
+        .related-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .related-card {
+            background: var(--darker-bg);
+            border: 1px solid var(--border-gray);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .related-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 10px 40px rgba(30, 136, 229, 0.2);
+        }
+
+        .related-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .related-card-content {
+            padding: 1.5rem;
+        }
+
+        .related-card h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .related-card p {
+            color: var(--mid-gray);
+            font-size: 0.95rem;
+        }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .article-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+               .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Rajdhani', sans-serif;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #999;
+            line-height: 1.8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* Copy to Clipboard Styles */
+        .copy-email {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .copy-email:hover {
+            color: var(--primary-blue) !important;
+        }
+
+        .copy-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 10px 40px rgba(30, 136, 229, 0.4);
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            font-size: 1.1rem;
+        }
+
+        .copy-notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-gray);
+            color: #666;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-gray);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            border-color: var(--primary-blue);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .services-grid,
+            .pricing-grid,
+            .instagram-feed,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+	.footer-section p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.footer-section p .icon-emoji {
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+}
+
+.footer-section p a {
+    display: inline;
+    vertical-align: middle;
+}
+.contact-row {
+    display: flex;
+    align-items: center;   /* AICI se rezolvă tot */
+    gap: 10px;
+    line-height: 1.2;
+}
+
+.icon-emoji {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+}
+
+.contact-row a {
+    display: inline-flex;
+    align-items: center;
+}
+
+.copy-btn {
+    display: inline-flex;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+ <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-blue: #1E88E5;
+            --primary-green: #4CAF50;
+            --dark-bg: #0A0A0A;
+            --darker-bg: #050505;
+            --border-gray: #222;
+            --mid-gray: #666;
+        }
+        body { font-family: 'Outfit', sans-serif; background: var(--dark-bg); color: #fff; line-height: 1.8; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid var(--border-gray); }
+        .nav-container { max-width: 1600px; margin: 0 auto; padding: 1.2rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { height: 50px; width: auto; }
+        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: #fff; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: all 0.3s ease; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--primary-blue), var(--primary-green)); transition: width 0.3s ease; }
+        .nav-links a:hover::after { width: 100%; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+        .article-hero { padding-top: 120px; padding-bottom: 4rem; background: linear-gradient(135deg, #0A0A0A 0%, #0D1B2A 50%, #0A1929 100%); position: relative; }
+        .article-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(30,136,229,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(76,175,80,0.15) 0%, transparent 50%); pointer-events: none; }
+        .article-container { max-width: 900px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 2; }
+        .breadcrumb { display: none; margin-bottom: 2rem; color: var(--mid-gray); font-size: 0.9rem; }
+        .breadcrumb a { color: var(--primary-blue); text-decoration: none; }
+        .article-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1.1; margin-bottom: 1.5rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .article-meta { display: flex; gap: 2rem; margin-bottom: 3rem; color: var(--mid-gray); font-size: 0.95rem; }
+        .article-content { background: var(--darker-bg); padding: 4rem; border: 1px solid var(--border-gray); }
+        .article-content h2 { font-family: 'Rajdhani', sans-serif; font-size: 2rem; color: var(--primary-blue); margin: 3rem 0 1.5rem 0; font-weight: 700; }
+        .article-content h3 { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; color: var(--primary-green); margin: 2rem 0 1rem 0; font-weight: 600; }
+        .article-content p { margin-bottom: 1.5rem; color: #ccc; font-size: 1.05rem; }
+        .article-content ul, .article-content ol { margin: 1.5rem 0; padding-left: 2rem; color: #ccc; }
+        .article-content li { margin-bottom: 1rem; line-height: 1.8; }
+        .highlight-box { background: linear-gradient(135deg, rgba(30,136,229,0.1) 0%, rgba(76,175,80,0.1) 100%); border-left: 4px solid var(--primary-blue); padding: 2rem; margin: 2rem 0; }
+        .highlight-box h4 { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; margin-bottom: 1rem; color: var(--primary-blue); }
+        .warning-box { background: rgba(244,67,54,0.1); border-left: 4px solid #F44336; padding: 2rem; margin: 2rem 0; }
+        .warning-box h4 { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; margin-bottom: 1rem; color: #F44336; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .stat-card { background: var(--dark-bg); padding: 1.5rem; border: 1px solid var(--border-gray); text-align: center; }
+        .stat-number { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .stat-label { color: var(--mid-gray); font-size: 0.9rem; }
+        .external-link { color: var(--primary-blue); text-decoration: none; border-bottom: 1px dotted var(--primary-blue); }
+        .external-link:hover { color: var(--primary-green); }
+        .cta-section { background: linear-gradient(135deg, rgba(30,136,229,0.15) 0%, rgba(76,175,80,0.15) 100%); padding: 3rem; text-align: center; margin: 3rem 0; border: 2px solid var(--primary-blue); }
+        .cta-section h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .btn-primary { display: inline-block; padding: 1.1rem 2.5rem; font-size: 1rem; font-weight: 600; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); color: #fff; text-decoration: none; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(30,136,229,0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(30,136,229,0.5); }
+        footer { background: var(--darker-bg); padding: 3rem 2rem 1.5rem; border-top: 1px solid var(--border-gray); margin-top: 4rem; }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .footer-section h3 { font-family: 'Rajdhani', sans-serif; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.3rem; }
+        .footer-section p, .footer-section a { color: #999; line-height: 1.8; text-decoration: none; display: block; margin-bottom: 0.5rem; }
+        .footer-section a:hover { color: var(--primary-blue); }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid var(--border-gray); color: #666; }
+        @media (max-width: 768px) { .nav-links { display: none; } .mobile-menu-btn { display: block; } .article-content { padding: 2rem 1.5rem; } }
+    
+        /* ================================================
+           MOBILE 768px
+        ================================================ */
+        @media (max-width: 768px) {
+            .nav-container { padding: 0.8rem 1rem; }
+            .nav-logo { height: 32px !important; }
+            .logo-text { font-size: 1.15rem !important; letter-spacing: 0.5px !important; }
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 66px;
+                left: 0; right: 0;
+                background: rgba(10,10,10,0.98);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                padding: 1.5rem 2rem;
+                flex-direction: column;
+                gap: 1.2rem;
+                border-bottom: 1px solid var(--border-gray);
+                z-index: 999;
+                text-align: center;
+            }
+            .nav-links.open { display: flex; }
+            .nav-links a { font-size: 1.1rem; padding: 0.5rem 0; }
+            .mobile-menu-btn { display: block !important; font-size: 1.8rem; padding: 5px 8px; }
+
+            .breadcrumb { display: block; font-size: 0.78rem; line-height: 1.8; margin-bottom: 0.8rem; word-break: break-word; }
+            .article-hero { padding-top: 88px; padding-bottom: 2rem; }
+            .article-container { padding: 0 1rem; }
+            .article-title { font-size: 1.85rem !important; line-height: 1.1; margin-bottom: 0.8rem; }
+            .article-meta { flex-wrap: wrap; gap: 0.6rem; font-size: 0.82rem; margin-bottom: 1.2rem; }
+            .article-content { padding: 1.5rem 1rem !important; }
+            .article-content h2 { font-size: 1.4rem; margin: 1.8rem 0 0.8rem; }
+            .article-content h3 { font-size: 1.2rem; margin: 1.2rem 0 0.6rem; }
+            .article-content p { font-size: 0.96rem; }
+            .article-content ul, .article-content ol { padding-left: 1.3rem; }
+            .article-content li { font-size: 0.96rem; margin-bottom: 0.6rem; }
+            .highlight-box, .warning-box, .green-box, .smoke-box { padding: 1.1rem 0.9rem; }
+            .highlight-box h4, .warning-box h4 { font-size: 1.1rem; }
+            .stats-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+            .stat-number { font-size: 2rem; }
+            table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; font-size: 0.85rem; }
+            .cta-section { padding: 1.8rem 1rem; }
+            .cta-section h3 { font-size: 1.5rem; }
+            .btn-primary { width: 100%; text-align: center; padding: 1rem; font-size: 0.93rem; }
+            .footer-content { grid-template-columns: 1fr; gap: 1.5rem; }
+            footer { padding: 2rem 1rem 1.2rem; }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text { font-size: 0.95rem !important; }
+            .nav-logo { height: 26px !important; }
+            .article-title { font-size: 1.55rem !important; }
+            .article-content h2 { font-size: 1.2rem; }
+            .article-content h3 { font-size: 1.05rem; }
+        }
+
+        html { scroll-behavior: smooth; }
+
+
+    
+        /* ================================================
+           MOBILE 768px
+        ================================================ */
+        @media (max-width: 768px) {
+            .nav-container { padding: 0.8rem 1rem; }
+            .nav-logo { height: 32px !important; }
+            .logo-text { font-size: 1.15rem !important; letter-spacing: 0.5px !important; }
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 66px;
+                left: 0; right: 0;
+                background: rgba(10,10,10,0.98);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                padding: 1.5rem 2rem;
+                flex-direction: column;
+                gap: 1.2rem;
+                border-bottom: 1px solid var(--border-gray);
+                z-index: 999;
+                text-align: center;
+            }
+            .nav-links.open { display: flex; }
+            .nav-links a { font-size: 1.1rem; padding: 0.5rem 0; }
+            .mobile-menu-btn { display: block !important; font-size: 1.8rem; padding: 5px 8px; }
+
+            .breadcrumb { font-size: 0.78rem; line-height: 1.8; margin-bottom: 0.8rem; word-break: break-word; }
+            .article-hero { padding-top: 88px; padding-bottom: 2rem; }
+            .article-container { padding: 0 1rem; }
+            .article-title { font-size: 1.85rem !important; line-height: 1.1; margin-bottom: 0.8rem; }
+            .article-meta { flex-wrap: wrap; gap: 0.6rem; font-size: 0.82rem; margin-bottom: 1.2rem; }
+            .article-content { padding: 1.5rem 1rem !important; }
+            .article-content h2 { font-size: 1.4rem; margin: 1.8rem 0 0.8rem; }
+            .article-content h3 { font-size: 1.2rem; margin: 1.2rem 0 0.6rem; }
+            .article-content p { font-size: 0.96rem; }
+            .article-content ul, .article-content ol { padding-left: 1.3rem; }
+            .article-content li { font-size: 0.96rem; margin-bottom: 0.6rem; }
+            .highlight-box, .warning-box, .green-box, .smoke-box { padding: 1.1rem 0.9rem; }
+            .highlight-box h4, .warning-box h4 { font-size: 1.1rem; }
+            .stats-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+            .stat-number { font-size: 2rem; }
+            table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; font-size: 0.85rem; }
+            .cta-section { padding: 1.8rem 1rem; }
+            .cta-section h3 { font-size: 1.5rem; }
+            .btn-primary { width: 100%; text-align: center; padding: 1rem; font-size: 0.93rem; }
+            .footer-content { grid-template-columns: 1fr; gap: 1.5rem; }
+            footer { padding: 2rem 1rem 1.2rem; }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text { font-size: 0.95rem !important; }
+            .nav-logo { height: 26px !important; }
+            .article-title { font-size: 1.55rem !important; }
+            .article-content h2 { font-size: 1.2rem; }
+            .article-content h3 { font-size: 1.05rem; }
+        }
+
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="masinaverificareautocheck.png" alt="Avangard Autocheck" class="nav-logo">
+                <span class="logo-text">AVANGARD AUTOCHECK</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#servicii">Servicii</a></li>
+                <li><a href="index.html#preturi">Prețuri</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="index.html#reviews">Reviews</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <div class="article-hero">
+        <div class="article-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / <a href="blog.html">Blog</a> / Ghid Complet Verificare Auto
+            </div>
+            <h1 class="article-title">Verificare Auto Înainte de Cumpărare: Ghidul Complet pentru o Achiziție Sigură</h1>
+            <div class="article-meta">
+                <span>📅 5 Februarie 2025</span>
+                <span>⏱️ 12 min citire</span>
+                <span>👤 Expert Avangard</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="article-container">
+        <div class="article-content">
+            <p class="intro" style="font-size: 1.2rem; color: var(--primary-blue); font-weight: 500;">
+                Cumpărarea unei mașini second-hand poate fi o experiență stresantă dacă nu știi la ce să te uiți. În acest ghid complet, îți vom arăta tot ce trebuie să verifici înainte de a semna contractul și cum te pot ajuta serviciile noastre de <strong>verificare auto profesională</strong> să eviti capcanele comune.
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">68%</div>
+                    <div class="stat-label">Mașini cu kilometri dați înapoi</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">45%</div>
+                    <div class="stat-label">Au fost implicate în accidente</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">€3,500</div>
+                    <div class="stat-label">Costuri medii reparații ascunse</div>
+                </div>
+            </div>
+
+            <h2>🚨 De Ce Este Esențială Verificarea Auto Înainte de Cumpărare?</h2>
+            
+            <p>
+                Piața mașinilor second-hand din România este plină de oportunități, dar și de riscuri. <strong>Verificarea auto cu incredere</strong> este singurul mod prin care poți fi sigur că nu vei avea surprize neplăcute după cumpărare. Conform statisticilor Asociației Producătorilor și Importatorilor de Automobile din România (<a href="https://www.apia.ro" target="_blank" class="external-link">APIA</a>), peste 60% dintre mașinile vândute pe piața second-hand au cel puțin o problemă care nu a fost divulgată vânzătorului.
+            </p>
+
+            <div class="warning-box">
+                <h4>⚠️ ATENȚIE: Problemele Cele Mai Comune</h4>
+                <ul>
+                    <li><strong>Kilometri dați înapoi</strong> - peste 68% din mașinile verificate</li>
+                    <li><strong>Accidente auto ascunse</strong> - daune structurale nevăzute</li>
+                    <li><strong>Mașini înecate</strong> - importuri din zone inundate</li>
+                    <li><strong>Elemente vopsite ilegal</strong> - camuflare daune</li>
+                    <li><strong>Probleme mecanice majore</strong> - motor, transmisie</li>
+                </ul>
+            </div>
+
+            <h2>🔍 Verificarea Kilometrilor Adevărați: Prima Prioritate</h2>
+
+            <p>
+                Unul dintre cele mai frecvente fraude pe piața auto este <strong>darea înapoi a kilometrilor</strong>. Conform <a href="https://www.carvertical.com/ro/blog/kilometrii-dati-inapoi" target="_blank" class="external-link">CarVertical</a>, aproape 70% din mașinile importate în România au kilometrajul modificat.
+            </p>
+
+            <h3>Cum Detectăm Kilometrii Dați Înapoi:</h3>
+
+            <ol>
+                <li><strong>Verificare Istoric Internațional</strong> - accesăm bazele de date europene pentru a verifica istoricul kilometrajului în țara de origine</li>
+                <li><strong>Analiza Electronică</strong> - scanăm toate modulele electronice ale mașinii (nu doar kilometrajul de pe bord!)</li>
+                <li><strong>Indicii Fizice</strong> - verificăm uzura volanului, pedalelor, scaunelor și schimbătorului</li>
+                <li><strong>Documente Service</strong> - analizăm cărțile de service și facturile pentru inconsecvențe</li>
+            </ol>
+
+            <div class="highlight-box">
+                <h4>💡 SFAT EXPERT</h4>
+                <p>
+                    Chiar dacă vânzătorul are carte de service completă, acest lucru nu garantează că kilometrii sunt reali. În serviciile noastre de <strong>verificare auto detaliată</strong>, folosim echipamente profesionale pentru a citi kilometrajul din toate modulele electronice ale mașinii - multe mașini moderne stochează această informație în peste 15 locații diferite!
+                </p>
+            </div>
+
+            <h2>🔧 Identificarea Accidentelor Auto Ascunse</h2>
+
+            <p>
+                Un <strong>accident auto</strong> anterior poate reduce semnificativ valoarea și siguranța mașinii. Conform Administrației Naționale de Siguranță Rutieră (<a href="https://www.politiaromana.ro/ro/structura-politiei-romane/unitati-centrale/directia-rutiera" target="_blank" class="external-link">DNSR</a>), doar 30% din accidentele auto sunt raportate oficial.
+            </p>
+
+            <h3>Tehnologii de Detectare a Daunelor Ascunse:</h3>
+
+            <ul>
+                <li><strong>Grosimetru Digital Profesional</strong> - măsoară grosimea vopselei în peste 50 de puncte pentru a detecta <strong>elementele vopsite</strong></li>
+                <li><strong>Inspecție Structurală</strong> - verificăm lonjeroanele, traversele și punctele de sudură</li>
+                <li><strong>Verificare Geometrie</strong> - măsurăm distanțele între panouri pentru a detecta deformări</li>
+                <li><strong>Analiza Airbag-urilor</strong> - verificăm dacă au fost declanșate și recondiți ionate</li>
+            </ul>
+
+            <div class="warning-box">
+                <h4>🚨 Semne de Avertizare - Accident Grav</h4>
+                <p>Dacă descoperim următoarele, mașina probabil a fost implicată într-un accident major:</p>
+                <ul>
+                    <li>Diferențe mari de grosime vopsea între panouri adiacente</li>
+                    <li>Suduri neuniforme sau suplimentare</li>
+                    <li>Module airbag înlocuite recent (fără accident declarat)</li>
+                    <li>Deformări ale caroseriei vizibile în inspecția detaliată</li>
+                    <li>Spații neuniforme între capotă/portiere/aripe</li>
+                </ul>
+            </div>
+
+            <h2>💧 Detectarea Mașinilor Înecate - Pericol Ascuns</h2>
+
+            <p>
+                <strong>Mașinile înecate</strong> sunt un fenomen în creștere pe piața românească, în special după inundațiile din Europa Occidentală. Aceste vehicule sunt adesea importate și vândute ca "mașini bune", dar pot avea probleme electronice și mecanice grave care apar după luni sau chiar ani.
+            </p>
+
+            <p>
+                Conform unui raport al <a href="https://www.carfax.eu/ro" target="_blank" class="external-link">CARFAX Europe</a>, peste 15,000 de mașini înecate ajung anual în România din țări precum Germania, Belgia și Olanda după dezastre naturale.
+            </p>
+
+            <h3>Cum Identificăm o Mașină Înecată:</h3>
+
+            <ol>
+                <li><strong>Umiditate Reziduală</strong> - folosim detectoare de umiditate în zone greu accesibile</li>
+                <li><strong>Coroziune Neobișnuită</strong> - verificăm zonele unde apa ar fi stat (sub scaune, în portbagaj, sub panoul de bord)</li>
+                <li><strong>Miros Specific</strong> - mirosul de mucegai sau de apă stătută este greu de eliminat complet</li>
+                <li><strong>Probleme Electronice</strong> - testăm toate sistemele electronice pentru erori intermitente</li>
+                <li><strong>Verificare Istoric</strong> - căutăm în bazele de date pentru coduri de "total loss" din cauza inundațiilor</li>
+            </ol>
+
+            <div class="highlight-box">
+                <h4>✅ Verificarea Noastră Profesională Include:</h4>
+                <ul>
+                    <li>Test de umiditate în 20+ puncte strategice</li>
+                    <li>Inspecție detaliată a tapițeriei și mochetei</li>
+                    <li>Verificare module electronice pentru urme de oxidare</li>
+                    <li>Căutare în baze de date europene pentru istoricul de inundații</li>
+                    <li>Raport foto complet cu toate zonele verificate</li>
+                </ul>
+            </div>
+
+            <h2>📊 Raport Complet de Verificare - Ce Primești</h2>
+
+            <p>
+                După o <strong>verificare auto profesională</strong> cu Avangard Autocheck, primești un raport detaliat care include:
+            </p>
+
+            <ul>
+                <li><strong>Raport Foto Complet</strong> - peste 100 de fotografii HD cu toate zonele verificate</li>
+                <li><strong>Istoric Kilometraj</strong> - verificare în bazele de date europene</li>
+                <li><strong>Hartă Grosime Vopsea</strong> - măsurători în peste 50 de puncte</li>
+                <li><strong>Cod Erori Complete</strong> - citire din toate modulele electronice</li>
+                <li><strong>Evaluare Stare Mecanică</strong> - motor, transmisie, suspensie, frâne</li>
+                <li><strong>Estimare Costuri Reparații</strong> - dacă se descoperă probleme</li>
+                <li><strong>Recomandare Finală</strong> - cumperi sau nu, pe baza datelor obiective</li>
+            </ul>
+
+            <h2>🛡️ De Ce Să Alegi Avangard Autocheck?</h2>
+
+            <div class="highlight-box">
+                <h4>✨ Avantajele Noastre</h4>
+                <ul>
+                    <li><strong>Echipamente Profesionale</strong> - grosimetru, tester diagnoza, detector umiditate, endoscop</li>
+                    <li><strong>Experiență Dovedită</strong> - peste 500 de mașini verificate cu succes</li>
+                    <li><strong>Acces Baze de Date</strong> - verificăm istoricul în țara de origine</li>
+                    <li><strong>Rapoarte Detaliate</strong> - fotografie și video, ușor de înțeles</li>
+                    <li><strong>Consultanță Personalizată</strong> - te ajutăm să iei cea mai bună decizie</li>
+                    <li><strong>Prețuri Transparente</strong> - fără costuri ascunse</li>
+                </ul>
+            </div>
+
+            <h2>💰 Cât Te Poate Costa o Mașină Neverificată?</h2>
+
+            <p>
+                Să luăm un exemplu real din practica noastră: un client voia să cumpere un BMW Seria 3 din 2018, la prețul de €18,000. Verificarea noastră a costat €450 (Premium Check). Am descoperit:
+            </p>
+
+            <ul>
+                <li>Kilometrii dați înapoi cu aproximativ 120,000 km</li>
+                <li>Accident frontal grav nevăzut (longeron deformat)</li>
+                <li>Probleme la turbină (€2,500 reparație)</li>
+                <li>Sistem dpf înfundat (€1,800 reparație)</li>
+            </ul>
+
+            <p>
+                <strong>Total economii:</strong> Clientul a renunțat la achiziție și a evitat cheltuieli de peste €22,000 (preț mașină + reparații viitoare + depreciere din cauza accidentului). Investiția de €450 i-a salvat peste €21,500!
+            </p>
+
+            <div class="cta-section">
+                <h3>🎯 Programează Verificarea Auto Astăzi!</h3>
+                <p style="color: #ccc; margin-bottom: 2rem;">
+                    Nu lăsa capcanele să te prindă! Investește în siguranță și liniște sufletească.
+                </p>
+                <a href="index.html#contact" class="btn-primary">Contactează-ne Acum</a>
+                <p style="margin-top: 1.5rem; color: var(--mid-gray);">
+                    📞 Sau sună-ne direct pentru consultanță gratuită
+                </p>
+            </div>
+
+            <h2>📚 Resurse Utile pentru Cumpărători</h2>
+
+            <p>Pentru mai multe informații despre verificarea mașinilor second-hand, recomandăm următoarele resurse:</p>
+
+            <ul>
+                <li><a href="https://www.asp.gov.md/ro/servicii/vehicule" target="_blank" class="external-link">ASP Vehicule</a> - verificare ITP și istoric mașină</li>
+                <li><a href="https://www.carvertical.com/ro" target="_blank" class="external-link">CarVertical</a> - rapoarte istoric internațional</li>
+                <li><a href="https://www.autovit.ro/ghid-de-cumparare" target="_blank" class="external-link">Autovit - Ghid Cumpărare Auto</a></li>
+                <li><a href="https://www.autoblog.md" target="_blank" class="external-link">Autoblog.md</a> - știri și informații despre mașini</li>
+            </ul>
+
+            <h2>🎓 Concluzie</h2>
+
+            <p>
+                <strong>Verificarea auto înainte de cumpărare</strong> nu este o cheltuială, ci o investiție care te poate salva de pierderi financiare majore și probleme de siguranță. Cu serviciile profesionale Avangard Autocheck, ai garanția că faci o achiziție informată și sigură.
+            </p>
+
+            <p>
+                Nu uita: o mașină second-hand poate fi o afacere excelentă sau un coșmar financiar - totul depinde de ce ascunde sub capotă și în istoricul său. Lasă-ne pe noi să descoperim adevărul înainte să fie prea târziu!
+            </p>
+
+            <div class="highlight-box">
+                <h4>📱 Urmărește-ne pe Instagram</h4>
+                <p>
+                    Vezi verificările noastre în acțiune! Postăm săptămânal cazuri reale, sfaturi și descoperiri interesante pe <a href="https://www.instagram.com/verificare_auto/" target="_blank" class="external-link">@verificare_auto</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="related-articles">
+        <div class="article-container">
+            <h2 class="section-title" style="font-family: 'Bebas Neue', sans-serif; font-size: 3rem; text-align: center; margin-bottom: 3rem; background: linear-gradient(135deg, #1E88E5 0%, #4CAF50 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                ARTICOLE RECOMANDATE
+            </h2>
+        </div>
+        <div class="related-grid">
+            <div class="related-card">
+                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600" alt="Mașină import">
+                <div class="related-card-content">
+                    <h3>Top 10 Semne că o Mașină are Kilometri Dați Înapoi</h3>
+                    <p>Descoperă indiciile pe care vânzătorii speră că nu le vei observa.</p>
+                </div>
+            </div>
+            <div class="related-card">
+                <img src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=600" alt="Diagnostic auto">
+                <div class="related-card-content">
+                    <h3>Cum să Eviți Mașinile Înecate din Import</h3>
+                    <p>Ghid complet pentru identificarea vehiculelor afectate de inundații.</p>
+                </div>
+            </div>
+            <div class="related-card">
+                <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600" alt="Verificare caroserie">
+                <div class="related-card-content">
+                    <h3>Verificarea Grosimii Vopselei: Ghid Complet</h3>
+                    <p>Află cum să detectezi elementele vopsite și accidentele ascunse.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+<footer>
+        <div id="copyNotification" class="copy-notification">
+        ✓ Email copiat!
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>AVANGARD AUTOCHECK</h3>
+                <p>Servicii profesionale de inspecție și diagnostic auto. Protejează-ți investiția cu expertiză de încredere.</p>
+                <div class="social-links">
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>SERVICII</h3>
+                <a href="#servicii">Inspecție Completă</a>
+                <a href="#servicii">Diagnostic Computerizat</a>
+                <a href="#servicii">Test Drive Expert</a>
+                <a href="#servicii">Evaluare Caroserie</a>
+                <a href="#servicii">Pre-Cumpărare Check</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>LINK-URI UTILE</h3>
+                <a href="#home">Home</a>
+                <a href="#servicii">Servicii</a>
+                <a href="#preturi">Prețuri</a>
+                <a href="#reviews">Reviews</a>
+                <a href="#contact">Contact</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>CONTACT</h3>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4e7.svg" alt="Email" width="22" height="22">
+ <a href="#" class="copy-email" data-email="avangardautocheck@gmail.com" onclick="copyToClipboard(event, 'avangardautocheck@gmail.com', 'Email')"><span class="__cf_email__" data-cfemail="157463747b727467717460617a767d70767e557278747c793b767a78">[email&#160;protected]</span></a></p>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4de.svg" alt="Telefon" width="22" height="22">
+ <a href="#" class="copy-email" onclick="copyToClipboard(event, '069 448 878', 'Telefon')">069 448 878</a></p>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/1f4f1.svg" alt="Instagram" width="22" height="22">
+ <span><a href="https://www.instagram.com/verificare_auto" target="_blank">@verificare_auto</a></p></span></p>
+                <p><img src="https://twemoji.maxcdn.com/v/latest/svg/23f0.svg" alt="Program" width="22" height="22">
+ Luni - Duminică: 09:00 - 18:00</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Avangard Autocheck. Toate drepturile rezervate.</p>
+        </div>
+    </footer>
+    <script>
+        // Mobile menu
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        const navLinksEl = document.querySelector('.nav-links');
+        if (mobileBtn && navLinksEl) {
+            mobileBtn.addEventListener('click', function() {
+                const isOpen = navLinksEl.classList.contains('open');
+                navLinksEl.classList.toggle('open');
+                this.innerHTML = isOpen ? '☰' : '✕';
+                document.body.style.overflow = isOpen ? '' : 'hidden';
+            });
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinksEl.classList.remove('open');
+                    mobileBtn.innerHTML = '☰';
+                    document.body.style.overflow = '';
+                });
+            });
+            window.addEventListener('scroll', () => {
+                if (navLinksEl.classList.contains('open')) {
+                    navLinksEl.classList.remove('open');
+                    mobileBtn.innerHTML = '☰';
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        // Copy email to clipboard
+        function copyToClipboard(event, text, label) {
+            event.preventDefault();
+            const notification = document.getElementById('copyNotification');
+            notification.innerHTML = '&#10003; ' + label + ' copiat!';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => showNotification(notification)).catch(() => fallbackCopy(text, notification));
+            } else { fallbackCopy(text, notification); }
+        }
+
+        function fallbackCopy(text, notification) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.top = '0';
+            textarea.style.left = '0';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            textarea.setSelectionRange(0, text.length);
+            let success = false;
+            try { success = document.execCommand('copy'); } catch(err) { success = false; }
+            document.body.removeChild(textarea);
+            if (success) { showNotification(notification); } else { alert('Copiază manual: ' + text); }
+        }
+
+        function showNotification(notification) {
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2500);
+        }
+        </script>
+</body>
+</html>
