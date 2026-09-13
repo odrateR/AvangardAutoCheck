@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avangard Autocheck | Inspecții Auto Profesionale</title>
-	 <!-- Meta Pixel Code -->
+
+    <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -20,6 +21,7 @@
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=1394327318816006&ev=PageView&noscript=1"
     /></noscript>
+    <!-- End Meta Pixel Code -->
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -271,10 +273,10 @@
         }
 
         .services-grid {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
         }
 
@@ -343,6 +345,95 @@
     letter-spacing: 1px;
 }
 
+        /* === Checklist inspecție === */
+        .checklist-section {
+            padding: 6rem 2rem;
+            background: var(--dark-bg);
+        }
+
+        .checklist-intro {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            color: #ccc;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .checklist-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.2rem 1.5rem;
+            background: var(--darker-bg);
+            border: 1px solid var(--border-gray);
+            transition: all 0.3s ease;
+        }
+
+        .checklist-item:hover {
+            border-color: var(--primary-green);
+            transform: translateX(5px);
+        }
+
+        .checklist-check {
+            flex-shrink: 0;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #fff;
+            margin-top: 2px;
+        }
+
+        .checklist-item-text strong {
+            display: block;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #fff;
+            margin-bottom: 0.2rem;
+            letter-spacing: 0.3px;
+        }
+
+        .checklist-item-text span {
+            color: #999;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .checklist-footer {
+            text-align: center;
+            margin: 3rem auto 0;
+            max-width: 700px;
+            padding: 1.5rem 2rem;
+            border: 2px solid var(--primary-blue);
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.1) 0%, rgba(76, 175, 80, 0.1) 100%);
+        }
+
+        .checklist-footer .big {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
 
         .pricing {
             padding: 6rem 2rem;
@@ -820,11 +911,11 @@
                 padding: 1rem 1.5rem; font-size: 0.95rem;
             }
 
-            .services-preview, .pricing, .reviews, .contact { padding: 3rem 1.2rem; }
+            .services-preview, .pricing, .reviews, .contact, .checklist-section { padding: 3rem 1.2rem; }
             .section-title { font-size: 2rem; }
             .section-subtitle { font-size: 0.93rem; margin-bottom: 2rem; }
 
-            .services-grid, .pricing-grid, .testimonials-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+            .services-grid, .pricing-grid, .testimonials-grid, .checklist-grid { grid-template-columns: 1fr; gap: 1.2rem; }
             .service-card, .pricing-card { padding: 1.8rem 1.4rem; }
             .pricing-card.featured { transform: scale(1); }
             .pricing-card .price { font-size: 2.8rem; }
@@ -997,13 +1088,13 @@ Oferim ghidaj complet, de la:<br>
                 </div>
             </div>
         </section>
- 
+
         <section id="checklist" class="checklist-section">
             <h2 class="section-title">CE VERIFICĂM ÎN CADRUL INSPECȚIEI</h2>
             <p class="checklist-intro">
                 Peste 200 de puncte verificate cu echipamente profesionale, pentru o imagine completă și corectă a stării reale a mașinii.
             </p>
- 
+
             <div class="checklist-grid">
                 <div class="checklist-item">
                     <div class="checklist-check">✓</div>
@@ -1118,7 +1209,7 @@ Oferim ghidaj complet, de la:<br>
                     </div>
                 </div>
             </div>
- 
+
             <div class="checklist-footer">
                 <span class="big">200+ PUNCTE VERIFICATE</span>
                 <span style="color: #ccc;">O singură inspecție pentru a afla starea reală a mașinii.</span>
@@ -1431,7 +1522,7 @@ Oferim ghidaj complet, de la:<br>
             });
         }, observerOptions);
 
-        document.querySelectorAll('.service-card, .pricing-card, .testimonial, .instagram-post').forEach(el => {
+        document.querySelectorAll('.service-card, .pricing-card, .testimonial, .instagram-post, .checklist-item').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
