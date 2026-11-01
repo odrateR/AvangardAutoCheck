@@ -1131,6 +1131,30 @@
     .partner-text { font-size: 2.6rem; }
 }
 
+
+        /* carVertical — secțiune afiliată */
+        .vin-section { padding: 6rem 2rem; background: linear-gradient(145deg,#090f17,#0d1c29 55%,#08150e); scroll-margin-top: 85px; }
+        .vin-container { max-width: 1050px; margin: auto; display: grid; grid-template-columns: 1.05fr .95fr; gap: 3rem; align-items: center; }
+        .vin-kicker { color: #76d49c; font-family: 'Rajdhani',sans-serif; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: .8rem; }
+        .vin-section h2 { font-family: 'Bebas Neue',sans-serif; font-size: clamp(2.4rem,4.5vw,4rem); line-height: 1.05; margin-bottom: 1.2rem; }
+        .vin-section h2 span { color: #66BB6A; }
+        .vin-lead { color: #c7d0d7; line-height: 1.75; margin-bottom: 1.5rem; }
+        .vin-benefits { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; margin-bottom: 1.2rem; }
+        .vin-benefits li { color: #e0e5e9; font-size: .94rem; }
+        .vin-benefits li::before { content:'✓'; color: #66BB6A; margin-right: .6rem; font-weight: bold; }
+        .vin-panel { padding: 2.2rem; background: #0a0a0a; border: 1px solid #254434; box-shadow: 0 16px 50px rgba(0,0,0,.3); }
+        .vin-panel h3 { font-family: 'Rajdhani',sans-serif; font-size: 1.6rem; margin-bottom: .5rem; }
+        .vin-panel p { color: #afb7ba; line-height: 1.55; margin-bottom: 1.3rem; }
+        .vin-panel label { display: block; margin-bottom: .6rem; font-size: .92rem; font-weight: 600; }
+        .vin-panel input { width: 100%; padding: 1rem; color: white; background: #141c20; border: 1px solid #3b4a4b; font: inherit; margin-bottom: 1rem; border-radius: 0; }
+        .vin-panel input:focus { outline: 2px solid #1E88E5; outline-offset: 1px; }
+        .vin-panel .btn-primary { width: 100%; text-align: center; }
+        .vin-alt-link { display: inline-block; margin-top: 1rem; color: #84bdff; text-underline-offset: 3px; }
+        .vin-note { margin-top: 1.4rem; font-size: .8rem; color: #9faeaa; line-height: 1.6; }
+        .vin-voucher { display: inline-block; border: 1px dashed #66BB6A; padding: .5rem .85rem; font-weight: 700; color: #d1f2d5; margin-top: .4rem; letter-spacing: 1px; }
+        @media(max-width:768px) { .vin-section { padding: 3.5rem 1.2rem; } .vin-container { grid-template-columns: 1fr; gap: 1.5rem; } .vin-panel { padding: 1.5rem; } }
+        @media(max-width:480px) { .vin-benefits { grid-template-columns: 1fr; } }
+
         html { scroll-behavior: smooth; }
     </style>
 </head>
@@ -1148,6 +1172,7 @@
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#servicii">Servicii</a></li>
+            <li><a href="#verificare-vin">Verificare VIN</a></li>
             <li><a href="#preturi">Prețuri</a></li>
             <li><a href="blog.html">Blog</a></li> <!-- LINK NOU CĂTRE BLOG -->
             <li><a href="#reviews">Reviews</a></li>
@@ -1233,6 +1258,37 @@ Oferim ghidaj complet, de la:<br>
 ✔️ transport<br>
 ✔️ până la primirea autoturismului</p>
                     <div class="service-price">499 €</div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- carVertical: verificare istoric auto prin link afiliat -->
+        <section id="verificare-vin" class="vin-section" aria-labelledby="vin-heading">
+            <div class="vin-container">
+                <div>
+                    <div class="vin-kicker">AVANGARD AUTOCHECK × carVertical</div>
+                    <h2 id="vin-heading">VERIFICĂ <span>ISTORICUL AUTO</span></h2>
+                    <p class="vin-lead">Înainte să cumperi o mașină, consultă istoricul disponibil prin carVertical. Raportul poate completa inspecția tehnică efectuată de Avangard Autocheck.</p>
+                    <ul class="vin-benefits">
+                        <li>Înregistrări de kilometraj</li>
+                        <li>Daune raportate</li>
+                        <li>Fotografii istorice disponibile</li>
+                        <li>Informații despre vehicul</li>
+                    </ul>
+                    <p class="vin-lead" style="font-size:.93rem;margin-bottom:.45rem">Voucher oferit de carVertical partenerilor Avangard Autocheck:</p>
+                    <span class="vin-voucher">AVANGARD</span>
+                </div>
+                <div class="vin-panel">
+                    <h3>Verifică o mașină</h3>
+                    <p>Introdu VIN-ul (seria de șasiu) sau numărul de înmatriculare, apoi continuă pe site-ul carVertical.</p>
+                    <form id="vin-affiliate-form" action="https://www.carvertical.deal/3CNCL8B/66RQ8Q/" method="get" target="_blank">
+                        <label for="vin-affiliate-input">VIN sau număr de înmatriculare</label>
+                        <input id="vin-affiliate-input" name="vehicle" type="text" maxlength="32" placeholder="Ex.: WVGZZZ1TZKW000001" autocomplete="off" required>
+                        <button class="btn-primary" type="submit">VERIFICĂ ISTORICUL</button>
+                    </form>
+                    <a class="vin-alt-link" href="https://www.carvertical.deal/3CNCL8B/66RQ8Q/?source_id=AFF&amp;sub1=avangard" target="_blank" rel="noopener noreferrer sponsored">Nu ai VIN-ul? Continuă fără cod</a>
+                    <div class="vin-note">Serviciul și plata raportului sunt furnizate de carVertical. Informațiile pot varia în funcție de automobil și sursele disponibile. Linkurile sunt de afiliere: putem primi un comision dacă achiziționezi un raport.</div>
                 </div>
             </div>
         </section>
@@ -1414,7 +1470,7 @@ Oferim ghidaj complet, de la:<br>
                     </div>
 
                     <div class="partner-slide">
-                        <a class="partner-card" href="https://www.carvertical.com/md" target="_blank" rel="noopener">
+                        <a class="partner-card" href="https://www.carvertical.deal/3CNCL8B/66RQ8Q/?source_id=AFF&amp;sub1=avangard" target="_blank" rel="noopener noreferrer sponsored">
                             <div class="partner-logo light">
                                 <img src="carvertical.png" alt="carVertical">
                             </div>
@@ -1769,6 +1825,30 @@ Oferim ghidaj complet, de la:<br>
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(el);
         });
+
+
+        // Construim linkul oficial cu VIN/număr în parametrul sub3.
+        (function () {
+            const form = document.getElementById('vin-affiliate-form');
+            if (!form) return;
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const vehicle = document.getElementById('vin-affiliate-input').value.trim();
+                if (!vehicle) return;
+                const url = new URL('https://www.carvertical.deal/3CNCL8B/66RQ8Q/');
+                url.searchParams.set('uid', '69');
+                url.searchParams.set('source_id', 'AFF');
+                url.searchParams.set('sub1', 'avangard');
+                url.searchParams.set('sub3', vehicle);
+                const link = document.createElement('a');
+                link.href = url.toString();
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer sponsored';
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+            });
+        })();
 
         // Mobile menu
         const mobileBtn = document.querySelector('.mobile-menu-btn');
