@@ -1,0 +1,22 @@
+/* The booking action should read clearly at a glance. */
+.site-header .header-cta {
+  font-size: 17px;
+  font-weight: 750;
+  letter-spacing: .01em;
+  gap: 22px;
+  min-height: 52px;
+  padding: 14px 20px;
+}
+
+.site-header .header-cta span {
+  font-size: 24px;
+}
+
+@media (max-width: 1150px) and (min-width: 901px) {
+  .site-header .header-cta {
+    font-size: 14px;
+    gap: 12px;
+    min-height: 48px;
+    padding: 12px 14px;
+  }
+}

@@ -1,0 +1,118 @@
+/* Shared dark palette for the landing page, journal and legal pages. */
+:root {
+  color-scheme: dark;
+  --ink: #080e14;
+  --paper: #eff4f7;
+  --muted: #97a6b4;
+  --line: #28343e;
+  --dark-line: #24313c;
+  --surface: #101923;
+  --surface-raised: #16222e;
+  --primary-blue: #299bea;
+  --primary-green: #6bc67a;
+}
+body { background: var(--ink); }
+.section-light, .interior-page { background: #0d151e; color: var(--paper); }
+.services, .pricing, .journal { background: #0d151e; }
+.process, .partners, .faq { background: #101923; }
+.section-light em { color: var(--primary-blue); }
+.heading-row > p, .process-steps p, .service-body > p, .faq-list p,
+.page-intro > p:last-child, .article-meta, .legal-content p,
+.article-sidebar nav a, .breadcrumbs { color: #abb9c6; }
+.service-item { border-color: var(--line); }
+.service-item .item-number, .service-price { color: #a9b8c7; }
+.image-index { background: #14232e; color: #c6d8e5; }
+.service-list .plus::before, .service-list .plus::after,
+.faq-list .plus::before, .faq-list .plus::after { background: #abb9c6; }
+.inline-link:hover, .text-link:hover, .article-sidebar nav a:hover { color: var(--primary-green); }
+.button-primary { background: #238ed2; color: #fff; }
+.button-primary:hover { background: #32a4eb; color: #fff; }
+.button-outline { color: var(--paper); border-color: #42586a; }
+.button-outline:hover { background: #203442; border-color: var(--primary-blue); }
+.skip-link, .toast { background: #192b38; color: var(--paper); }
+.price-card { background: #131f2a; border: 1px solid #2b3c4b; box-shadow: none; }
+.price-card::before { background: linear-gradient(90deg, #2a97d9, #31546c); }
+.price-card h3, .price-card .price .price-amount, .price-card .price-unit b { color: var(--paper); }
+.price-card > .eyebrow { background: #1d3141; color: #8bc8f5; }
+.price-card > p:not(.eyebrow), .price-card .price .price-unit,
+.price-card .price-unit i { color: #aebdcc; }
+.price-card .check-list li { color: #c5d1dc; border-color: #2b3c4b; }
+.price-card .check-list li::before { color: var(--primary-green); }
+.price-card.featured { background: linear-gradient(155deg, #15394b, #102533 65%); border: 1px solid #45866e; border-top: 6px solid #6bc67a; box-shadow: 0 18px 48px #0004; }
+.price-card.featured::after { background: #203f49; border-color: #527968; }
+.price-card.featured .button-primary { background: #6bc67a; color: #09190f; }
+.price-card.featured .button-primary:hover { background: #8bdda0; }
+.promo-strip { background: #152a26; color: var(--paper); border: 1px solid #34564b; }
+.promo-value { background: #173f37; color: #8cdda0; }
+.promo-strip p, .promo-strip p strong { color: #d5e3dc; }
+.promo-strip code { background: #0b1b19; color: #8cdda0; border-color: #34564b; }
+.promo-strip .inline-link { background: #22473c; color: #d8f1df; }
+.partners { border-color: var(--line); }
+.partner-list .partner-tile { background: #14212b; border-color: #2a3e4d; box-shadow: none; }
+.partner-list .partner-tile:hover, .partner-list .partner-tile:focus-visible { background: #1a2b38; box-shadow: 0 12px 28px #0003; }
+.partner-list .partner-tile > span:not(.inline) { color: #d4dfe8; }
+.partner-list .partner-tile > small, .partner-list .partner-tile > span > i { color: #9eafbe; }
+.partner-list .partner-wordmark.aquaart > span, .partner-list .partner-wordmark.retus > span,
+.partner-list .partner-tile::after { color: #8bc8f5; }
+.partner-tile img { filter: brightness(.87); mix-blend-mode: screen; }
+.partner-tile img[src$="partner-carvertical.png"],
+.partner-tile img[src$="partner-asterra.png"],
+.partner-tile img[src$="partner-maib.png"] { filter: invert(1) hue-rotate(180deg); mix-blend-mode: screen; }
+.journal-card .eyebrow { color: #98b3a2; }
+.blog-feature { background: #15232e; border: 1px solid var(--line); }
+.blog-filters button { color: #c7d5e1; background: #14222e; }
+.blog-filters button[aria-pressed=true] { color: #091910; background: #6bc67a; border-color: #6bc67a; }
+.blog-cta, .reading-note { background: #172935; color: #c7d5e1; }
+.article-body { color: #c1ced9; }
+.article-body h2, .article-body h3, .article-body h4 { color: var(--paper); }
+.article-body blockquote, .article-body .highlight-box, .article-body .warning-box,
+.article-body .info-box, .article-body .tip-box, .article-body .important-box { background: #162936; }
+.article-body table { display: block; max-width: 100%; overflow-x: auto; }
+.contact-form { min-width: 0; }
+.contact-form input:not([type=checkbox]), .contact-form textarea, .contact-form select { background: #101b25; border: 1px solid #344655; padding: 12px 13px; }
+.contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus { border-color: #6bc67a; }
+.contact-form .consent > span { color: #b8c6d2; }
+.contact-form .honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.button:disabled { opacity: .65; transform: none; cursor: wait; }
+#form-result[data-state=success] { color: #a2e5b2; border-color: #477c58; }
+#form-result[data-state=error] { color: #ffc2ae; border-color: #915b4a; }
+.form-row > label { min-width: 0; }
+.contact-links a { overflow-wrap: anywhere; }
+
+/* carVertical history lookup, based on the supplied Avangard reference. */
+.vin-section { padding: 90px 0; background: radial-gradient(ellipse at 14% 35%, #12334655, transparent 60%), #0b1720; border-block: 1px solid #223a40; }
+.vin-layout { display: grid; grid-template-columns: 1.12fr 1fr; align-items: center; gap: 70px; }
+.vin-kicker { color: #6bd49b; font-size: 11px; letter-spacing: .16em; font-weight: 800; margin-bottom: 18px; }
+.vin-copy h2 { font-size: clamp(42px, 4.6vw, 68px); text-transform: uppercase; font-weight: 700; letter-spacing: -.025em; margin-bottom: 28px; }
+.vin-copy h2 span { color: #6bc67a; }
+.vin-lead { color: #c3d4e2; font-size: 14px; line-height: 1.9; max-width: 560px; }
+.vin-benefits { list-style: none; padding: 0; margin: 24px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; font-size: 13px; }
+.vin-benefits li { display: flex; gap: 10px; align-items: baseline; }
+.vin-benefits li::before { content: '✓'; color: #6bc67a; font-size: 18px; }
+.vin-voucher-label { font-size: 12px; color: #bbccda; margin-bottom: 13px; }
+.vin-voucher { display: inline-flex; border: 1px dashed #6bc67a; padding: 9px 14px; color: #cef3db; font-size: 15px; font-weight: 800; letter-spacing: .04em; }
+.vin-card { background: #090d10; border: 1px solid #304e42; padding: 32px; min-width: 0; box-shadow: 0 22px 65px #0002; }
+.vin-card h3 { font-size: 23px; margin-bottom: 10px; }
+.vin-card > p { color: #b7c9d8; font-size: 13px; line-height: 1.8; margin-bottom: 22px; }
+.vin-card label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 9px; }
+.vin-card input { width: 100%; background: #152025; border: 1px solid #3c5053; padding: 16px; color: #eff4f7; font-size: 15px; border-radius: 0; }
+.vin-card input::placeholder { color: #8c9da9; }
+.vin-card .button { width: 100%; justify-content: center; font-family: var(--display); font-size: 16px; font-weight: 600; letter-spacing: .065em; margin-top: 16px; color: #fff; background: linear-gradient(100deg, #218fda, #4cae60); box-shadow: 0 10px 27px #1d89cc25; }
+.vin-card .button:hover { filter: brightness(1.12); }
+.vin-alt-link { display: inline-block; font-size: 13px; color: #89c7ff; text-decoration: underline; text-underline-offset: 3px; margin-top: 15px; }
+.vin-note { font-size: 10px; color: #9fb9c9; line-height: 1.9; margin-top: 21px; }
+.vin-card input[aria-invalid=true] { border-color: #d58b72; }
+.vin-error { color: #ffc2ae; font-size: 12px; margin-top: 9px; }
+@media (max-width: 1150px) { .vin-layout { gap: 40px; } .vin-card { padding: 28px; } }
+@media (max-width: 900px) { .vin-layout { grid-template-columns: 1fr 1fr; gap: 25px; } .vin-benefits { grid-template-columns: 1fr; gap: 7px; } .vin-copy h2 { font-size: 44px; } .vin-card { padding: 25px; } }
+@media (max-width: 640px) {
+  .vin-section { padding: 60px 0; }
+  .vin-layout { grid-template-columns: 1fr; gap: 30px; }
+  .vin-copy h2 { font-size: clamp(40px, 10.5vw, 60px); margin-bottom: 22px; }
+  .vin-kicker { font-size: 9px; }
+  .vin-benefits { grid-template-columns: 1fr 1fr; gap: 10px 16px; font-size: 11px; }
+  .vin-card { padding: 24px 20px; }
+  .vin-card input { font-size: 16px; }
+  .vin-lead { font-size: 13px; }
+  .form-row { grid-template-columns: 1fr; gap: 0; }
+}
