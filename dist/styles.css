@@ -83,7 +83,7 @@
 .price-card .check-list li:before{color:#287D2B}
 .price-card .button{margin-top:auto;min-height:52px;padding:14px 17px;font-size:11px}
 .price-card.featured{position:relative;z-index:2;transform:translateY(-12px);background:#0D47A1;border:0;border-top:6px solid #4CAF50;color:#fff;padding:64px 32px 32px;box-shadow:0 24px 56px #0D47A135}
-.price-card.featured:after{content:'99 €';position:absolute;right:18px;top:53px;font:600 10px/1 var(--body);color:#fff;background:#ffffff20;border:1px solid #ffffff45;border-radius:999px;padding:8px 12px;letter-spacing:.03em}
+.price-card.featured:after{content:'69 €';position:absolute;right:18px;top:53px;font:600 10px/1 var(--body);color:#fff;background:#ffffff20;border:1px solid #ffffff45;border-radius:999px;padding:8px 12px;letter-spacing:.03em}
 .price-card.featured:hover{transform:translateY(-17px)}
 .price-card.featured>.eyebrow{background:#ffffff18;color:#e0f1ff;margin-bottom:19px}
 .price-card.featured h3{font-size:28px;color:#fff}

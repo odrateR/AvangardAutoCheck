@@ -50,6 +50,8 @@ body { background: var(--ink); }
 .partners { border-color: var(--line); }
 .partner-list .partner-tile { background: #14212b; border-color: #2a3e4d; box-shadow: none; }
 .partner-list .partner-tile:hover, .partner-list .partner-tile:focus-visible { background: #1a2b38; box-shadow: 0 12px 28px #0003; }
+.partner-list { align-items: stretch; grid-auto-rows: 1fr; }
+.partner-list .partner-tile { height: 180px; min-height: 0; margin: 0; }
 .partner-list .partner-tile > span:not(.inline) { color: #d4dfe8; }
 .partner-list .partner-tile > small, .partner-list .partner-tile > span > i { color: #9eafbe; }
 .partner-list .partner-wordmark.aquaart > span, .partner-list .partner-wordmark.retus > span,
@@ -78,6 +80,37 @@ body { background: var(--ink); }
 #form-result[data-state=error] { color: #ffc2ae; border-color: #915b4a; }
 .form-row > label { min-width: 0; }
 .contact-links a { overflow-wrap: anywhere; }
+
+/* Give the inspection details and closing message room to be read. */
+.inspection .section-heading > .eyebrow { font-size: 13px; color: #d0ecdc; }
+.inspection .heading-row h2 { font-size: clamp(48px, 5.6vw, 80px); }
+.inspection .heading-row > p { font-size: 16px; max-width: 370px; color: #c3d1de; }
+.inspection-tabs button { font-size: 16px; min-width: 42px; padding: 14px 6px; color: #aab9c6; }
+.inspection .panel-label { font-size: 13px; }
+.inspection-info h3 { font-size: clamp(54px, 5.2vw, 76px); }
+.inspection .panel-description { font-size: 16px; line-height: 1.85; max-width: 520px; color: #c3d1de; }
+.inspection .check-list li { font-size: 14px; line-height: 1.8; color: #d3dde6; }
+.inspection .report-note p { font-size: 13px; color: #b6c8ba; }
+.inspection .report-note strong { font-size: 15px; color: #e1ede4; font-weight: 650; }
+.inspection .scan-topline, .inspection .scan-bottomline { font-size: 9px; color: #b7c6bd; }
+.inspection .scan-topline > span:last-child { font-size: 9px; }
+.footer-top > p { font-family: var(--display); font-size: clamp(28px, 2.7vw, 40px); font-weight: 600; line-height: 1.2; letter-spacing: -.01em; color: var(--paper); flex-shrink: 0; }
+@media (max-width: 1000px) {
+  .footer-top { flex-wrap: wrap; }
+  .footer-top > p { order: 2; flex: 1 0 100%; }
+}
+@media (max-width: 900px) {
+  .partner-list .partner-tile { height: 160px; }
+}
+@media (max-width: 640px) {
+  .partner-list .partner-tile { height: 150px; }
+  .partner-list .partner-tile.partner-wordmark > span { font-size: clamp(20px, 5.8vw, 25px); }
+  .inspection .section-heading > .eyebrow { font-size: 11px; }
+  .inspection .heading-row h2 { font-size: 48px; }
+  .inspection-info h3 { font-size: 56px; }
+  .inspection .scan-topline > span:last-child { font-size: 7px; }
+  .footer-top > p { font-size: 32px; }
+}
 
 /* carVertical history lookup, based on the supplied Avangard reference. */
 .vin-section { padding: 90px 0; background: radial-gradient(ellipse at 14% 35%, #12334655, transparent 60%), #0b1720; border-block: 1px solid #223a40; }
