@@ -1,5 +1,21 @@
 # Cloudflare deployment
 
+## Connected projects discovered after pushing
+
+GitHub currently triggers two independent Cloudflare builds for this repository:
+
+- **Workers Builds: avatest** deployed commit `025f0cd` successfully.
+- **Cloudflare Pages: avangardautocheck** reported a failed build for that commit.
+  Its [build logs](https://dash.cloudflare.com/?to=/d1d44b48c0e5d4676e64334034e1132d/pages/view/avangardautocheck/29489f69-16f2-4380-81cd-b7843bb1ac69)
+  require Cloudflare account access, which is unavailable on this workstation.
+
+The public domain was still serving the previous design after that build. If
+the domain uses Pages, apply the Pages settings below and redeploy that project.
+The Pages Functions bundle was also compiled successfully locally with
+`nodejs_compat`. The remote Pages failure's exact cause could not be determined
+without its private build logs; check the build command, output directory,
+Node version and compatibility settings below.
+
 The site uses Cloudflare Workers with Static Assets. The existing Cloudflare
 autoconfiguration branch named the Worker `avatest`; that name is preserved in
 `wrangler.jsonc`. Static assets are limited to `dist/` so server files and local
@@ -57,11 +73,11 @@ This workstation is not logged into Cloudflare, so the production secrets and
 dashboard build settings could not be set or inspected from here. The existing
 Git connection deploys after a push once these settings are correct.
 
-## If the existing project is Cloudflare Pages
+## Cloudflare Pages: avangardautocheck
 
 Keep the same repository and production branch. Set the framework preset to
 **None**, build command to `npm run build`, output directory to `dist`, root to
-the repository root, and enable the `nodejs_compat` compatibility flag with a
+the repository root, Node version to **22** or newer, and enable the `nodejs_compat` compatibility flag with a
 compatibility date of `2026-10-01` or later. Put the same SMTP secrets in the
 Pages production environment and redeploy. `functions/api/contact.js` exposes
 the shared contact handler for Pages.
