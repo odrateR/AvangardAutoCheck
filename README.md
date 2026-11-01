@@ -24,9 +24,10 @@ local development. Never commit credentials.
 
 ## Cloudflare
 
-The repository is configured for the existing Git-connected Cloudflare Worker
-with Static Assets. See [CLOUDFLARE.md](CLOUDFLARE.md) for exact build settings,
-SMTP secrets, the optional Pages setup and verification commands.
+The production site is deployed through the existing Git-connected Cloudflare
+Pages project `avangardautocheck`. Its build settings and Node compatibility
+are configured in Cloudflare. The separate `avatest` Worker is also retained.
+See [CLOUDFLARE.md](CLOUDFLARE.md) for the active settings and verification commands.
 
 **Email activation still requires a fresh Gmail app password in Cloudflare.**
 The original password found in the repository history was rejected by Gmail.
