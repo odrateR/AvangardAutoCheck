@@ -1,0 +1,19 @@
+{
+  "name": "avangard-autocheck-redesign",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs",
+    "build": "node generate-pages.mjs",
+    "check": "node --check dist/app.js && node --check server.mjs && node --check api/contact.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "nodemailer": "^10.3.1"
+  }
+}
