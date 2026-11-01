@@ -1,4 +1,5 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, readdir, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 const index = await readFile('dist/index.html', 'utf8');
 const articles = JSON.parse(await readFile('content/articles.json', 'utf8'));
 const header = index.match(/<header class="site-header">[\s\S]*?<\/header>/)[0].replaceAll('href="#', 'href="index.html#');
@@ -32,4 +33,15 @@ const origin = (process.env.PUBLIC_SITE_URL || 'https://avangardautocheck.com').
 const routes = ['index.html', 'blog.html', ...articles.map(a => a.slug), 'confidentialitate.html'];
 await writeFile('dist/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map(route => `<url><loc>${origin}/${route === 'index.html' ? '' : route}</loc></url>`).join('')}</urlset>`);
 await writeFile('dist/robots.txt', `User-agent: *\nAllow: /\nSitemap: ${origin}/sitemap.xml\n`);
-console.log(`Generated blog, ${articles.length} articles, privacy, sitemap and robots.`);
+// A new content version bypasses browsers holding the previous deployment's CSS.
+const versionedAssets = ['styles.css', 'topbar.css', 'dark.css', 'app.js'];
+const assetVersions = new Map(await Promise.all(versionedAssets.map(async asset => [
+  asset, createHash('sha256').update(await readFile('dist/' + asset)).digest('hex').slice(0, 12)
+])));
+for (const file of (await readdir('dist')).filter(file => file.endsWith('.html'))) {
+  const html = await readFile('dist/' + file, 'utf8');
+  const versioned = html.replace(/((?:href|src)=")(styles\.css|topbar\.css|dark\.css|app\.js)(?:\?v=[a-f0-9]+)?(")/g,
+    (_, prefix, asset, suffix) => `${prefix}${asset}?v=${assetVersions.get(asset)}${suffix}`);
+  if (versioned !== html) await writeFile('dist/' + file, versioned);
+}
+console.log(`Generated blog, ${articles.length} articles, privacy, sitemap, robots and versioned asset links.`);

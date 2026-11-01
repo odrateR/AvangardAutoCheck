@@ -1,5 +1,32 @@
 import { test, expect } from '@playwright/test';
 
+test('partner borders stay equal and aligned on hover, and inspection checks remain readable', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  for (const width of [1440, 768, 390, 320]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto('/');
+    await page.locator('#parteneri').scrollIntoViewIfNeeded();
+    await page.locator('.partner-tile').first().hover();
+    await expect(page.locator('.partner-tile').first()).toHaveCSS('transform', 'none');
+    const boxes = await page.locator('.partner-tile').evaluateAll(nodes => nodes.map(el => {
+      const { width, height, top } = el.getBoundingClientRect(); return { width, height, top };
+    }));
+    expect(boxes).toHaveLength(8);
+    for (const box of boxes) {
+      expect(Math.abs(box.width - boxes[0].width)).toBeLessThan(1);
+      expect(box.height).toBe(boxes[0].height);
+    }
+    const columns = width <= 640 ? 2 : 4;
+    for (let index = 0; index < boxes.length; index += columns) {
+      expect(boxes.slice(index, index + columns).every(box => box.top === boxes[index].top)).toBe(true);
+    }
+    await expect(page.locator('#inspection-panel li').first()).toHaveCSS('font-size', '20px');
+    await expect(page.locator('#inspection-panel li').first()).toHaveCSS('color', 'rgb(239, 244, 247)');
+    expect(await page.locator('link[href*="dark.css"]').getAttribute('href')).toMatch(/^dark\.css\?v=[a-f0-9]{12}$/);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  }
+});
+
 test('landing page is dark and fits desktop, tablet and mobile viewports', async ({ page }) => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
