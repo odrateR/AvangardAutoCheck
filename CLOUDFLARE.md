@@ -34,6 +34,16 @@ its dependencies. Only `dist/` is published as static files; source files and
 local credentials stay outside the published directory. The shared contact
 handler is exposed by `functions/api/contact.js`.
 
+Editable HTML, CSS and JavaScript live in `src/`; images, fonts and static
+hosting settings live in `public/`. `npm run build` recreates the ignored
+`dist/` directory from those sources and `content/articles.json`. Do not edit
+generated files. CSS and JavaScript are minified and use content-hashed
+filenames for long-lived caching. The Pages `_routes.json` invokes Functions
+only for `/api/*`, so static page and asset requests bypass the email function.
+
+`npm run deploy` builds and deploys to this Pages project. The separate Worker
+has its own explicit `npm run deploy:worker` command.
+
 ## Separate Worker: avatest
 
 The same repository also has an existing Git-connected `avatest` Worker.
@@ -139,13 +149,14 @@ Requires Node.js 22 or newer.
 
 ```powershell
 npm ci
-npm run build
 npm run dev
 ```
 
 Open http://127.0.0.1:4173. The dev command uses the separate Worker config to
 exercise the same shared contact handler. Development-only Resend settings
 belong in ignored `.dev.vars`, never in Git.
+`npm start` uses the same runtime. After editing source, run `npm run build`
+while the preview is running to refresh the generated assets.
 
 ## Verification
 
@@ -153,6 +164,7 @@ belong in ignored `.dev.vars`, never in Git.
 npm run check
 npm test
 npm run test:browser
+npm run build
 npx wrangler deploy --dry-run
 npx wrangler pages functions build --outdir .wrangler/pages-check
 ```

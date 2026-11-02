@@ -22,7 +22,8 @@ test('partner borders stay equal and aligned on hover, and inspection checks rem
     }
     await expect(page.locator('#inspection-panel li').first()).toHaveCSS('font-size', '20px');
     await expect(page.locator('#inspection-panel li').first()).toHaveCSS('color', 'rgb(239, 244, 247)');
-    expect(await page.locator('link[href*="dark.css"]').getAttribute('href')).toMatch(/^dark\.css\?v=[a-f0-9]{12}$/);
+    await expect(page.locator('link[rel=stylesheet]')).toHaveCount(1);
+    expect(await page.locator('link[rel=stylesheet]').getAttribute('href')).toMatch(/^site\.[a-f0-9]{12}\.css$/);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   }
 });
@@ -120,6 +121,44 @@ test('contact failure preserves customer input and permits retry', async ({ page
   await expect(page.locator('#form-result')).toHaveAttribute('data-state', 'error');
   await expect(page.locator('#contact-form [name=name]')).toHaveValue('Client Test');
   await expect(page.locator('#contact-form [type=submit]')).toBeEnabled();
+});
+
+test('phone validation accepts formatted numbers and rejects letters or formatting without digits', async ({ page }) => {
+  await page.goto('/');
+  const phone = page.locator('#contact-form [name=phone]');
+  for (const value of ['069 000 000', '+373 (69) 448-878', '069000000']) {
+    await phone.fill(value);
+    expect(await phone.evaluate(input => input.checkValidity()), value).toBe(true);
+  }
+  for (const value of ['ssssss', '------', '12345', 'abc123456']) {
+    await phone.fill(value);
+    expect(await phone.evaluate(input => input.checkValidity()), value).toBe(false);
+  }
+});
+
+test('motion controls and reviews still work after script optimization', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  const toggle = page.locator('.motion-toggle').first();
+  await toggle.click();
+  await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+  await page.reload();
+  await expect(page.locator('html')).toHaveClass(/motion-paused/);
+  await page.locator('[data-review="1"]').click();
+  await expect(page.locator('#review-author')).toContainText('Alexandru M.');
+  await expect(page.locator('#review-index')).toHaveText('02 / 03');
+});
+
+test('hashed stylesheets are cached and nested 404 pages retain their styles', async ({ page, request }) => {
+  await page.goto('/');
+  const stylesheet = await page.locator('link[rel=stylesheet]').getAttribute('href');
+  const response = await request.get('/' + stylesheet);
+  expect(response.status()).toBe(200);
+  expect(response.headers()['cache-control']).toContain('immutable');
+  const notFound = await page.goto('/missing/nested/page');
+  expect(notFound.status()).toBe(404);
+  expect(await page.locator('link[rel=stylesheet]').getAttribute('href')).toBe('/' + stylesheet);
+  expect(await page.locator('body').evaluate(el => getComputedStyle(el).backgroundColor)).toBe('rgb(13, 21, 30)');
 });
 
 test('blog filters and all generated pages work in dark mode', async ({ page }) => {
