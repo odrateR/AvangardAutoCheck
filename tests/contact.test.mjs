@@ -30,7 +30,7 @@ test('sends through Resend with the verified sender, fixed recipient and custome
   assert.equal(options.method, 'POST');
   assert.equal(options.headers.Authorization, `Bearer ${env.RESEND_API_KEY}`);
   assert.equal(options.headers['Content-Type'], 'application/json');
-  assert.equal(options.redirect, 'error');
+  assert.equal(options.redirect, 'manual');
   assert.ok(options.signal instanceof AbortSignal);
   assert.equal(mail.from, 'Avangard Autocheck <website@avangardautocheck.com>');
   assert.deepEqual(mail.to, ['avangardautocheck@gmail.com']);
@@ -49,8 +49,8 @@ test('supports a sender on a separately verified domain and trims configuration'
   assert.equal(response.status, 200);
 });
 
-test('provider rejections never report success or expose provider details', async () => {
-  for (const status of [401, 403, 422, 429, 500]) {
+test('provider redirects and rejections never report success or expose provider details', async () => {
+  for (const status of [301, 302, 307, 308, 401, 403, 422, 429, 500]) {
     const response = await handleContact(request(), env, async () => Response.json({ id: 'not-accepted', message: 'private provider details re_test_only_key' }, { status }));
     assert.equal(response.status, 502);
     const body = await response.json();
@@ -75,6 +75,24 @@ test('network failures and timeouts return a safe error', async () => {
     assert.equal(response.status, 502);
     assert.doesNotMatch(await response.text(), /private provider details|re_test_only_key|Request timed out/);
   }
+});
+
+test('delivery diagnostics identify failures without logging secrets or customer data', async t => {
+  const logs = [];
+  t.mock.method(console, 'error', (...args) => { logs.push(args); });
+  const cases = [
+    { send: async () => Response.json({ name: 'validation_error', message: 'private provider details re_test_only_key client@example.com' }, { status: 401 }), expected: { stage: 'response', status: 401, reason: 'validation_error' } },
+    { send: async () => Response.json({ name: 're_test_only_key', message: 'private provider details' }, { status: 403 }), expected: { stage: 'response', status: 403, reason: 'provider_rejected' } },
+    { send: async () => new Response('private provider details', { status: 502 }), expected: { stage: 'response', status: 502, reason: 'invalid_response' } },
+    { send: async () => Response.json({}), expected: { stage: 'response', status: 200, reason: 'missing_email_id' } },
+    { send: async () => { throw new Error('private provider details re_test_only_key'); }, expected: { stage: 'request', status: null, reason: 'request_failed' } },
+    { send: async () => { throw new DOMException('private provider details', 'TimeoutError'); }, expected: { stage: 'request', status: null, reason: 'timeout' } }
+  ];
+  for (const { send, expected } of cases) {
+    assert.equal((await handleContact(request(), env, send)).status, 502);
+    assert.deepEqual(logs.at(-1), ['Contact delivery failed: RESEND_DELIVERY_FAILED', expected]);
+  }
+  assert.doesNotMatch(JSON.stringify(logs), /private provider details|re_test_only_key|client@example.com|Client Test|Verificare automobil/);
 });
 
 test('missing or empty API keys report unavailable without contacting Resend', async () => {

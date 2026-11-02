@@ -62,6 +62,8 @@ use the same handler in `lib/contact.js`.
   an email ID. Inbox delivery must be checked in Resend's email logs.
 - Requests time out after 10 seconds. Failures preserve the filled form and
   show an error; provider details and API keys are not exposed to visitors.
+- API requests use Cloudflare's supported `manual` redirect mode, so redirects
+  fail the send without forwarding the API key to another URL.
 
 ### Account and domain setup
 
@@ -108,6 +110,25 @@ unverified senders, provider errors and timeouts return HTTP 502. After
 deployment, submit a clearly labelled test from the contact form and check
 the Resend delivery status and Gmail inbox/Spam. API acceptance alone does
 not guarantee inbox delivery.
+
+### Troubleshooting failed delivery
+
+If Resend has no logs, confirm you are viewing the account/team that issued the
+API key. An absent log entry does not prove that the key is valid or that a
+request never reached Resend.
+
+For a precise failure category, open the latest Pages production deployment,
+select **View details > Functions**, and start the live log stream before
+submitting a test. The handler logs only a delivery stage, numeric provider
+status and an allowlisted reason. It never logs API keys, raw provider messages
+or customer fields. `stage: request` indicates a network/runtime failure;
+`stage: response` means Resend returned an HTTP response. A 401 indicates an
+authentication failure; inspect the key in the correct Resend account. A 403
+requires checking sender verification, permissions or account restrictions.
+Do not share the API key when providing logs. Pages logs are live and do not
+persist, so reproduce the failure while the stream is open.
+
+Official log guide: https://developers.cloudflare.com/pages/functions/debugging-and-logging/
 
 Pages does not inherit the Worker's rate-limit binding; configure a Pages rate
 limit for `/api/contact` when activating the contact form.
