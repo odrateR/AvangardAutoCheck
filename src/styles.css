@@ -445,8 +445,8 @@ em {
   transition: transform .3s;
 }
 .hero {
-  min-height: 790px;
-  height: min(940px, 100svh);
+  min-height: clamp(790px, 100svh, 940px);
+  height: auto;
   position: relative;
   isolation: isolate;
   display: flex;
@@ -485,7 +485,7 @@ em {
       #05050566 100%);
 }
 .hero-content {
-  padding-top: 75px;
+  padding-top: 135px;
   padding-bottom: 155px;
 }
 .hero .eyebrow {
@@ -1703,9 +1703,6 @@ details[open] > summary .plus {
 @media (min-width: 1600px) {
   .hero-photo img {
     object-position: center 58%;
-  }
-  .hero-content {
-    padding-top: 95px;
   }
   .hero h1 {
     font-size: 120px;

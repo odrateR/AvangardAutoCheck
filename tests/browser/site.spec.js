@@ -45,6 +45,20 @@ test('landing page is dark and fits desktop, tablet and mobile viewports', async
   expect(errors).toEqual([]);
 });
 
+test('hero text clears the header divider and actions stay above the statistics', async ({ page }) => {
+  for (const viewport of [{ width: 1920, height: 720 }, { width: 1920, height: 900 }, { width: 1440, height: 900 }, { width: 1024, height: 768 }, { width: 768, height: 1024 }, { width: 390, height: 844 }, { width: 320, height: 640 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    await page.evaluate(() => document.fonts.ready);
+    const header = await page.locator('.site-header').boundingBox();
+    const tagline = await page.locator('.hero-content > .eyebrow').boundingBox();
+    const actions = await page.locator('.hero-actions').boundingBox();
+    const statistics = await page.locator('.hero-bottom').boundingBox();
+    expect(tagline.y - (header.y + header.height), `${viewport.width}×${viewport.height}: tagline/header clearance`).toBeGreaterThanOrEqual(24);
+    expect(statistics.y - (actions.y + actions.height), `${viewport.width}×${viewport.height}: actions/statistics clearance`).toBeGreaterThanOrEqual(16);
+  }
+});
+
 test('mobile menu opens, closes after navigation and restores focus on Escape', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
