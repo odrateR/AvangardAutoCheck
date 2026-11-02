@@ -877,10 +877,16 @@ details[open] > summary .plus {
   color: #CBD4DD;
 }
 .check-list li:before {
-  content: "↗";
+  content: "";
   position: absolute;
   left: 0;
-  top: 10px;
+  top: 14px;
+  width: 1em;
+  height: 1em;
+  /* Keep the arrow consistent on phones that render Unicode arrows as emoji. */
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 19 19 5M5 5h14v14' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 19 19 5M5 5h14v14' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
   color: var(--accent);
   font-size: 15px;
 }
@@ -3505,6 +3511,7 @@ body {
   color: #eff4f7;
 }
 .inspection .check-list li::before {
+  top: 24px;
   font-size: 20px;
 }
 .inspection .report-note p {
