@@ -61,7 +61,7 @@ test('clean builds are reproducible and every generated local link and asset res
     if (path.endsWith('.css')) assert.doesNotMatch(text, /@import\b/);
     if (path.endsWith('.html')) {
       assert.equal([...text.matchAll(/rel="stylesheet"/g)].length, 1, path);
-      assert.doesNotMatch(text, /RESEND_API_KEY|SMTP_PASS|class="toast"|INSPECTION_CAR/);
+      assert.doesNotMatch(text, /RESEND_API_KEY|SMTP_PASS|class="toast"/);
     }
   }
 });

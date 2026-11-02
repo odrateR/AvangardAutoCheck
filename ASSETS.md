@@ -6,7 +6,3 @@
 
 The remaining photographs and partner marks are retained from the supplied
 Avangard reference project.
-
-The inspection car is an original SVG illustration in
-`src/components/inspection-car.svg`, inlined by the page generator so its
-inspection highlights can respond to the controls without an extra request.
