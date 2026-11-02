@@ -89,11 +89,13 @@ const systems = [
   { label: 'BAZA UNEI MAȘINI SIGURE', title: 'Șasiu &<br>siguranță', description: 'Verificăm ceea ce ține mașina pe drum. De la articulații la frâne, fiecare detaliu contribuie la evaluarea tehnică.', checks: ['Suspensie, amortizoare, bucșe și rulmenți', 'Frâne, discuri, plăcuțe și direcție', 'Anvelope, jante, profil, DOT și presiune', 'Verificare pe elevator și test drive'] }
 ];
 const inspectionPanel = document.querySelector('#inspection-panel');
+const carDiagram = document.querySelector('.car-diagram');
 const inspectionButtons = document.querySelectorAll('[data-inspection]');
 const inspectionTabs = document.querySelectorAll('.inspection-tabs [role=tab]');
 function selectSystem(index, focusTab = false) {
   if (!inspectionPanel) return;
   const system = systems[index];
+  if (carDiagram) carDiagram.dataset.active = String(index);
   inspectionButtons.forEach(button => {
     const active = Number(button.dataset.inspection) === index;
     button.classList.toggle('active', active);

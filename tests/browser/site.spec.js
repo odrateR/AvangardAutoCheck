@@ -95,6 +95,35 @@ test('inspection diagram supports keyboard selection and service links populate 
   await expect(page.locator('#service-select')).toHaveValue('Pachet 1 + 1 = 3');
 });
 
+test('car hotspots highlight the matching system and remain usable on small screens', async ({ page }) => {
+  const systems = ['engine', 'body', 'interior', 'chassis'];
+  const titles = ['Motor', 'Caroserie', 'Electronică', 'Șasiu'];
+  for (const width of [1440, 768, 390, 320]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto('/');
+    const stage = await page.locator('.scan-stage').boundingBox();
+    for (let index = 0; index < systems.length; index++) {
+      const hotspot = page.locator(`.hotspot[data-inspection="${index}"]`);
+      const box = await hotspot.boundingBox();
+      expect(box.width).toBeGreaterThanOrEqual(44);
+      expect(box.height).toBeGreaterThanOrEqual(44);
+      expect(box.x).toBeGreaterThanOrEqual(stage.x);
+      expect(box.x + box.width).toBeLessThanOrEqual(stage.x + stage.width);
+      await hotspot.click();
+      await expect(hotspot).toHaveAttribute('aria-pressed', 'true');
+      await expect(page.locator(`#tab-${index}`)).toHaveAttribute('aria-selected', 'true');
+      await expect(page.locator('#inspection-panel h3')).toContainText(titles[index]);
+      const highlighted = await page.locator('.car-system').evaluateAll(nodes => nodes
+        .filter(node => Number(getComputedStyle(node).opacity) > .5)
+        .map(node => [...node.classList].find(name => name.startsWith('car-system-'))));
+      expect(highlighted).toEqual(['car-system-' + systems[index]]);
+    }
+    await page.locator('#tab-3').focus();
+    await page.keyboard.press('Home');
+    await expect(page.locator('.car-diagram')).toHaveAttribute('data-active', '0');
+  }
+});
+
 test('VIN submission retains affiliate attribution and normalizes the vehicle code', async ({ page, context }) => {
   await context.route('https://www.carvertical.deal/**', route => route.fulfill({ contentType: 'text/html', body: '<title>Affiliate handoff</title>' }));
   await page.goto('/');

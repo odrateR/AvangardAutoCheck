@@ -1,0 +1,142 @@
+<svg class="car-blueprint" viewBox="0 0 400 650" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <pattern id="car-grid" width="25" height="25" patternUnits="userSpaceOnUse">
+      <path d="M25 0H0V25" stroke="#89bbd0" stroke-opacity=".055" stroke-width=".6"/>
+    </pattern>
+    <linearGradient id="car-paint" x1="91" y1="300" x2="309" y2="300" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#14232e"/>
+      <stop offset=".07" stop-color="#617580"/>
+      <stop offset=".18" stop-color="#293c48"/>
+      <stop offset=".48" stop-color="#455965"/>
+      <stop offset=".76" stop-color="#293d49"/>
+      <stop offset=".94" stop-color="#526a78"/>
+      <stop offset="1" stop-color="#111f2a"/>
+    </linearGradient>
+    <linearGradient id="car-hood" x1="151" y1="107" x2="249" y2="254" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6a808c"/>
+      <stop offset=".46" stop-color="#344d5b"/>
+      <stop offset="1" stop-color="#182d3b"/>
+    </linearGradient>
+    <linearGradient id="car-glass" x1="129" y1="257" x2="268" y2="449" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#284454"/>
+      <stop offset=".28" stop-color="#0c1e2a"/>
+      <stop offset=".65" stop-color="#091721"/>
+      <stop offset="1" stop-color="#1e3848"/>
+    </linearGradient>
+    <linearGradient id="car-reflection" x1="127" y1="277" x2="261" y2="389" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#c6efff" stop-opacity=".18"/>
+      <stop offset=".5" stop-color="#a5e5ff" stop-opacity=".03"/>
+      <stop offset="1" stop-color="#a5e5ff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="car-trunk" x1="151" y1="512" x2="248" y2="579" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1a303e"/>
+      <stop offset=".6" stop-color="#3b5564"/>
+      <stop offset="1" stop-color="#637c87"/>
+    </linearGradient>
+    <radialGradient id="car-ground">
+      <stop stop-color="#0b1a24" stop-opacity=".8"/>
+      <stop offset="1" stop-color="#0b1a24" stop-opacity="0"/>
+    </radialGradient>
+    <path id="car-silhouette" d="M161 70C137 72 119 85 110 109C97 143 95 179 97 218L92 263C88 305 91 354 91 398L92 482C92 527 105 563 123 578C155 601 245 601 277 578C295 563 308 527 308 482L309 398C309 354 312 305 308 263L303 218C305 179 303 143 290 109C281 85 263 72 239 70C216 67 184 67 161 70Z"/>
+    <g id="car-tire">
+      <rect width="27" height="77" rx="9" fill="#050c12" stroke="#29414f"/>
+      <path d="M5 12V65M10 7V70M17 7V70M22 12V65" stroke="#132a38" stroke-width="1.5"/>
+      <path d="M5 16H22M5 61H22" stroke="#405562" stroke-opacity=".55"/>
+    </g>
+  </defs>
+
+  <rect width="400" height="650" fill="url(#car-grid)"/>
+  <ellipse cx="200" cy="334" rx="155" ry="290" fill="url(#car-ground)"/>
+  <g class="car-guides" stroke="#6b9bb1" stroke-width=".65" opacity=".3">
+    <path d="M200 30V53M200 605V625M59 207V499M341 207V499M146 48H254" stroke-dasharray="3 5"/>
+    <path d="M53 207H65M53 499H65M335 207H347M335 499H347M146 43V53M254 43V53M187 625H213"/>
+    <path d="M30 57V39H48M352 39H370V57M30 593V611H48M352 611H370V593" stroke-opacity=".6"/>
+  </g>
+
+  <g class="car-wheels">
+    <use href="#car-tire" x="81" y="169"/>
+    <use href="#car-tire" x="292" y="169"/>
+    <use href="#car-tire" x="81" y="461"/>
+    <use href="#car-tire" x="292" y="461"/>
+  </g>
+  <use class="car-body" href="#car-silhouette" fill="url(#car-paint)" stroke="#87a4b3" stroke-width="1.2"/>
+
+  <g class="car-panels" stroke="#7596a7" stroke-width=".85">
+    <path class="car-hood" d="M131 120Q200 96 269 120Q289 158 287 208L279 248Q200 225 121 248L113 208Q111 158 131 120Z" fill="url(#car-hood)"/>
+    <path d="M137 128C141 160 153 209 162 234M263 128C259 160 247 209 238 234" stroke="#a8c7d4" stroke-opacity=".38"/>
+    <path d="M155 125Q200 114 245 125M146 235Q200 223 254 235" stroke-opacity=".4"/>
+    <path class="car-front-grille" d="M163 84Q200 78 237 84L232 94Q200 89 168 94Z" fill="#0b1822" stroke="#486271"/>
+    <path d="M172 86H228M175 90H225" stroke="#8ba8b6" stroke-opacity=".35"/>
+    <path d="M199 104L203 108L199 112L195 108Z" fill="#aec7d1" stroke="none"/>
+
+    <path class="car-window" d="M126 262Q200 236 274 262L282 308Q200 286 118 308Z" fill="url(#car-glass)" stroke="#7f9eae"/>
+    <path d="M131 264Q200 242 269 264L269 269Q200 249 131 272Z" fill="url(#car-reflection)" stroke="none"/>
+    <path d="M134 290L180 278M220 278L266 290" stroke="#aecad6" stroke-opacity=".27" stroke-width="1.2"/>
+
+    <path class="car-roof-frame" d="M141 318Q200 301 259 318L268 433Q200 452 132 433Z" fill="#263e4d"/>
+    <path class="car-window car-roof" d="M149 325Q200 312 251 325L259 425Q200 440 141 425Z" fill="url(#car-glass)" stroke="#17313f"/>
+    <path class="car-glass-reflection" d="M151 327Q180 318 202 321L148 420L143 420Z" fill="url(#car-reflection)" stroke="none"/>
+    <path d="M147 369Q200 378 255 369" stroke="#688b9e" stroke-opacity=".25"/>
+
+    <path class="car-window" d="M114 315L129 330L124 422L110 454Q105 403 108 354Z" fill="#091923"/>
+    <path class="car-window" d="M286 315L271 330L276 422L290 454Q295 403 292 354Z" fill="#091923"/>
+    <path d="M110 371L127 372M290 371L273 372" stroke="#8caab9" stroke-opacity=".7"/>
+    <path d="M101 324L101 442M299 324L299 442" stroke="#bfd3db" stroke-opacity=".37"/>
+    <path d="M95 320L95 451M305 320L305 451" stroke="#091823" stroke-width="2"/>
+    <path d="M103 357L106 357M103 416L106 416M294 357L297 357M294 416L297 416" stroke="#b3cbd6" stroke-width="1.8" stroke-linecap="round"/>
+
+    <path class="car-window" d="M132 452Q200 473 268 452L279 490Q200 518 121 490Z" fill="url(#car-glass)" stroke="#7b98a9"/>
+    <path d="M139 463Q200 481 261 463M135 473Q200 492 265 473M132 483Q200 503 268 483" stroke="#9bb3bf" stroke-opacity=".16" stroke-width=".65"/>
+    <path class="car-trunk" d="M119 511Q200 539 281 511L274 556Q200 582 126 556Z" fill="url(#car-trunk)"/>
+    <path d="M137 551Q200 568 263 551M144 530L142 543M256 530L258 543" stroke="#bdd4df" stroke-opacity=".3"/>
+    <path d="M152 582Q200 593 248 582" stroke="#182e3b" stroke-width="3"/>
+    <path d="M173 580Q200 585 227 580" stroke="#b6cdd8" stroke-opacity=".42"/>
+  </g>
+
+  <g class="car-mirrors" fill="#314d5e" stroke="#8ba5b3" stroke-width=".85">
+    <path d="M102 278L79 289Q75 293 77 302L101 296Z"/>
+    <path d="M298 278L321 289Q325 293 323 302L299 296Z"/>
+    <path d="M81 291L97 284M319 291L303 284" stroke="#b3d4e2" stroke-opacity=".5"/>
+  </g>
+  <g class="car-lights">
+    <path d="M116 115Q134 102 158 101L156 114L120 131Z" fill="#10232d" stroke="#91aebc" stroke-width=".6"/>
+    <path d="M284 115Q266 102 242 101L244 114L280 131Z" fill="#10232d" stroke="#91aebc" stroke-width=".6"/>
+    <path d="M121 117Q138 107 153 107L152 112M279 117Q262 107 247 107L248 112" stroke="#e0f7ff" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M128 562Q145 568 162 569M272 562Q255 568 238 569" stroke="#ee7a87" stroke-width="3" stroke-linecap="round"/>
+    <path d="M129 567Q145 572 160 573M271 567Q255 572 240 573" stroke="#8e404e" stroke-width="1.2" stroke-linecap="round"/>
+  </g>
+
+  <g class="car-system car-system-engine" stroke="#74daa9" stroke-width="1" fill="none">
+    <path d="M132 123Q200 100 268 123Q286 160 284 207L277 244Q200 222 123 244L116 207Q114 160 132 123Z" fill="#60cf9607"/>
+  </g>
+  <use class="car-system car-system-body" href="#car-silhouette" stroke="#74daa9" stroke-width="2"/>
+  <g class="car-system car-system-interior" stroke="#74daa9" stroke-width="1.2">
+    <path d="M149 325Q200 312 251 325L259 425Q200 440 141 425Z" fill="#60cf9610"/>
+    <path d="M157 344H180V363H157ZM220 344H243V363H220ZM157 389H180V411H157ZM220 389H243V411H220Z" fill="#60cf9610"/>
+    <path d="M196 346H204V409H196Z" fill="#60cf9610"/>
+  </g>
+  <g class="car-system car-system-chassis" stroke="#74daa9" stroke-width="1.2" fill="#60cf9610">
+    <rect x="80" y="168" width="29" height="79" rx="9"/>
+    <rect x="291" y="168" width="29" height="79" rx="9"/>
+    <rect x="80" y="460" width="29" height="79" rx="9"/>
+    <rect x="291" y="460" width="29" height="79" rx="9"/>
+    <path d="M109 208H291M109 500H291" stroke-dasharray="3 5"/>
+  </g>
+
+  <g class="car-callout car-callout-engine" stroke="currentColor" stroke-width=".85">
+    <path d="M48 182H122L152 188H164"/>
+    <circle cx="164" cy="188" r="2.4" fill="currentColor" stroke="none"/>
+  </g>
+  <g class="car-callout car-callout-body" stroke="currentColor" stroke-width=".85">
+    <path d="M360 325H322L301 349"/>
+    <circle cx="301" cy="349" r="2.4" fill="currentColor" stroke="none"/>
+  </g>
+  <g class="car-callout car-callout-interior" stroke="currentColor" stroke-width=".85">
+    <path d="M48 364H120L143 375"/>
+    <circle cx="143" cy="375" r="2.4" fill="currentColor" stroke="none"/>
+  </g>
+  <g class="car-callout car-callout-chassis" stroke="currentColor" stroke-width=".85">
+    <path d="M360 494H328L306 500"/>
+    <circle cx="306" cy="500" r="2.4" fill="currentColor" stroke="none"/>
+  </g>
+</svg>

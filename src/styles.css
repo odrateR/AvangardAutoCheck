@@ -115,7 +115,6 @@
   border: 0;
 }
 :root {
-  --accent-cyan:#00BCD4;
   --accent:var(--primary-blue);
   --display:Barlow,"Arial Narrow",Impact,sans-serif;
   --body:Manrope,Arial,sans-serif;
@@ -763,10 +762,12 @@ details[open] > summary .plus {
   align-items: center;
 }
 .scan-stage {
-  background: #050505;
-  border: 1px solid #263441;
+  background: radial-gradient(ellipse at 50% 43%, #132b3a80, transparent 70%), #091119;
+  border: 1px solid #2a414f;
+  border-radius: 4px;
   position: relative;
-  padding: 20px 25px;
+  padding: 22px 24px 18px;
+  overflow: hidden;
 }
 .scan-topline,
 .scan-bottomline {
@@ -785,20 +786,25 @@ details[open] > summary .plus {
 }
 .car-diagram {
   position: relative;
-  width: min(100%, 320px);
-  margin: 5px auto;
+  width: min(100%, 400px);
+  margin: 14px auto 10px;
   aspect-ratio: 400/650;
 }
 .car-blueprint {
+  display: block;
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
 }
 .scan-line {
+  z-index: 0;
   position: absolute;
   width: 90%;
   left: 5%;
   top: 15%;
   height: 1px;
+  opacity: .6;
   animation: scan 6s ease-in-out infinite;
   pointer-events: none;
 }
@@ -815,14 +821,50 @@ details[open] > summary .plus {
   left: var(--x);
   top: var(--y);
   transform: translate(-50%, -50%);
-  width: 38px;
-  height: 38px;
-  border: 1px solid #c0cbb2;
-  background: #0D1B2A;
-  color: #e2e8da;
+  z-index: 2;
+  isolation: isolate;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  color: #cce1ed;
   border-radius: 50%;
-  font-size: 10px;
-  transition: background .2s, box-shadow .2s;
+  font-size: 11px;
+  font-weight: 650;
+  transition: color .25s;
+}
+.hotspot::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  z-index: -1;
+  border: 1px solid #526e80;
+  border-radius: 50%;
+  background: #0c1b27;
+  box-shadow: 0 0 0 4px #091119bb;
+  transition: background .25s, border-color .25s, box-shadow .25s;
+}
+.car-system {
+  opacity: 0;
+  transition: opacity .25s;
+}
+.car-callout {
+  color: #638396;
+  opacity: .65;
+  transition: color .25s, opacity .25s;
+}
+.car-diagram[data-active="0"] .car-system-engine,
+.car-diagram[data-active="1"] .car-system-body,
+.car-diagram[data-active="2"] .car-system-interior,
+.car-diagram[data-active="3"] .car-system-chassis {
+  opacity: .75;
+}
+.car-diagram[data-active="0"] .car-callout-engine,
+.car-diagram[data-active="1"] .car-callout-body,
+.car-diagram[data-active="2"] .car-callout-interior,
+.car-diagram[data-active="3"] .car-callout-chassis {
+  color: #8be5b9;
+  opacity: 1;
 }
 .scan-bottomline {
   align-items: center;
@@ -2098,7 +2140,7 @@ details[open] > summary .plus {
     gap: 35px;
   }
   .car-diagram {
-    max-width: 245px;
+    max-width: 280px;
     margin-block: 0;
   }
   .scan-stage {
@@ -2506,22 +2548,25 @@ details[open] > summary .plus {
   color: var(--primary-green);
 }
 .scan-line {
-  background: var(--accent-cyan);
-  box-shadow: 0 -7px 18px 3px #00BCD41C;
+  background: #3da9bf80;
+  box-shadow: 0 -8px 30px 1px #2785a20d;
 }
 .scan-line:after {
   background:
     linear-gradient(
       0deg,
-      #00BCD417,
+      #3da9bf08,
       transparent);
 }
 .hotspot:hover,
 .hotspot.active {
-  background: var(--primary-green);
-  border-color: var(--primary-green);
-  box-shadow: 0 0 0 6px #4CAF501A;
-  color: #081508;
+  color: #b9f4d2;
+}
+.hotspot:hover::before,
+.hotspot.active::before {
+  background: #183a30;
+  border-color: #74daa9;
+  box-shadow: 0 0 0 4px #091119, 0 0 0 5px #6bc67a30;
 }
 .inspection-tabs button[aria-selected=true] {
   border-color: var(--primary-green);

@@ -10,10 +10,11 @@ const outputRoot = resolve(projectRoot, 'dist');
 if (!outputRoot.startsWith(projectRoot + sep)) throw new Error('Invalid build output directory');
 const readText = async path => (await readFile(resolve(projectRoot, path), 'utf8')).replaceAll('\r\n', '\n');
 const hash = content => createHash('sha256').update(content).digest('hex').slice(0, 12);
-const [index, notFound, articleJSON, script, cssSource] = await Promise.all([
+const [indexTemplate, notFound, articleJSON, script, cssSource, inspectionCar] = await Promise.all([
   readText('src/index.html'), readText('src/404.html'), readText('content/articles.json'), readText('src/app.js'),
-  readText('src/styles.css')
+  readText('src/styles.css'), readText('src/components/inspection-car.svg')
 ]);
+const index = indexTemplate.replace('<!-- INSPECTION_CAR -->', inspectionCar);
 const articles = JSON.parse(articleJSON);
 const [css, js] = await Promise.all([
   transform(cssSource, { loader: 'css', minify: true, charset: 'utf8', target: ['chrome109', 'firefox115', 'safari16'], legalComments: 'none' }),

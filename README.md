@@ -3,7 +3,7 @@
 Requires Node.js 22 or newer. Run `npm ci`, then `npm run dev` (or `npm start`)
 to build and preview the site at http://127.0.0.1:4173 in Cloudflare's runtime.
 
-- `src/`: editable homepage, error page, JavaScript and stylesheet.
+- `src/`: editable pages, JavaScript, stylesheet and the inspection car SVG.
 - `content/articles.json`: journal content used by the page generator.
 - `public/`: images, fonts and Cloudflare static-file settings.
 - `lib/contact.js`: shared email handler for Pages and Workers.
