@@ -1,9 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { handleContact } from '../lib/contact.js';
+import { onRequest } from '../functions/api/contact.js';
+import worker from '../worker.js';
 
 const valid = { name: 'Client Test', email: 'client@example.com', phone: '+373 69000000', service: 'Premium Check', message: 'Verificare automobil', consent: 'on' };
-const env = { SMTP_USER: 'sender@example.com', SMTP_PASS: 'test-only-password' };
+const env = { RESEND_API_KEY: 're_test_only_key' };
+const accepted = () => Response.json({ id: 'test-message-id' });
 function request(body = valid, headers = {}, method = 'POST') {
   return new Request('https://avangardautocheck.com/api/contact', {
     method, headers: { 'Content-Type': 'application/json', ...headers },
@@ -11,39 +14,77 @@ function request(body = valid, headers = {}, method = 'POST') {
   });
 }
 
-test('sends to the fixed company address with customer Reply-To, only confirming SMTP acceptance', async () => {
-  let options, mail, closed = false;
-  const response = await handleContact(request(), env, configuration => {
+test('sends through Resend with the verified sender, fixed recipient and customer Reply-To', async () => {
+  let destination, options, mail;
+  const response = await handleContact(request({ ...valid, to: 'other@example.com', from: 'spoof@example.com' }), env, async (url, configuration) => {
+    destination = url;
     options = configuration;
-    return { sendMail: async value => { mail = value; return { accepted: ['avangardautocheck@gmail.com'] }; }, close: () => { closed = true; } };
+    mail = JSON.parse(configuration.body);
+    return accepted();
   });
   assert.equal(response.status, 200);
-  assert.equal((await response.json()).success, true);
-  assert.equal(options.port, 465);
-  assert.equal(options.secure, true);
-  assert.equal(mail.to, 'avangardautocheck@gmail.com');
-  assert.deepEqual(mail.replyTo, { name: valid.name, address: valid.email });
+  const body = await response.json();
+  assert.equal(body.success, true);
+  assert.doesNotMatch(JSON.stringify(body), /re_test_only_key/);
+  assert.equal(destination, 'https://api.resend.com/emails');
+  assert.equal(options.method, 'POST');
+  assert.equal(options.headers.Authorization, `Bearer ${env.RESEND_API_KEY}`);
+  assert.equal(options.headers['Content-Type'], 'application/json');
+  assert.equal(options.redirect, 'error');
+  assert.ok(options.signal instanceof AbortSignal);
+  assert.equal(mail.from, 'Avangard Autocheck <website@avangardautocheck.com>');
+  assert.deepEqual(mail.to, ['avangardautocheck@gmail.com']);
+  assert.equal(mail.reply_to, valid.email);
+  assert.match(mail.subject, /Premium Check/);
+  assert.match(mail.text, /Client Test/);
   assert.match(mail.text, /Verificare automobil/);
-  assert.equal(mail.disableFileAccess, true);
-  assert.equal(closed, true);
 });
 
-test('does not claim success when SMTP rejects the recipient', async () => {
-  const response = await handleContact(request(), env, () => ({ sendMail: async () => ({ accepted: [] }) }));
+test('supports a sender on a separately verified domain and trims configuration', async () => {
+  const response = await handleContact(request(), { RESEND_API_KEY: ' re_test_only_key ', RESEND_FROM_EMAIL: ' website@mail.avangardautocheck.com ' }, async (_url, options) => {
+    assert.equal(options.headers.Authorization, 'Bearer re_test_only_key');
+    assert.equal(JSON.parse(options.body).from, 'Avangard Autocheck <website@mail.avangardautocheck.com>');
+    return accepted();
+  });
+  assert.equal(response.status, 200);
+});
+
+test('provider rejections never report success or expose provider details', async () => {
+  for (const status of [401, 403, 422, 429, 500]) {
+    const response = await handleContact(request(), env, async () => Response.json({ id: 'not-accepted', message: 'private provider details re_test_only_key' }, { status }));
+    assert.equal(response.status, 502);
+    const body = await response.json();
+    assert.equal(body.success, false);
+    assert.doesNotMatch(body.message, /private provider details|re_test_only_key/);
+  }
+});
+
+test('requires a successful Resend response containing an email ID', async () => {
+  for (const body of [{}, { id: '' }, { id: ' ' }, { id: 1 }, null]) {
+    const response = await handleContact(request(), env, async () => Response.json(body));
+    assert.equal(response.status, 502);
+    assert.equal((await response.json()).success, false);
+  }
+  const response = await handleContact(request(), env, async () => new Response('not JSON'));
   assert.equal(response.status, 502);
-  assert.equal((await response.json()).success, false);
 });
 
-test('SMTP failures return an error without exposing provider details or secrets', async () => {
-  const response = await handleContact(request(), env, () => ({ sendMail: async () => { throw new Error('private provider details'); } }));
-  assert.equal(response.status, 502);
-  assert.doesNotMatch(await response.text(), /private provider details|test-only-password/);
+test('network failures and timeouts return a safe error', async () => {
+  for (const error of [new Error('private provider details re_test_only_key'), new DOMException('Request timed out', 'TimeoutError')]) {
+    const response = await handleContact(request(), env, async () => { throw error; });
+    assert.equal(response.status, 502);
+    assert.doesNotMatch(await response.text(), /private provider details|re_test_only_key|Request timed out/);
+  }
 });
 
-test('missing credentials report service unavailable', async () => {
-  const response = await handleContact(request(), {});
-  assert.equal(response.status, 503);
-  assert.equal((await response.json()).success, false);
+test('missing or empty API keys report unavailable without contacting Resend', async () => {
+  for (const configuration of [{}, { RESEND_API_KEY: '' }, { RESEND_API_KEY: '  ' }]) {
+    let called = false;
+    const response = await handleContact(request(), configuration, async () => { called = true; return accepted(); });
+    assert.equal(response.status, 503);
+    assert.equal((await response.json()).success, false);
+    assert.equal(called, false);
+  }
 });
 
 test('rejects cross-origin submissions and unsupported methods', async () => {
@@ -68,7 +109,7 @@ test('rejects invalid fields, header injection, unrecognized services and missin
   }
 });
 
-test('honors Cloudflare rate limiting before contacting SMTP', async () => {
+test('honors Cloudflare rate limiting before contacting Resend', async () => {
   let called = false;
   const response = await handleContact(request(), { ...env, CONTACT_RATE_LIMITER: { limit: async () => ({ success: false }) } }, () => { called = true; });
   assert.equal(response.status, 429);
@@ -76,7 +117,7 @@ test('honors Cloudflare rate limiting before contacting SMTP', async () => {
   assert.equal(called, false);
 });
 
-test('honeypot submissions never reach SMTP', async () => {
+test('honeypot submissions never reach Resend', async () => {
   let called = false;
   const response = await handleContact(request({ ...valid, website: 'spam.example' }), env, () => { called = true; });
   assert.equal(response.status, 200);
@@ -89,6 +130,19 @@ test('rejects malformed and oversized JSON, including streamed bodies without co
 });
 
 test('supports regular form-encoded submissions as well as JavaScript JSON', async () => {
-  const response = await handleContact(new Request('https://example.com/api/contact', { method: 'POST', body: new URLSearchParams(valid) }), env, () => ({ sendMail: async () => ({ accepted: ['avangardautocheck@gmail.com'] }) }));
+  const response = await handleContact(new Request('https://example.com/api/contact', { method: 'POST', body: new URLSearchParams(valid) }), env, async () => accepted());
   assert.equal(response.status, 200);
+});
+
+test('Pages and Worker endpoints both use the shared Resend handler', async t => {
+  let calls = 0;
+  t.mock.method(globalThis, 'fetch', async url => {
+    assert.equal(url, 'https://api.resend.com/emails');
+    calls++;
+    return accepted();
+  });
+  assert.equal((await onRequest({ request: request(), env })).status, 200);
+  assert.equal((await worker.fetch(request(), env)).status, 200);
+  assert.equal(calls, 2);
+  assert.equal((await worker.fetch(new Request('https://example.com/api/missing'), env)).status, 404);
 });

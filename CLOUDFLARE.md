@@ -48,16 +48,66 @@ Its configuration is tracked in `wrangler.jsonc` and uses:
 The Worker and Pages projects deploy independently. A successful Worker build
 alone does not update the custom domain attached to Pages.
 
-## Email activation, deferred
+## Contact email: Resend
 
-Email secrets have not been configured as part of the hosting repair. When
-ready, add encrypted `SMTP_USER` and `SMTP_PASS` secrets to the Pages production
-environment and redeploy. Use a fresh Gmail app password for
-`avangardautocheck@gmail.com`; the password in the original Git history was
-rejected by Gmail. Never commit passwords or place them in static assets.
+The contact form uses Resend's HTTPS API with native `fetch`. It has no email
+SDK, SMTP dependency or TCP socket adapter. Both Pages and Worker deployments
+use the same handler in `lib/contact.js`.
 
-Until valid secrets are present, the contact endpoint reports that sending is
-unavailable. The rest of the site works independently of email configuration.
+- Default sender: `Avangard Autocheck <website@avangardautocheck.com>`.
+- Fixed recipient: `avangardautocheck@gmail.com`.
+- Reply-To: the customer's validated email address.
+- The customer's name, phone, service and message are included as plain text.
+- The handler confirms success only when Resend accepts the email and returns
+  an email ID. Inbox delivery must be checked in Resend's email logs.
+- Requests time out after 10 seconds. Failures preserve the filled form and
+  show an error; provider details and API keys are not exposed to visitors.
+
+### Account and domain setup
+
+1. Open https://resend.com/domains and add `avangardautocheck.com` for sending.
+2. Add the exact DNS records shown by Resend to the domain's Cloudflare DNS
+   settings, including the DKIM TXT and the sending SPF TXT/MX records. Values
+   depend on your Resend domain and region. Resend also offers automatic setup
+   through its "Sign in to Cloudflare" button. Keep existing website and inbox
+   DNS records. Receiving email in Resend is not required for this form.
+3. Wait until the domain is verified in Resend.
+4. Open https://resend.com/api-keys and create a sending-access API key for this
+   domain. Save the key directly in Cloudflare; never commit it or include it
+   in static assets.
+
+Official DNS guide: https://resend.com/docs/guides/dns/cloudflare
+
+### Cloudflare Pages variables
+
+Open **Workers & Pages > avangardautocheck > Settings > Variables and Secrets**.
+Select **Production** and configure:
+
+| Key | Value | Secret |
+| --- | --- | --- |
+| `RESEND_API_KEY` | Your Resend API key, starting with `re_` | Yes |
+| `RESEND_FROM_EMAIL` | `website@avangardautocheck.com` | No |
+
+`RESEND_FROM_EMAIL` is optional because the code uses that address by default.
+To send from another verified domain or subdomain, set it to an address on
+that exact verified domain. Supply only the email address, without a display
+name. The sender cannot be a `gmail.com` address.
+
+Remove the obsolete `SMTP_USER` and `SMTP_PASS` variables if you added them;
+the code no longer reads them. Revoke any Gmail app password created solely
+for the old website integration.
+
+Deploy this code to the Pages project's production branch and redeploy after
+saving the variables. Adding variables or deploying to the separate `avatest`
+Worker does not update the Pages production site. To activate email on Worker
+preview URLs as well, configure its Resend variables separately. Preview Pages
+deployments likewise need variables in their own environment.
+
+Until the API key is present, the endpoint returns HTTP 503. Invalid keys,
+unverified senders, provider errors and timeouts return HTTP 502. After
+deployment, submit a clearly labelled test from the contact form and check
+the Resend delivery status and Gmail inbox/Spam. API acceptance alone does
+not guarantee inbox delivery.
 
 Pages does not inherit the Worker's rate-limit binding; configure a Pages rate
 limit for `/api/contact` when activating the contact form.
@@ -73,7 +123,7 @@ npm run dev
 ```
 
 Open http://127.0.0.1:4173. The dev command uses the separate Worker config to
-exercise the same shared contact handler. Development-only SMTP credentials
+exercise the same shared contact handler. Development-only Resend settings
 belong in ignored `.dev.vars`, never in Git.
 
 ## Verification
@@ -83,7 +133,7 @@ npm run check
 npm test
 npm run test:browser
 npx wrangler deploy --dry-run
-npx wrangler pages functions build --outdir .wrangler/pages-check --compatibility-flags=nodejs_compat
+npx wrangler pages functions build --outdir .wrangler/pages-check
 ```
 
 Browser tests use Microsoft Edge. The canonical URL for the generated sitemap
