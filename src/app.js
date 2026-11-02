@@ -1,3 +1,6 @@
+import './booking.js';
+import { bindLeadForm } from './forms.js';
+
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 let motionPaused = reducedMotion.matches;
 try { motionPaused ||= localStorage.getItem('avangard-motion') === 'paused'; } catch {}
@@ -83,10 +86,10 @@ serviceItems.forEach(item => item.addEventListener('toggle', () => {
   if (item.open) serviceItems.forEach(other => { if (other !== item) other.open = false; });
 }));
 const systems = [
-  { label: 'CE SE AFLĂ SUB CAPOTĂ', title: 'Motor &<br>transmisie', description: 'Ascultăm ce motorul are de spus. Verificăm funcționarea, uzura și semnele care pot anunța reparații costisitoare.', checks: ['Funcționare, scurgeri și sistem de răcire', 'Turbo și componente principale', 'Cutie de viteze, zgomote și uzură', 'Test de performanță, unde este disponibil'] },
-  { label: 'POVESTEA DIN SPATELE VOPSELEI', title: 'Caroserie &<br>vopsea', description: 'O suprafață impecabilă poate ascunde reparații. Măsurăm, comparăm și căutăm urmele pe care o simplă privire le ratează.', checks: ['Grosimea stratului de vopsea', 'Elemente revopsite sau înlocuite', 'Deformări, reparații și urme de accident', 'Documentare fotografică a problemelor'] },
-  { label: 'DATELE COMPLETEAZĂ IMAGINEA', title: 'Electronică &<br>interior', description: 'Conectăm diagnoza și punem dotările la încercare. Corelăm erorile înregistrate cu starea reală a mașinii.', checks: ['Diagnoză OBD, ECU și kilometraj memorat', 'Climatizare, multimedia și comenzi', 'Geamuri, oglinzi, lumini și sisteme electrice', 'Tapițerie, bord și starea interiorului'] },
-  { label: 'BAZA UNEI MAȘINI SIGURE', title: 'Șasiu &<br>siguranță', description: 'Verificăm ceea ce ține mașina pe drum. De la articulații la frâne, fiecare detaliu contribuie la evaluarea tehnică.', checks: ['Suspensie, amortizoare, bucșe și rulmenți', 'Frâne, discuri, plăcuțe și direcție', 'Anvelope, jante, profil, DOT și presiune', 'Verificare pe elevator și test drive'] }
+  { label: 'CE SE AFLĂ SUB CAPOTĂ', title: 'Motor &<br> transmisie', description: 'Verificăm motorul, transmisia și semnele de uzură care pot anunța reparații costisitoare.', checks: ['Funcționare, scurgeri și sistem de răcire', 'Turbo și componente principale', 'Cutie de viteze, zgomote și uzură', 'Test de performanță, unde este disponibil'] },
+  { label: 'POVESTEA DIN SPATELE VOPSELEI', title: 'Caroserie &<br> vopsea', description: 'O suprafață impecabilă poate ascunde reparații. Măsurăm, comparăm și căutăm urmele pe care o simplă privire le ratează.', checks: ['Grosimea stratului de vopsea', 'Elemente revopsite sau înlocuite', 'Deformări, reparații și urme de accident', 'Documentare fotografică a problemelor'] },
+  { label: 'DATELE COMPLETEAZĂ IMAGINEA', title: 'Electronică &<br> interior', description: 'Conectăm diagnoza și punem dotările la încercare. Corelăm erorile înregistrate cu starea reală a mașinii.', checks: ['Diagnoză OBD, ECU și kilometraj memorat', 'Climatizare, multimedia și comenzi', 'Geamuri, oglinzi, lumini și sisteme electrice', 'Tapițerie, bord și starea interiorului'] },
+  { label: 'BAZA UNEI MAȘINI SIGURE', title: 'Șasiu &<br> siguranță', description: 'Verificăm ceea ce ține mașina pe drum. De la articulații la frâne, fiecare detaliu contribuie la evaluarea tehnică.', checks: ['Suspensie, amortizoare, bucșe și rulmenți', 'Frâne, discuri, plăcuțe și direcție', 'Anvelope, jante, profil, DOT și presiune', 'Verificare pe elevator și test drive'] }
 ];
 const inspectionPanel = document.querySelector('#inspection-panel');
 const inspectionButtons = document.querySelectorAll('[data-inspection]');
@@ -133,43 +136,7 @@ document.querySelectorAll('[data-review]').forEach(button => button.addEventList
   reviewAuthor.innerHTML = reviews[reviewIndex].author + ' <small>— recenzie de pe site-ul Avangard</small>';
   reviewCounter.textContent = `0${reviewIndex + 1} / 03`;
 }));
-document.querySelector('#contact-form')?.addEventListener('submit', async event => {
-  event.preventDefault();
-  const form = event.currentTarget;
-  if (form.dataset.sending === 'true' || !form.reportValidity()) return;
-  const button = form.querySelector('[type="submit"]');
-  const result = document.querySelector('#form-result');
-  const label = button.innerHTML;
-  form.dataset.sending = 'true';
-  form.setAttribute('aria-busy', 'true');
-  button.disabled = true;
-  button.textContent = 'Se trimite…';
-  result.hidden = false;
-  result.removeAttribute('data-state');
-  result.textContent = 'Trimitem cererea ta…';
-  try {
-    const response = await fetch('/api/contact', {
-      method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify(Object.fromEntries(new FormData(form))),
-      signal: AbortSignal.timeout(30000)
-    });
-    const data = await response.json().catch(() => null);
-    if (!response.ok || data?.success !== true) throw new Error(data?.message || 'Cererea nu a putut fi trimisă. Încearcă din nou sau sună la 069 448 878.');
-    result.dataset.state = 'success';
-    result.textContent = data.message;
-    form.reset();
-  } catch (error) {
-    result.dataset.state = 'error';
-    result.textContent = error.name === 'TimeoutError' || error.name === 'TypeError'
-      ? 'Conexiunea nu a putut fi confirmată. Datele au rămas în formular. Sună la 069 448 878 dacă nu primești confirmarea.'
-      : error.message;
-  } finally {
-    form.dataset.sending = 'false';
-    form.removeAttribute('aria-busy');
-    button.disabled = false;
-    button.innerHTML = label;
-  }
-});
+bindLeadForm(document.querySelector('#contact-form'));
 
 // Preserve the original affiliate attribution and forward the vehicle for tracking.
 // carVertical performs the actual lookup on its own site.

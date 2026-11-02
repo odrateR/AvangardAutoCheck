@@ -36,7 +36,7 @@ test('clean builds are reproducible and every generated local link and asset res
   const paths = [...second.keys()];
   assert.equal(paths.filter(path => /^site\.[a-f0-9]{12}\.css$/.test(path)).length, 1);
   assert.equal(paths.filter(path => /^app\.[a-f0-9]{12}\.js$/.test(path)).length, 1);
-  assert.equal(paths.filter(path => path.endsWith('.html')).length, 10);
+  assert.equal(paths.filter(path => path.endsWith('.html')).length, 11);
   for (const obsolete of ['styles.css', 'dark.css', 'topbar.css', 'fonts.css', 'app.js', 'assets/partner-aquart.png', 'assets/partner-retus-auto.png']) {
     assert.equal(second.has(obsolete), false, obsolete);
   }

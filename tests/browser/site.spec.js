@@ -16,11 +16,11 @@ test('partner borders stay equal and aligned on hover, and inspection checks rem
       expect(Math.abs(box.width - boxes[0].width)).toBeLessThan(1);
       expect(box.height).toBe(boxes[0].height);
     }
-    const columns = width <= 640 ? 2 : 4;
+    const columns = width <= 640 ? boxes.length : 4;
     for (let index = 0; index < boxes.length; index += columns) {
       expect(boxes.slice(index, index + columns).every(box => box.top === boxes[index].top)).toBe(true);
     }
-    await expect(page.locator('#inspection-panel li').first()).toHaveCSS('font-size', '20px');
+    await expect(page.locator('#inspection-panel li').first()).toHaveCSS('font-size', width <= 640 ? '16px' : '18px');
     await expect(page.locator('#inspection-panel li').first()).toHaveCSS('color', 'rgb(239, 244, 247)');
     await expect(page.locator('link[rel=stylesheet]')).toHaveCount(1);
     expect(await page.locator('link[rel=stylesheet]').getAttribute('href')).toMatch(/^site\.[a-f0-9]{12}\.css$/);

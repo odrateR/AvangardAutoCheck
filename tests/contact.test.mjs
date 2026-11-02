@@ -49,6 +49,41 @@ test('supports a sender on a separately verified domain and trims configuration'
   assert.equal(response.status, 200);
 });
 
+test('callback requests deliver a name and phone without inventing an email address', async () => {
+  const callback = { type: 'callback', name: 'Client Test', phone: '+373 69448878', service: 'Premium Check', consent: 'on' };
+  let mail;
+  const response = await handleContact(request(callback), env, async (_url, options) => {
+    mail = JSON.parse(options.body);
+    return accepted();
+  });
+  assert.equal(response.status, 200);
+  assert.equal(mail.reply_to, undefined);
+  assert.match(mail.subject, /Solicitare de apel/);
+  assert.match(mail.text, /Telefon: \+373 69448878/);
+  assert.doesNotMatch(mail.text, /Email:/);
+  assert.deepEqual(mail.to, ['avangardautocheck@gmail.com']);
+});
+
+test('callback validation preserves consent, service, phone and injection protections', async () => {
+  const callback = { type: 'callback', name: 'Client Test', phone: '069448878', service: 'Premium Check', consent: 'on' };
+  for (const fields of [{ name: 'a' }, { name: 'Client\r\nBcc:x@example.com' }, { phone: '------' }, { phone: 'abc123456' }, { phone: '12345' }, { consent: undefined }, { service: 'unknown' }, { email: 'invalid' }, { type: 'unknown' }, { name: ['Client Test'] }]) {
+    let sent = false;
+    const response = await handleContact(request({ ...callback, ...fields }), env, async () => { sent = true; return accepted(); });
+    assert.equal(response.status, 400, JSON.stringify(fields));
+    assert.equal(sent, false);
+  }
+});
+
+test('callbacks use the same rate limit and preserve delivery failure responses', async () => {
+  const callback = { type: 'callback', name: 'Client Test', phone: '+373 (69) 448-878', service: 'Premium Check', consent: 'on' };
+  let key;
+  const response = await handleContact(request(callback), { ...env, CONTACT_RATE_LIMITER: { limit: async options => { key = options.key; return { success: false }; } } }, async () => { throw new Error('Must not send'); });
+  assert.equal(response.status, 429);
+  assert.equal(key, '37369448878');
+  assert.equal((await handleContact(request(callback), {})).status, 503);
+  assert.equal((await handleContact(request({ ...callback, type: undefined }), env)).status, 400);
+});
+
 test('provider redirects and rejections never report success or expose provider details', async () => {
   for (const status of [301, 302, 307, 308, 401, 403, 422, 429, 500]) {
     const response = await handleContact(request(), env, async () => Response.json({ id: 'not-accepted', message: 'private provider details re_test_only_key' }, { status }));

@@ -1,0 +1,348 @@
+/* Shared type, spacing and interaction sizes. Included in the hashed site stylesheet. */
+:root {
+  --text-small: 13px;
+  --text-label: 14px;
+  --text-body: 16px;
+  --text-lead: 18px;
+  --text-action: 17px;
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-section: clamp(64px, 7vw, 100px);
+  --control-height: 60px;
+  --control-radius: 8px;
+  --surface-raised: #14212d;
+  --border-control: #415665;
+}
+body { font-size: var(--text-body); }
+h2, .inspection .heading-row h2 { font-size: clamp(40px, 4.7vw, 68px); line-height: 1.08; }
+.eyebrow, .inspection .section-heading > .eyebrow { font-size: 12px; letter-spacing: .12em; }
+.heading-row > p, .inspection .heading-row > p, .service-body > p,
+.process-steps p, .faq-list p, .vin-lead, .vin-card > p,
+.price-card > p:not(.eyebrow), .price-card.featured > p:not(.eyebrow) {
+  font-size: var(--text-body);
+  line-height: 1.65;
+}
+.services, .inspection, .pricing, .fieldwork, .journal, .contact,
+.process, .partners, .faq, .vin-section { padding-block: var(--space-section); }
+.section-heading { margin-bottom: 40px; }
+.button, .site-header .header-cta, .hero-actions .button,
+.price-card .button, .price-card.featured .button-primary,
+.contact-form .button, .vin-card .button {
+  min-height: var(--control-height);
+  padding: 17px 24px;
+  border-radius: var(--control-radius);
+  font-family: var(--body);
+  font-size: var(--text-action);
+  font-weight: 750;
+  line-height: 1.4;
+  letter-spacing: 0;
+  gap: 16px;
+  text-align: left;
+}
+.button-primary { background: #147bb5; }
+.button-primary:hover { background: #188dcc; }
+.site-header .header-cta { min-height: 52px; font-size: 16px; padding: 12px 20px; }
+.inline-link, .text-link, .service-body .inline-link,
+.hero-actions .text-link, .journal-card .inline-link { font-size: var(--text-body); min-height: 48px; }
+.hero { display: block; min-height: 0; }
+.hero-content { padding-top: 142px; padding-bottom: 56px; }
+.hero h1 { font-size: clamp(76px, 7vw, 104px); }
+.hero .eyebrow { font-size: 12px; margin-bottom: 24px; }
+.hero-description { font-size: var(--text-lead); line-height: 1.65; margin-top: 24px; }
+.hero-actions { margin-top: 28px; gap: 24px; }
+.hero-actions .button { min-width: 310px; }
+.hero-reassurance { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 16px; font-size: var(--text-small); color: #c0d0d8; }
+.hero-reassurance > span { width: 6px; height: 6px; border-radius: 50%; background: var(--primary-green); }
+.hero-reassurance i { font-style: normal; opacity: .6; }
+.hero-bottom { position: relative; bottom: auto; padding-block: 24px 32px; }
+.hero-bottom > div > span { font-size: var(--text-small); max-width: 140px; }
+.hero-bottom strong { font-size: 40px; }
+.hero-corner { display: none; }
+.service-item h3 { font-size: 22px; }
+.service-price { font-size: 17px; white-space: nowrap; }
+.service-item summary { min-height: 76px; }
+.service-body { padding-bottom: 24px; }
+.inspection-map { min-width: 0; }
+.mobile-disclosure > summary { display: none; }
+.inspection-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.inspection-tabs button { min-height: 64px; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 10px 6px; }
+.tab-number { font-size: 12px; color: #9caeb9; }
+.tab-name { font-size: var(--text-label); font-weight: 700; }
+.inspection-info h3 { font-size: clamp(42px, 4.3vw, 60px); }
+.inspection .panel-description { font-size: var(--text-body); line-height: 1.65; margin-block: 16px; }
+.inspection .check-list li { font-size: var(--text-lead); padding-block: 14px; }
+.inspection .check-list li::before { font-size: 18px; top: 20px; }
+.price-card { border-radius: 12px; }
+.price-card > p:not(.eyebrow) { min-height: 0; }
+.price-card .check-list li, .price-card.featured .check-list li { font-size: var(--text-label); }
+.price-card .price-unit i, .price-card.featured .price-unit i { font-size: var(--text-label); }
+.price-card.featured .recommended { font-size: 12px; }
+.price-card.featured::after { display: none; }
+.secondary-plan { min-width: 0; }
+.secondary-plan > .price-card { height: 100%; }
+.journal-card h3 { font-size: 23px; line-height: 1.35; }
+.journal-card .eyebrow { font-size: 11px; }
+.faq-list summary { font-size: 18px; padding-block: 22px; }
+.contact-form label, .vin-card label { font-size: var(--text-label); }
+.contact-form input:not([type=checkbox]), .contact-form textarea,
+.contact-form select, .vin-card input {
+  min-height: 56px;
+  font-size: var(--text-body);
+  padding: 14px 16px;
+  border-radius: var(--control-radius);
+}
+.contact-form .consent, .form-hint, .vin-note { font-size: var(--text-small); line-height: 1.6; }
+.contact-form .consent input { width: 20px; height: 20px; flex-shrink: 0; }
+.contact-links, .contact-links a, .contact-links > span { font-size: var(--text-label); }
+.footer-bottom { font-size: var(--text-small); flex-wrap: wrap; }
+.footer-bottom a, .footer-bottom button { min-height: 44px; display: inline-flex; align-items: center; }
+.vin-disclosure { margin-top: 20px; }
+.vin-benefits { font-size: var(--text-label); }
+.vin-voucher-label { font-size: var(--text-small); }
+.arrow-icon { width: 24px; height: 24px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+/* A native dialog supplies focus trapping, Escape and an inert page behind it. */
+body.booking-open { position: fixed; width: 100%; overflow: hidden; }
+.booking-dialog {
+  width: min(560px, calc(100% - 48px));
+  max-width: none;
+  max-height: calc(100dvh - 48px);
+  padding: 0;
+  color: var(--paper);
+  background: #101b25;
+  border: 1px solid #3b515e;
+  border-radius: 18px;
+  box-shadow: 0 30px 100px #0008;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.booking-dialog::backdrop { background: #03080cc9; backdrop-filter: blur(8px); }
+.booking-shell { display: flex; flex-direction: column; }
+.booking-top { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px 0 32px; flex-shrink: 0; }
+.booking-top > span { font-size: 13px; font-weight: 800; letter-spacing: .08em; }
+.booking-top b { color: #95aebc; font-size: 10px; font-weight: 600; }
+.booking-close { display: grid; place-items: center; width: 48px; height: 48px; padding: 12px; border-radius: 50%; border: 1px solid #334956; background: #192934; }
+.booking-close:hover { background: #253f4d; }
+.booking-close svg, .success-mark svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; }
+.booking-content { padding: 20px 40px 32px; min-width: 0; }
+.booking-kicker { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: #91dda9; font-size: 11px; letter-spacing: .1em; font-weight: 700; }
+.booking-kicker .status-dot { background: #91dda9; }
+.booking-content h2 { font-size: 46px; line-height: 1.08; letter-spacing: -.025em; }
+#booking-description { font-size: var(--text-body); color: #b4c5d1; line-height: 1.6; margin-top: 14px; }
+.booking-service { font-size: var(--text-small); padding: 10px 14px; color: #bceacb; border: 1px solid #31564a; background: #142e29; border-radius: 6px; margin-block: 22px; }
+#booking-form label:not(.honeypot) { display: block; font-size: var(--text-label); font-weight: 650; margin-bottom: 8px; }
+#booking-form input:not([type=hidden]) { width: 100%; min-height: 56px; padding: 14px 16px; border: 1px solid var(--border-control); background: #0b151e; color: var(--paper); border-radius: var(--control-radius); font-size: 17px; margin-bottom: 20px; }
+#booking-form input::placeholder { color: #8498a7; }
+#booking-form input:focus { border-color: #82c9f4; outline: 2px solid #299bea55; outline-offset: 2px; }
+#booking-form .button, .booking-success .button { width: 100%; margin-top: 4px; }
+.booking-privacy { margin-top: 14px; font-size: 12px; line-height: 1.6; color: #a7bbc8; }
+.booking-privacy a { color: #d0e4f1; text-decoration: underline; text-underline-offset: 3px; }
+.honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.booking-bottom { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; padding: 16px 24px; border-top: 1px solid #2b3d49; background: #0d1720; font-size: var(--text-small); flex-shrink: 0; }
+.booking-bottom > span { color: #a7bbc8; }
+.booking-bottom a { color: #a6dfb5; font-weight: 750; }
+.lead-result { margin-top: 16px; padding: 12px 14px; border: 1px solid #526477; border-radius: 6px; font-size: var(--text-label); }
+.lead-result[data-state=error] { color: #ffc2ae; border-color: #915b4a; }
+.lead-result[data-state=success] { color: #a2e5b2; border-color: #477c58; }
+.booking-success { padding-top: 24px; }
+.success-mark { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #214d36; color: #a2e5b2; margin-bottom: 20px; }
+.booking-success p { color: #bdcfda; margin-bottom: 24px; }
+.mobile-booking { display: none; }
+[hidden] { display: none !important; }
+#tracking-consent { position: fixed; inset: auto 24px 24px; z-index: 150; max-width: 720px; margin-inline: auto; display: flex; align-items: center; gap: 24px; padding: 24px; background: #14212d; border: 1px solid #4a626e; border-radius: 12px; box-shadow: 0 16px 60px #0009; }
+#tracking-consent strong { font-size: var(--text-body); }
+#tracking-consent p { font-size: var(--text-small); color: #b8c9d4; margin-top: 6px; }
+#tracking-consent p a { text-decoration: underline; }
+.consent-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.consent-actions .button { min-height: 48px; font-size: 15px; padding: 12px 18px; }
+
+@media (max-width: 1150px) {
+  .site-header .header-cta { display: none; }
+  .nav-contact { display: block; }
+  .site-header { gap: 24px; }
+  .site-header nav { gap: 22px; }
+  .price-card, .price-card.featured { padding-inline: 22px; }
+  .price-card .button { padding-inline: 16px; font-size: 16px; }
+}
+@media (max-width: 900px) and (min-width: 641px) {
+  .hero h1 { font-size: 78px; }
+  .service-item h3 { font-size: 18px; }
+  .service-body { padding-left: 0; }
+  .pricing-grid { grid-template-columns: 1fr; gap: 24px; }
+  .price-card.featured { order: -1; transform: none; }
+  .price-card.featured:hover { transform: none; }
+}
+@media (max-width: 640px) {
+  :root { --space-section: 44px; --text-lead: 16px; --control-height: 58px; }
+  body { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+  .wrap { padding-inline: 0; }
+  h2, .inspection .heading-row h2 { font-size: clamp(36px, 10vw, 44px); }
+  .section-heading { margin-bottom: 24px; }
+  .section-heading > .eyebrow { margin-bottom: 14px; }
+  .eyebrow, .inspection .section-heading > .eyebrow { font-size: 11px; }
+  .heading-row > p, .inspection .heading-row > p { margin-top: 14px; max-width: none; font-size: 15px; }
+  .heading-row > a { margin-top: 14px; }
+  .hero-content { padding-top: 112px; padding-bottom: 28px; }
+  .hero h1 { font-size: clamp(55px, 14.7vw, 78px); line-height: 1; }
+  .hero .eyebrow { font-size: 10px; letter-spacing: .08em; margin-bottom: 20px; }
+  .hero-description { font-size: 16px; margin-top: 20px; max-width: 360px; }
+  .hero-description br { display: contents; }
+  .hero-description br::after { content: " "; }
+  .hero-actions { margin-top: 24px; gap: 6px; align-items: stretch; }
+  .hero-actions .button { min-width: 0; width: 100%; }
+  .hero-actions .text-link { align-self: center; font-size: 15px; }
+  .hero-reassurance { justify-content: center; font-size: 11px; gap: 6px; margin-top: 8px; }
+  .hero-bottom { padding-top: 20px; padding-bottom: 24px; gap: 14px; }
+  .hero-bottom > div { gap: 6px; }
+  .hero-bottom strong { font-size: 32px; }
+  .hero-bottom strong small { font-size: 21px; }
+  .hero-bottom > div > span { font-size: 11px; line-height: 1.4; }
+  .service-photo { display: none; }
+  .services-layout { gap: 0; }
+  .service-item summary { min-height: 76px; padding-block: 20px; gap: 8px; grid-template-columns: 22px 1fr auto 16px; }
+  .service-item h3 { font-size: 19px; }
+  .service-price { font-size: 15px; }
+  .service-body { padding-left: 0; padding-right: 0; }
+  .service-body > p { font-size: 15px; }
+  .inspection-layout { gap: 20px; }
+  .inspection-info { order: -1; }
+  .inspection-tabs { gap: 8px; margin-bottom: 20px; }
+  .inspection-tabs button { min-width: 0; min-height: 60px; }
+  .tab-name { font-size: 12px; }
+  .inspection-info h3 { font-size: 36px; }
+  .inspection-info h3 br { display: none; }
+  .inspection .panel-label { display: none; }
+  .inspection .panel-description { margin-block: 12px; font-size: 15px; }
+  .inspection .check-list li { padding-block: 12px; font-size: 16px; }
+  .inspection .check-list li::before { font-size: 16px; top: 17px; }
+  .inspection .report-note { display: none; }
+  .mobile-disclosure { border-block: 1px solid var(--line); }
+  .mobile-disclosure > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 16px; font-size: 14px; font-weight: 650; list-style: none; cursor: pointer; }
+  .mobile-disclosure > summary::-webkit-details-marker { display: none; }
+  .mobile-disclosure > summary > span { font-size: 22px; transition: transform .2s; }
+  .mobile-disclosure[open] > summary > span { transform: rotate(45deg); }
+  .inspection-map .scan-stage { margin-bottom: 16px; }
+  .car-diagram { max-width: 190px; }
+  .process .wrap { gap: 24px; }
+  .process-intro h2 { font-size: 36px; }
+  .process-steps { gap: 16px; }
+  .process-steps article { padding-left: 44px; padding-bottom: 16px; }
+  .process-steps h3 { font-size: 17px; margin-bottom: 6px; }
+  .process-steps p { font-size: 15px; }
+  .process-intro h2 { font-size: 32px; }
+  .process-intro h2 br { display: none; }
+  .process-intro .eyebrow, .process-steps p { display: none; }
+  .process-steps h3 { margin-bottom: 0; }
+  .vin-layout { gap: 20px; }
+  .vin-copy h2 { font-size: 36px; margin-bottom: 12px; text-transform: none; }
+  .vin-lead { font-size: 15px; }
+  .vin-benefits { display: none; }
+  .vin-voucher-label { display: inline; font-size: 13px; margin-right: 6px; }
+  .vin-voucher { margin-top: 14px; padding: 6px 10px; font-size: 13px; }
+  .vin-card { padding: 22px 20px; border-radius: 10px; }
+  .vin-card > p { font-size: 15px; margin-bottom: 16px; }
+  .vin-card h3 { display: none; }
+  .vin-disclosure { margin-top: 14px; }
+  .vin-disclosure summary { font-size: 13px; }
+  .vin-disclosure .vin-note { margin-top: 0; padding-bottom: 14px; }
+  .pricing-grid { padding-top: 0; gap: 16px; }
+  .price-card, .price-card.featured { padding: 24px; transform: none; }
+  .price-card.featured { order: -1; padding-top: 56px; }
+  .price-card.featured:hover, .price-card:not(.featured):hover { transform: none; }
+  .price-card.featured .recommended { left: 24px; top: 18px; }
+  .price-card > .eyebrow { margin-bottom: 12px; }
+  .price-card .price, .price-card.featured .price { margin-block: 16px 8px; }
+  .price-card .price .price-amount { font-size: 64px; }
+  .price-card.featured .price .price-amount { font-size: 86px; }
+  .price-card > p:not(.eyebrow) { font-size: 15px; margin-block: 8px 16px; }
+  .price-card .check-list li, .price-card.featured .check-list li { font-size: 15px; padding-block: 10px; }
+  .price-card .check-list { margin-bottom: 20px; }
+  .price-card .button { font-size: 16px; padding-inline: 18px; }
+  .secondary-plan { border: 1px solid #344956; border-radius: 10px; background: #131f2a; }
+  .secondary-plan > summary { padding: 22px; font-size: 17px; }
+  .secondary-plan > summary strong { white-space: nowrap; font-size: 18px; }
+  .secondary-plan > summary i { display: inline-block; margin-left: 12px; color: #9cb7c4; font-size: 22px; font-style: normal; font-weight: 400; }
+  .secondary-plan[open] > summary i { transform: rotate(45deg); }
+  .secondary-plan > .price-card { height: auto; border: 0; border-top: 1px solid #344956; border-radius: 0 0 10px 10px; padding-top: 16px; }
+  .secondary-plan .price-card::before, .secondary-plan .price-card > .eyebrow,
+  .secondary-plan .price-card h3, .secondary-plan .price-card .price { display: none; }
+  .promo-strip { padding: 20px; gap: 10px; margin-top: 20px; display: grid; grid-template-columns: 1fr; }
+  .promo-strip p, .promo-strip p strong { font-size: 14px; padding: 0; }
+  .promo-strip code { font-size: 16px; margin-left: 0; }
+  .promo-value { font-size: 38px; grid-row: auto; justify-self: start; padding: 0; }
+  .promo-strip .inline-link { grid-column: auto; margin: 0; }
+  .cases-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .case-image { height: auto; aspect-ratio: 1; }
+  .case-caption { display: block; }
+  .case-caption h3 { font-size: 17px; }
+  .case-caption > span { display: none; }
+  .case-arrow { width: 36px; height: 36px; font-size: 22px; }
+  .review-block { margin-top: 28px; padding-top: 24px; gap: 12px; }
+  .review-block blockquote { font-size: 23px; min-height: 0; }
+  .review-bottom { margin-top: 20px; flex-wrap: wrap; gap: 16px; }
+  .review-controls button { width: 44px; height: 44px; }
+  .partners-heading { margin-bottom: 20px; }
+  .partners-heading h2 { font-size: 32px; }
+  .partner-list { grid-template-columns: none; grid-template-rows: 100px; grid-auto-columns: 140px; grid-auto-rows: 100px; grid-auto-flow: column; justify-content: start; gap: 10px; overflow-x: auto; padding-bottom: 12px; scroll-snap-type: x mandatory; }
+  .partner-list .partner-tile { padding: 12px; gap: 4px; scroll-snap-align: start; }
+  .partner-list .partner-tile img { height: 38px; }
+  .partner-tile small { display: none; }
+  body:not(.interior-page) .journal-grid .journal-card:nth-child(n+2) { display: none; }
+  .journal-card h3 { font-size: 23px; }
+  .journal-image { aspect-ratio: 1.8; margin-bottom: 16px; }
+  .journal-card .inline-link { margin-top: 10px; }
+  body:not(.interior-page) .journal .journal-card { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 8px 16px; align-content: start; }
+  body:not(.interior-page) .journal .journal-image { grid-row: 1 / 4; aspect-ratio: 1; margin: 0; }
+  body:not(.interior-page) .journal .journal-card .eyebrow { margin: 0; font-size: 10px; }
+  body:not(.interior-page) .journal .journal-card h3 { font-size: 20px; }
+  body:not(.interior-page) .journal .journal-card .inline-link { display: none; }
+  .faq-layout { gap: 24px; }
+  .faq h2 br { display: none; }
+  .faq-list summary { font-size: 16px; padding-block: 18px; }
+  .faq-list p { font-size: 15px; }
+  .contact-layout { gap: 28px; }
+  .contact-copy > p:not(.eyebrow) { font-size: 15px; }
+  .contact-phone { font-size: 36px; margin-block: 20px; }
+  .form-top { margin-bottom: 16px; }
+  .footer-top { padding-block: 28px; }
+  .footer-top > p { display: none; }
+  .mobile-booking { position: fixed; inset: auto 0 0; z-index: 99; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 20px calc(12px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid #3b515c; background: #0d1923f5; backdrop-filter: blur(16px); box-shadow: 0 -8px 30px #0003; }
+  .mobile-booking small { display: block; font-size: 11px; color: #afc3d0; }
+  .mobile-booking strong { display: block; font-size: 23px; line-height: 1.25; }
+  .mobile-booking strong span { font-size: 11px; font-weight: 500; color: #afc3d0; }
+  .mobile-booking .button { min-height: 52px; padding: 12px 18px; font-size: 16px; }
+  body.booking-open .mobile-booking, body.menu-open .mobile-booking, body:has(input:focus) .mobile-booking { display: none; }
+  .booking-dialog { position: fixed; top: var(--booking-top, 0px); left: 0; right: 0; bottom: auto; width: 100%; height: var(--booking-height, 100dvh); max-height: var(--booking-height, 100dvh); margin: 0; border: 0; border-radius: 0; }
+  .booking-shell { min-height: 100%; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .booking-top { padding: 12px 20px 0; }
+  .booking-content { padding: 24px; margin-block: auto; }
+  .booking-content h2 { font-size: 42px; }
+  .booking-bottom { padding-block: 20px; }
+  .booking-dialog.keyboard-open .booking-kicker,
+  .booking-dialog.keyboard-open #booking-description, .booking-dialog.keyboard-open .booking-service,
+  .booking-dialog.keyboard-open .booking-bottom { display: none; }
+  .booking-dialog.keyboard-open .booking-content { padding: 16px 24px; margin-block: 0; }
+  .booking-dialog.keyboard-open .booking-top { display: block; position: absolute; top: 8px; right: 12px; padding: 0; }
+  .booking-dialog.keyboard-open .booking-top > span { display: none; }
+  .booking-dialog.keyboard-open .booking-close { width: 40px; height: 40px; padding: 10px; }
+  .booking-dialog.keyboard-open h2 { font-size: 26px; padding-right: 32px; margin-bottom: 16px; }
+  .booking-dialog.keyboard-open #booking-form input { min-height: 48px; padding-block: 10px; margin-bottom: 12px; }
+  .booking-dialog.keyboard-open #booking-form .button { min-height: 52px; padding-block: 12px; }
+  .booking-dialog.keyboard-open .booking-privacy { font-size: 11px; margin-top: 10px; }
+  #tracking-consent { inset: auto 12px calc(94px + env(safe-area-inset-bottom, 0px)); flex-direction: column; align-items: stretch; padding: 20px; gap: 16px; }
+  .consent-actions .button { flex: 1; justify-content: center; }
+}
+@media (max-width: 640px) and (max-height: 650px) {
+  .booking-top { padding-top: 4px; }
+  .booking-content { padding: 12px 24px 20px; }
+  .booking-content h2 { font-size: 34px; }
+  .booking-kicker { margin-bottom: 10px; }
+  .booking-service { margin-block: 16px; }
+  #booking-form input:not([type=hidden]) { margin-bottom: 16px; }
+  .booking-bottom { padding-block: 12px; }
+}
+@media (max-width: 360px) {
+  .hero-actions .button { padding-inline: 18px; gap: 8px; }
+}

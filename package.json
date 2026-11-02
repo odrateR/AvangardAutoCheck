@@ -11,7 +11,7 @@
     "dev": "wrangler dev --ip 127.0.0.1 --port 4173",
     "start": "npm run dev",
     "build": "node generate-pages.mjs",
-    "check": "node --check src/app.js && node --check generate-pages.mjs && node --check worker.js && node --check functions/api/contact.js && node --check lib/contact.js",
+    "check": "node --check src/app.js && node --check src/booking.js && node --check src/forms.js && node --check src/tracking.js && node --check generate-pages.mjs && node --check worker.js && node --check functions/api/contact.js && node --check lib/contact.js",
     "test": "node --test tests/*.test.mjs",
     "test:browser": "playwright test",
     "deploy": "npm run build && wrangler pages deploy dist --project-name avangardautocheck --branch main",

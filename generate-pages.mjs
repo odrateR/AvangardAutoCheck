@@ -2,7 +2,7 @@ import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { transform } from 'esbuild';
+import { build, transform } from 'esbuild';
 
 const projectRoot = resolve(fileURLToPath(new URL('.', import.meta.url)));
 const outputRoot = resolve(projectRoot, 'dist');
@@ -10,18 +10,20 @@ const outputRoot = resolve(projectRoot, 'dist');
 if (!outputRoot.startsWith(projectRoot + sep)) throw new Error('Invalid build output directory');
 const readText = async path => (await readFile(resolve(projectRoot, path), 'utf8')).replaceAll('\r\n', '\n');
 const hash = content => createHash('sha256').update(content).digest('hex').slice(0, 12);
-const [index, notFound, articleJSON, script, cssSource] = await Promise.all([
+const [index, notFound, articleJSON, script, baseStyles, conversionStyles, campaign, campaignStyles] = await Promise.all([
   readText('src/index.html'), readText('src/404.html'), readText('content/articles.json'), readText('src/app.js'),
-  readText('src/styles.css')
+  readText('src/styles.css'), readText('src/conversion.css'), readText('src/landing-999.html'), readText('src/landing-999.css')
 ]);
+const cssSource = [baseStyles, conversionStyles, campaignStyles].join('\n');
 const articles = JSON.parse(articleJSON);
 const [css, js] = await Promise.all([
   transform(cssSource, { loader: 'css', minify: true, charset: 'utf8', target: ['chrome109', 'firefox115', 'safari16'], legalComments: 'none' }),
-  transform(script, { loader: 'js', format: 'iife', minify: true, charset: 'utf8', target: 'es2022', legalComments: 'none' })
+  build({ stdin: { contents: script, resolveDir: resolve(projectRoot, 'src'), sourcefile: 'app.js' }, bundle: true, write: false, metafile: true, format: 'iife', minify: true, charset: 'utf8', target: 'es2022', legalComments: 'none' })
 ]);
+js.code = js.outputFiles[0].text;
 const cssFile = `site.${hash(css.code)}.css`;
 const jsFile = `app.${hash(js.code)}.js`;
-const pages = new Map([['index.html', index], ['404.html', notFound]]);
+const pages = new Map([['index.html', index], ['404.html', notFound], ['verificare-auto-999.html', campaign]]);
 const addPage = (path, html) => pages.set(path, html);
 
 await mkdir(outputRoot, { recursive: true });
@@ -34,6 +36,7 @@ for (const entry of await readdir(outputRoot)) {
 await cp(resolve(projectRoot, 'public'), outputRoot, { recursive: true });
 const header = index.match(/<header class="site-header">[\s\S]*?<\/header>/)[0].replaceAll('href="#', 'href="index.html#');
 const footer = index.match(/<footer class="site-footer">[\s\S]*?<\/footer>/)[0].replaceAll('href="#', 'href="index.html#');
+const booking = index.match(/<!-- BOOKING START -->([\s\S]*?)<!-- BOOKING END -->/)[1];
 const esc = text => text.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
 const plain = html => html.replace(/<[^>]+>/g, '').trim();
 function page(title, description, main, extra = '') {
@@ -57,18 +60,19 @@ for (const article of articles) {
   const schema = JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: article.title, description: article.description, inLanguage: 'ro', author: { '@type': 'Organization', name: 'Avangard Autocheck' } }).replaceAll('<', '\\u003c');
   addPage(article.slug, page(article.title, article.description, main, `<script type="application/ld+json">${schema}</script>`));
 }
-const privacy = `<section class="page-intro wrap"><p class="eyebrow"><span class="square"></span> AVANGARD AUTOCHECK</p><h1>Datele tale.<br><span class="muted">Explicate simplu.</span></h1></section><div class="wrap legal-content"><h2>Contactul prin acest site</h2><p>La apăsarea butonului „Trimite cererea”, datele completate sunt transmise serverului site-ului pentru a trimite un email către avangardautocheck@gmail.com. Programarea este confirmată separat de echipa Avangard. Dacă trimiterea nu este confirmată, formularul afișează un mesaj și păstrează datele introduse.</p><h2>Ce informații incluzi</h2><p>Solicitarea poate conține numele, numărul de telefon, adresa de email, serviciul ales și detaliile despre mașină. Aceste informații sunt folosite de echipa Avangard pentru a răspunde solicitării și pentru a discuta o eventuală programare. Evită trimiterea documentelor de identitate sau a datelor bancare prin acest formular.</p><h2>Preferințe și servicii externe</h2><p>Când folosești verificarea istoricului, codul introdus este transmis către carVertical prin linkul de afiliere; carVertical gestionează căutarea, raportul și plata conform propriilor condiții. Site-ul memorează local doar preferința privind animațiile, în stocarea browserului. Poți șterge această preferință din setările browserului. Imaginile și fonturile sunt servite local. Linkurile către Instagram, TikTok sau parteneri deschid servicii externe, care aplică propriile politici. Furnizorul de găzduire poate procesa date tehnice de acces pentru funcționarea site-ului.</p><h2>Întrebări despre datele trimise</h2><p>Pentru întrebări sau solicitări privind informațiile transmise echipei, scrie la <a href="mailto:avangardautocheck@gmail.com">avangardautocheck@gmail.com</a> sau sună la <a href="tel:+37369448878">069 448 878</a>.</p><a class="inline-link" href="index.html#contact">Înapoi la contact <span>↗</span></a></div>`;
+const privacy = `<section class="page-intro wrap"><p class="eyebrow"><span class="square"></span> AVANGARD AUTOCHECK</p><h1>Datele tale.<br><span class="muted">Explicate simplu.</span></h1></section><div class="wrap legal-content"><h2>Contactul prin acest site</h2><p>La trimiterea formularului de contact sau a cererii de apel, datele completate sunt transmise serverului site-ului pentru a trimite un email către avangardautocheck@gmail.com. Programarea este confirmată separat de echipa Avangard. Dacă trimiterea nu este confirmată, formularul afișează un mesaj și păstrează datele introduse.</p><h2>Ce informații incluzi</h2><p>Solicitarea poate conține numele, numărul de telefon, adresa de email, serviciul ales și detaliile despre mașină. Formularul de programare rapidă solicită doar numele și numărul de telefon. Aceste informații sunt folosite de echipa Avangard pentru a răspunde solicitării și pentru a discuta o eventuală programare. Evită trimiterea documentelor de identitate sau a datelor bancare prin acest formular.</p><h2>Preferințe și servicii externe</h2><p>Când folosești verificarea istoricului, codul introdus este transmis către carVertical prin linkul de afiliere; carVertical gestionează căutarea, raportul și plata conform propriilor condiții. Site-ul memorează local preferința privind animațiile și, când măsurarea este activată, alegerea privind cookie-urile. Poți șterge această preferință din setările browserului. Imaginile și fonturile sunt servite local. Linkurile către Instagram, TikTok sau parteneri deschid servicii externe, care aplică propriile politici. Furnizorul de găzduire poate procesa date tehnice de acces pentru funcționarea site-ului.</p><h2>Statistici și reclame</h2><p>Dacă sunt configurate, instrumentele Google și Meta se încarcă doar după ce accepți măsurarea. Le folosim pentru a înțelege interacțiunile cu site-ul și cererile primite prin formulare. Nu transmitem valorile completate în formulare către aceste instrumente. Poți refuza măsurarea sau îți poți schimba alegerea din „Preferințe cookie”, în subsolul paginii, când această opțiune este disponibilă.</p><h2>Întrebări despre datele trimise</h2><p>Pentru întrebări sau solicitări privind informațiile transmise echipei, scrie la <a href="mailto:avangardautocheck@gmail.com">avangardautocheck@gmail.com</a> sau sună la <a href="tel:+37369448878">069 448 878</a>.</p><a class="inline-link" href="index.html#contact">Înapoi la contact <span>↗</span></a></div>`;
 addPage('confidentialitate.html', page('Confidențialitate', 'Cum funcționează formularul de contact și preferințele locale pe site-ul Avangard Autocheck.', privacy));
 const origin = (process.env.PUBLIC_SITE_URL || 'https://avangardautocheck.com').replace(/\/+$/, '');
-const routes = ['index.html', 'blog.html', ...articles.map(a => a.slug), 'confidentialitate.html'];
+const routes = ['index.html', 'verificare-auto-999', 'blog.html', ...articles.map(a => a.slug), 'confidentialitate.html'];
 const output = new Map([
   [cssFile, css.code], [jsFile, js.code],
   ['sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map(route => `<url><loc>${origin}/${route === 'index.html' ? '' : route}</loc></url>`).join('')}</urlset>\n`],
   ['robots.txt', `User-agent: *\nAllow: /\nSitemap: ${origin}/sitemap.xml\n`]
 ]);
 for (const [file, html] of pages) {
-  output.set(file, html.replace(/((?:href|src)=")(\/?)(site\.css|app\.js)(")/g,
+  const withBooking = !html.includes('id="booking-dialog"') && /src="\/?app\.js"/.test(html) ? html.replace('</body>', booking.replaceAll('href="confidentialitate.html"', 'href="/confidentialitate.html"') + '</body>') : html;
+  output.set(file, withBooking.replace(/((?:href|src)=")(\/?)(site\.css|app\.js)(")/g,
     (_, prefix, slash, asset, suffix) => `${prefix}${slash}${asset === 'site.css' ? cssFile : jsFile}${suffix}`));
 }
 await Promise.all([...output].map(([file, content]) => writeFile(resolve(outputRoot, file), content)));
-console.log(`Built ${pages.size} pages. CSS: ${Buffer.byteLength(cssSource)} → ${Buffer.byteLength(css.code)} bytes; JS: ${Buffer.byteLength(script)} → ${Buffer.byteLength(js.code)} bytes.`);
+console.log(`Built ${pages.size} pages. CSS: ${Buffer.byteLength(cssSource)} → ${Buffer.byteLength(css.code)} bytes; JS: ${Object.values(js.metafile.inputs).reduce((total, input) => total + input.bytes, 0)} → ${Buffer.byteLength(js.code)} bytes.`);
