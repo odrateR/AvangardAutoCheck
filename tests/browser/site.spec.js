@@ -58,6 +58,19 @@ test('mobile menu opens, closes after navigation and restores focus on Escape', 
   await expect(toggle).toBeFocused();
 });
 
+test('navigation follows page order and highlights the visible section while scrolling both ways', async ({ page }) => {
+  await page.goto('/');
+  const links = page.locator('#main-nav a[href^="#"]');
+  const sections = await page.locator('main section[id]').evaluateAll(nodes => nodes.map(node => '#' + node.id));
+  const destinations = await links.evaluateAll(nodes => nodes.map(node => node.getAttribute('href')));
+  expect(destinations).toEqual(sections.filter(id => destinations.includes(id)));
+  for (const id of ['inspectie', 'istoric', 'preturi', 'istoric', 'inspectie']) {
+    await page.locator('#' + id).evaluate(section => section.scrollIntoView({ block: 'start', behavior: 'instant' }));
+    await expect(page.locator('#main-nav a.active')).toHaveCount(1);
+    await expect(page.locator('#main-nav a.active')).toHaveAttribute('href', '#' + id);
+  }
+});
+
 test('inspection diagram supports keyboard selection and service links populate the form', async ({ page }) => {
   await page.goto('/');
   await page.locator('#tab-0').focus();
