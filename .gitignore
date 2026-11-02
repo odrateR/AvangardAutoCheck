@@ -1,20 +1,51 @@
-# Dependencies and deployment metadata
+# Dependencies and generated build output
 node_modules/
 dist/
+
+# Local tooling and deployment caches
 .wrangler/
-.dev.vars
-.dev.vars.*
+.vercel/
+.cache/
+.openai/
+
+# Test reports, coverage and browser authentication state
 playwright-report/
 test-results/
-.vercel/
-.openai/
+blob-report/
+coverage/
+.nyc_output/
+playwright/.cache/
+playwright/.auth/
 .browser-qa/
 qa/
 
 # Local secrets and environment settings
+.dev.vars
+.dev.vars.*
 .env
 .env.*
 !.env.example
+
+# Logs
+*.log
+*.log.*
+
+# Local editor settings and operating-system metadata
+.vscode/
+.idea/
+*.code-workspace
+.DS_Store
+Thumbs.db
+[Dd]esktop.ini
+
+# Temporary files and editor backups
+.tmp/
+tmp/
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
 
 # Original website crawl and research notes
 research/
