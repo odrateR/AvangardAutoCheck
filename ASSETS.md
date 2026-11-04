@@ -7,6 +7,10 @@
 The remaining photographs and partner marks are retained from the supplied
 Avangard reference project.
 
+The carVertical mark in the vehicle history section is the official SVG from
+[carVertical](https://www.carvertical.com/logo.svg), downloaded on 4 November 2026
+and served locally as `public/assets/carvertical-logo.svg`.
+
 The `/verificare-auto-999` campaign uses the existing `Volvo.jpg` and `BMW.jpg`
 portfolio photographs, linked to the inspection posts already referenced by
 the main site. They show the vehicles, not scanner readings, paint measurements

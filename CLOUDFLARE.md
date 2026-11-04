@@ -174,7 +174,11 @@ and robots file defaults to `https://avangardautocheck.com`.
 
 ## carVertical
 
-The VIN section preserves the original affiliate URL and AVANGARD voucher.
+The VIN section shows the carVertical logo, a 20% discount offer and the
+copyable AVANGARD voucher, and preserves the original affiliate URL.
 The code is normalized and forwarded in the original `sub3` affiliate tracking
 parameter. carVertical performs the search and payment on its site and may ask
-the visitor to enter the code again. This site does not purchase paid reports.
+the visitor to enter the code again. `sub3` is tracking metadata, not a verified
+VIN autofill parameter. Autofill requires carVertical to provide or confirm a
+VIN-enabled affiliate/deep link for this offer; do not replace the working
+affiliate URL with an unverified destination. This site does not purchase paid reports.

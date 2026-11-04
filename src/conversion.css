@@ -101,6 +101,21 @@ h2, .inspection .heading-row h2 { font-size: clamp(40px, 4.7vw, 68px); line-heig
 .vin-disclosure { margin-top: 20px; }
 .vin-benefits { font-size: var(--text-label); }
 .vin-voucher-label { font-size: var(--text-small); }
+.vin-partnership { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+.vin-partnership .vin-kicker { margin: 0; }
+.vin-partner-logo { display: block; width: 170px; height: auto; }
+.vin-offer { display: flex; align-items: flex-start; gap: 20px; padding: 22px; border: 1px solid #375b50; border-radius: 12px; background: #6bd49b09; }
+.vin-discount { color: #6bd49b; font-size: clamp(34px, 3.4vw, 48px); font-weight: 800; line-height: 1.15; letter-spacing: -.04em; white-space: nowrap; }
+.vin-offer-copy { min-width: 0; }
+.vin-offer-title { font-size: var(--text-label); font-weight: 700; line-height: 1.4; margin-bottom: 6px; }
+.vin-offer .vin-voucher-label { margin-bottom: 12px; line-height: 1.5; }
+.vin-offer .vin-voucher { align-items: center; flex-wrap: wrap; gap: 8px 18px; min-height: 44px; margin: 0; cursor: pointer; }
+.vin-voucher:hover { background: #6bd49b14; }
+.vin-voucher:focus-visible { outline: 2px solid #6bd49b; outline-offset: 4px; }
+.vin-copy-hint { font-size: 12px; font-weight: 500; letter-spacing: 0; color: #bbccda; }
+.vin-copy-status { font-size: 12px; color: #bbccda; }
+.vin-copy-status:not(:empty) { margin-top: 8px; }
+.vin-card > .vin-discount-note { margin: 16px 0 0; color: #bce9cc; font-size: var(--text-small); line-height: 1.6; }
 .arrow-icon { width: 24px; height: 24px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
 /* A native dialog supplies focus trapping, Escape and an inert page behind it. */
@@ -239,8 +254,13 @@ body.booking-open { position: fixed; width: 100%; overflow: hidden; }
   .vin-copy h2 { font-size: 36px; margin-bottom: 12px; text-transform: none; }
   .vin-lead { font-size: 15px; }
   .vin-benefits { display: none; }
-  .vin-voucher-label { display: inline; font-size: 13px; margin-right: 6px; }
-  .vin-voucher { margin-top: 14px; padding: 6px 10px; font-size: 13px; }
+  .vin-partnership { gap: 10px; margin-bottom: 18px; }
+  .vin-partner-logo { width: 140px; }
+  .vin-offer { gap: 12px; padding: 16px; margin-top: 18px; }
+  .vin-discount { font-size: 32px; }
+  .vin-offer-title { font-size: 15px; }
+  .vin-voucher-label { font-size: 13px; }
+  .vin-voucher { padding: 6px 10px; font-size: 13px; }
   .vin-card { padding: 22px 20px; border-radius: 10px; }
   .vin-card > p { font-size: 15px; margin-bottom: 16px; }
   .vin-card h3 { display: none; }

@@ -138,6 +138,17 @@ document.querySelectorAll('[data-review]').forEach(button => button.addEventList
 }));
 bindLeadForm(document.querySelector('#contact-form'));
 
+const voucherButton = document.querySelector('.vin-voucher');
+const voucherStatus = document.querySelector('.vin-copy-status');
+voucherButton?.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(voucherButton.dataset.copy);
+    voucherStatus.textContent = 'Cod copiat: AVANGARD';
+  } catch {
+    voucherStatus.textContent = 'Copiază manual codul: AVANGARD';
+  }
+});
+
 // Preserve the original affiliate attribution and forward the vehicle for tracking.
 // carVertical performs the actual lookup on its own site.
 const vinForm = document.querySelector('#vin-affiliate-form');
