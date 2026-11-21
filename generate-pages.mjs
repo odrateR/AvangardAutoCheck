@@ -10,11 +10,12 @@ const outputRoot = resolve(projectRoot, 'dist');
 if (!outputRoot.startsWith(projectRoot + sep)) throw new Error('Invalid build output directory');
 const readText = async path => (await readFile(resolve(projectRoot, path), 'utf8')).replaceAll('\r\n', '\n');
 const hash = content => createHash('sha256').update(content).digest('hex').slice(0, 12);
-const [index, notFound, articleJSON, script, baseStyles, conversionStyles, campaign, campaignStyles] = await Promise.all([
+const [index, notFound, articleJSON, script, baseStyles, conversionStyles, campaign, campaignStyles, inspection, inspectionStyles] = await Promise.all([
   readText('src/index.html'), readText('src/404.html'), readText('content/articles.json'), readText('src/app.js'),
-  readText('src/styles.css'), readText('src/conversion.css'), readText('src/landing-999.html'), readText('src/landing-999.css')
+  readText('src/styles.css'), readText('src/conversion.css'), readText('src/landing-999.html'), readText('src/landing-999.css'),
+  readText('src/pre-purchase.html'), readText('src/pre-purchase.css')
 ]);
-const cssSource = [baseStyles, conversionStyles, campaignStyles].join('\n');
+const cssSource = [baseStyles, conversionStyles, campaignStyles, inspectionStyles].join('\n');
 const articles = JSON.parse(articleJSON);
 const [css, js] = await Promise.all([
   transform(cssSource, { loader: 'css', minify: true, charset: 'utf8', target: ['chrome109', 'firefox115', 'safari16'], legalComments: 'none' }),
@@ -46,6 +47,11 @@ function page(title, description, main, extra = '') {
 function card(article) {
   return `<a class="journal-card" href="${publicPath(article.slug)}" data-category="${esc(article.category)}"><div class="journal-image"><img src="${article.image}" alt="${esc(article.category)} — ghid Avangard" width="900" height="600" loading="lazy"></div><p class="eyebrow">${esc(article.category.toLocaleUpperCase('ro'))}</p><h3>${esc(article.title)}</h3><span class="inline-link">Citește articolul <span>↗</span></span></a>`;
 }
+addPage('verificare-auto-inainte-de-cumparare.html', page(
+  'Verificare auto înainte de cumpărare în Chișinău',
+  'Inspecție auto independentă în Chișinău, cu verificarea motorului, transmisiei și caroseriei, diagnoză și raport foto. Premium Check, 69 € pe mașină.',
+  inspection
+));
 const cta = `<div class="blog-cta"><h2>Un anunț promițător?<br>Hai să vedem și mașina.</h2><a class="button button-primary" href="/#contact">Programează o inspecție <span>↗</span></a></div>`;
 const featured = articles[0];
 const categories = [...new Set(articles.map(article => article.category))];

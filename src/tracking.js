@@ -81,49 +81,94 @@ function applyConsent(value) {
 
 if (enabled) {
   const providers = [adsId || analyticsId ? 'Google' : '', metaId ? 'Meta' : ''].filter(Boolean).join(' și ');
-  const banner = document.createElement('aside');
-  let settingsOpener;
-  banner.id = 'tracking-consent';
-  banner.setAttribute('aria-labelledby', 'tracking-consent-title');
-  banner.hidden = consent === 'granted' || consent === 'denied';
-  banner.innerHTML = `<h2 id="tracking-consent-title">Preferințe cookie</h2>
-    <p>Cu acordul tău, folosim ${providers} pentru a măsura vizitele și rezultatele reclamelor.</p>
-    <div class="consent-actions">
-      <button type="button" data-tracking-choice="denied">Refuz</button>
-      <button type="button" data-tracking-choice="granted">Accept</button>
+  const dialog = document.createElement('dialog');
+  let opener;
+  dialog.id = 'tracking-consent';
+  dialog.setAttribute('aria-labelledby', 'tracking-consent-title');
+  dialog.innerHTML = `<h2 id="tracking-consent-title" tabindex="-1">Folosim cookie-uri</h2>
+    <div data-consent-choices>
+      <p>Cookie-urile necesare ajută site-ul să funcționeze. Cu acordul tău, ${providers} măsoară vizitele și rezultatele reclamelor. Poți schimba alegerea din „Preferințe cookie”, în subsol.</p>
+      <a class="consent-privacy" href="/confidentialitate">Politica de confidențialitate</a>
+      <div class="consent-actions">
+        <button type="button" data-consent-settings>Setări cookie-uri</button>
+        <div class="consent-choices">
+          <button type="button" data-tracking-choice="denied">Acceptă doar necesare</button>
+          <button type="button" class="consent-primary" data-tracking-choice="granted">Acceptă toate</button>
+        </div>
+      </div>
     </div>
-    <a href="/confidentialitate">Politica de confidențialitate</a>`;
-  document.body.append(banner);
-  function closeSettings() {
-    banner.hidden = true;
-    settingsOpener?.focus({ preventScroll: true });
-    settingsOpener = undefined;
+    <div data-consent-preferences hidden>
+      <div class="consent-category">
+        <strong>Necesare</strong>
+        <span>Mereu active</span>
+        <p>Permit funcționarea site-ului și memorarea alegerii tale.</p>
+      </div>
+      <label class="consent-category">
+        <strong id="consent-optional-title">Statistici și publicitate</strong>
+        <input type="checkbox" aria-labelledby="consent-optional-title" aria-describedby="consent-optional-description" data-consent-optional>
+        <span id="consent-optional-description">Permite măsurarea vizitelor și rezultatelor reclamelor prin ${providers}.</span>
+      </label>
+      <div class="consent-actions">
+        <button type="button" data-consent-back>Înapoi</button>
+        <button type="button" class="consent-primary" data-consent-save>Salvează preferințele</button>
+      </div>
+    </div>`;
+  document.body.append(dialog);
+  const title = dialog.querySelector('#tracking-consent-title');
+  const choices = dialog.querySelector('[data-consent-choices]');
+  const preferences = dialog.querySelector('[data-consent-preferences]');
+  const optional = dialog.querySelector('[data-consent-optional]');
+  const isPrivacyPage = /^\/confidentialitate(?:\.html)?\/?$/.test(location.pathname);
+  const hasChoice = () => consent === 'granted' || consent === 'denied';
+
+  function openDialog(showPreferences = false) {
+    title.textContent = showPreferences ? 'Setări cookie-uri' : 'Folosim cookie-uri';
+    choices.hidden = showPreferences;
+    preferences.hidden = !showPreferences;
+    if (showPreferences) optional.checked = consent === 'granted';
+    if (!dialog.open) dialog.showModal();
+    title.focus({ preventScroll: true });
   }
-  banner.querySelectorAll('[data-tracking-choice]').forEach(button => button.addEventListener('click', () => {
-    const value = button.dataset.trackingChoice;
+  function closeDialog() {
+    dialog.close();
+    opener?.focus({ preventScroll: true });
+    opener = undefined;
+  }
+  function saveChoice(value) {
     try { localStorage.setItem(consentKey, value); } catch {}
     applyConsent(value);
-    closeSettings();
-  }));
-  banner.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && settingsOpener) closeSettings();
+    closeDialog();
+  }
+
+  dialog.querySelectorAll('[data-tracking-choice]').forEach(button => {
+    button.addEventListener('click', () => saveChoice(button.dataset.trackingChoice));
+  });
+  dialog.querySelector('[data-consent-settings]').addEventListener('click', () => openDialog(true));
+  dialog.querySelector('[data-consent-back]').addEventListener('click', () => openDialog());
+  dialog.querySelector('[data-consent-save]').addEventListener('click', () => saveChoice(optional.checked ? 'granted' : 'denied'));
+  dialog.addEventListener('cancel', event => {
+    event.preventDefault();
+    if (hasChoice()) closeDialog();
+    else saveChoice('denied');
   });
   document.querySelectorAll('[data-tracking-settings]').forEach(button => {
     button.hidden = false;
     button.addEventListener('click', () => {
-      settingsOpener = button;
-      banner.hidden = false;
-      banner.querySelector('[data-tracking-choice="denied"]').focus({ preventScroll: true });
+      opener = button;
+      openDialog();
     });
   });
   function syncConsent() {
     try { applyConsent(localStorage.getItem(consentKey)); } catch {}
-    if (!settingsOpener) banner.hidden = consent === 'granted' || consent === 'denied';
+    if (opener) optional.checked = consent === 'granted';
+    else if (hasChoice()) closeDialog();
+    else if (!dialog.open && !isPrivacyPage) openDialog();
   }
   window.addEventListener('storage', event => {
     if (event.storageArea === localStorage && (event.key === consentKey || event.key === null)) syncConsent();
   });
   window.addEventListener('pageshow', event => { if (event.persisted) syncConsent(); });
+  if (!hasChoice() && !isPrivacyPage) openDialog();
   initialize();
 }
 document.querySelectorAll('a[href^="tel:"]').forEach(link => link.addEventListener('click', () => trackEvent('phone_click')));

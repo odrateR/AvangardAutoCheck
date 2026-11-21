@@ -175,42 +175,69 @@ consentTest('configured pixels wait for consent and record one lead only after a
   expect(after).toBe(events.meta.filter(args => args[1] === 'BookingOpen').length);
 });
 
-consentTest('the consent bar spans the bottom and offers equally sized choices on desktop and mobile', async ({ page }) => {
+consentTest('the cookie dialog dims the screen and keeps focus on the bottom card', async ({ page }) => {
   for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }, { width: 320, height: 360 }]) {
     await page.setViewportSize(viewport);
     await page.goto('/');
-    const prompt = page.getByRole('complementary', { name: 'Preferințe cookie' });
-    const decline = prompt.getByRole('button', { name: 'Refuz' });
-    const accept = prompt.getByRole('button', { name: 'Accept' });
+    const prompt = page.getByRole('dialog', { name: 'Folosim cookie-uri' });
+    const title = prompt.getByRole('heading', { name: 'Folosim cookie-uri' });
+    const decline = prompt.getByRole('button', { name: 'Acceptă doar necesare' });
+    const accept = prompt.getByRole('button', { name: 'Acceptă toate' });
     const bounds = await prompt.boundingBox();
-    expect(bounds.x).toBeCloseTo(0, 0);
-    expect(bounds.width).toBeCloseTo(viewport.width, 0);
-    expect(bounds.y + bounds.height).toBeCloseTo(viewport.height, 0);
+    expect(bounds.x).toBeGreaterThan(0);
+    expect(bounds.x + bounds.width / 2).toBeCloseTo(viewport.width / 2, 0);
+    const bottomGap = viewport.height - bounds.y - bounds.height;
+    expect(bottomGap).toBeGreaterThanOrEqual(12);
+    expect(bottomGap).toBeLessThanOrEqual(24);
+    expect(bounds.y).toBeGreaterThanOrEqual(0);
     expect((await decline.boundingBox()).width).toBeCloseTo((await accept.boundingBox()).width, 0);
+    expect(await prompt.evaluate(el => el.matches(':modal'))).toBe(true);
+    expect(await prompt.evaluate(el => getComputedStyle(el, '::backdrop').backgroundColor)).toBe('rgba(5, 11, 18, 0.49)');
+    await page.locator('.hero-actions .button-primary').evaluate(el => el.focus());
+    await expect(title).toBeFocused();
   }
+  await page.getByRole('button', { name: 'Acceptă doar necesare' }).click();
   await page.locator('.process').scrollIntoViewIfNeeded();
   const bookingBar = page.locator('.mobile-booking');
-  await expect(bookingBar).not.toHaveAttribute('hidden', '');
-  await expect(bookingBar).toBeHidden();
-  await page.getByRole('button', { name: 'Refuz' }).click();
   await expect(bookingBar).toBeVisible();
   const settings = page.locator('[data-tracking-settings]');
   await settings.click();
-  await expect(page.getByRole('button', { name: 'Refuz' })).toBeFocused();
+  await expect(page.getByRole('heading', { name: 'Folosim cookie-uri' })).toBeFocused();
   await page.keyboard.press('Escape');
   await expect(settings).toBeFocused();
+});
+
+consentTest('the privacy policy is accessible before making a choice and settings can save consent', async ({ page }) => {
+  await page.route('https://connect.facebook.net/**', route => route.fulfill({ contentType: 'text/javascript', body: '/* Meta test stub */' }));
+  await page.goto('/');
+  await page.getByRole('dialog').getByRole('link', { name: 'Politica de confidențialitate' }).click();
+  await expect(page).toHaveURL(/\/confidentialitate$/);
+  await expect(page.locator('#tracking-consent')).toBeHidden();
+  expect(await page.evaluate(() => localStorage.getItem('avangard-tracking-consent-v1'))).toBeNull();
+
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Setări cookie-uri' }).click();
+  const settingsDialog = page.getByRole('dialog', { name: 'Setări cookie-uri' });
+  const optional = settingsDialog.getByRole('checkbox', { name: 'Statistici și publicitate' });
+  await expect(optional).not.toBeChecked();
+  await optional.check();
+  expect(await page.evaluate(() => Boolean(window.fbq))).toBe(false);
+  await settingsDialog.getByRole('button', { name: 'Salvează preferințele' }).click();
+  await expect(page.locator('#tracking-consent')).toBeHidden();
+  await expect.poll(() => page.evaluate(() => Boolean(window.fbq))).toBe(true);
+  expect(await page.evaluate(() => localStorage.getItem('avangard-tracking-consent-v1'))).toBe('granted');
 });
 
 consentTest('revoking tracking in one tab stops events in another open tab', async ({ page, context }) => {
   await context.route('https://connect.facebook.net/**', route => route.fulfill({ contentType: 'text/javascript', body: '/* Meta test stub */' }));
   await page.goto('/');
-  await page.getByRole('button', { name: 'Accept' }).click();
+  await page.getByRole('button', { name: 'Acceptă toate' }).click();
 
   const other = await context.newPage();
   await other.goto('/');
   await expect.poll(() => other.evaluate(() => Boolean(window.fbq))).toBe(true);
   await page.locator('[data-tracking-settings]').click();
-  await page.getByRole('button', { name: 'Refuz' }).click();
+  await page.getByRole('button', { name: 'Acceptă doar necesare' }).click();
 
   await expect.poll(() => other.evaluate(() => window.fbq.queue.at(-1)?.[1])).toBe('revoke');
   await other.locator('a[href^="tel:"]').first().evaluate(link => {

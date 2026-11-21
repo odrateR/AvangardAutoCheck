@@ -4,6 +4,29 @@ test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('avangard-tracking-consent-v1', 'denied'));
 });
 
+test('the pre-purchase inspection page links from home and books Premium Check', async ({ page }) => {
+  const route = '/verificare-auto-inainte-de-cumparare';
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Ce include Premium Check' }).click();
+  await expect(page).toHaveURL(new RegExp(route + '$'));
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Verificare auto înainte de cumpărare în Chișinău');
+  await expect(page.locator('.pre-purchase-offer')).toContainText('69 €');
+  await expect(page.locator('.pre-purchase-offer')).toContainText('60 min');
+  await expect(page.locator('.pre-purchase-report-sheet')).toContainText('Exemplu ilustrativ');
+
+  await page.setViewportSize({ width: 320, height: 640 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320);
+  await page.route('**/api/contact', async request => {
+    expect(request.request().postDataJSON()).toMatchObject({ type: 'callback', service: 'Premium Check' });
+    await request.fulfill({ json: { success: true, message: 'Cererea a fost trimisă!' } });
+  });
+  await page.locator('.pre-purchase-hero .button-primary').click();
+  await page.locator('#booking-name').fill('Client Test');
+  await page.locator('#booking-phone').fill('069000000');
+  await page.getByRole('button', { name: 'Vreau să fiu sunat' }).click();
+  await expect(page.locator('#booking-success')).toBeVisible();
+});
+
 test('partner borders stay equal and aligned on hover, and inspection checks remain readable', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   for (const width of [1440, 768, 390, 320]) {
