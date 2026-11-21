@@ -41,10 +41,14 @@ function initialize() {
     window.gtag('js', new Date());
     // Send only the canonical path; query strings may contain personal information.
     window.gtag('set', { page_location: location.origin + location.pathname, page_referrer: '', allow_enhanced_conversions: false });
-    if (adsId) window.gtag('config', adsId, { allow_enhanced_conversions: false });
-    if (analyticsId) window.gtag('config', analyticsId, { allow_google_signals: false, allow_ad_personalization_signals: false });
-    if (tagManagerId) loadScript('https://www.googletagmanager.com/gtm.js?id=' + tagManagerId);
-    if (adsId || analyticsId) loadScript('https://www.googletagmanager.com/gtag/js?id=' + (adsId || analyticsId));
+    if (tagManagerId) {
+      // The published container configures its Google destinations.
+      loadScript('https://www.googletagmanager.com/gtm.js?id=' + tagManagerId);
+    } else {
+      if (adsId) window.gtag('config', adsId, { allow_enhanced_conversions: false });
+      if (analyticsId) window.gtag('config', analyticsId, { allow_google_signals: false, allow_ad_personalization_signals: false });
+      loadScript('https://www.googletagmanager.com/gtag/js?id=' + (adsId || analyticsId));
+    }
   }
   if (metaId) {
     const fbq = window.fbq = function () { fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments); };

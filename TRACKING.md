@@ -19,7 +19,7 @@ Edit `content/tracking.json` and rebuild:
 }
 ```
 
-Meta Pixel and Google Tag Manager are configured. Direct Google Ads and GA4 integrations are optional. Empty or invalid account IDs do not load
+Meta Pixel and Google Tag Manager are configured. Google Ads and GA4 destination IDs are optional. Empty or invalid account IDs do not load
 Google or Meta scripts. No cookie banner appears until at least one valid ID
 is configured. IDs are public identifiers; never put account access tokens
 or API secrets in this file. Google Ads lead conversion
@@ -32,9 +32,13 @@ Revocation updates Google's four consent signals and revokes Meta consent.
 Events collected before consent are not
 replayed later.
 
-Google Tag Manager loads the published container after consent. Configure its
-tags and triggers in Google Tag Manager, including consent requirements for
-each tag. Use one integration per Google Ads or GA4 destination to avoid duplicate events.
+Google Tag Manager loads the published container after consent. With a container
+ID configured, the site routes events to the configured destination IDs and
+the container handles destination setup. Set up a **Google Tag** for
+`G-EE6PSBT2HW` in container `GTM-PVCPG7RW` with an **Initialization - All Pages**
+trigger and publish it. The site queues booking opens, phone clicks, and
+successful leads for GA4. Use the Google tag's automatic page view. If the
+container ID is empty, the site configures Google Ads and GA4 directly.
 
 ## Events
 

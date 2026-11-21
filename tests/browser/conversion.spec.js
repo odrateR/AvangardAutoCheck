@@ -207,7 +207,7 @@ consentTest('the cookie dialog dims the screen and keeps focus on the bottom car
   await expect(settings).toBeFocused();
 });
 
-consentTest('previous approval requires a fresh choice and settings load the configured GTM container', async ({ page }) => {
+consentTest('consent loads a single Google container and routes site events to the configured GA4 destination', async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('avangard-tracking-consent-v1', 'granted'));
   const containerRequests = [];
   await page.route('https://www.googletagmanager.com/**', route => {
@@ -239,6 +239,12 @@ consentTest('previous approval requires a fresh choice and settings load the con
   await expect.poll(() => page.evaluate(() => Boolean(window.fbq))).toBe(true);
   await expect.poll(() => containerRequests).toEqual(['https://www.googletagmanager.com/gtm.js?id=GTM-PVCPG7RW']);
   expect(await page.evaluate(() => localStorage.getItem('avangard-tracking-consent-v2'))).toBe('granted');
+  await openBooking(page);
+  const googleCommands = await page.evaluate(() => window.dataLayer.map(args => Array.from(args)));
+  expect(googleCommands.some(([command]) => command === 'config')).toBe(false);
+  expect(googleCommands.filter(([command, event]) => command === 'event' && event === 'booking_open')).toEqual([
+    ['event', 'booking_open', expect.objectContaining({ send_to: 'G-EE6PSBT2HW' })]
+  ]);
 });
 
 consentTest('revoking tracking in one tab stops events in another open tab', async ({ page, context }) => {
