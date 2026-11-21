@@ -115,6 +115,8 @@ test('carVertical handoff retains the referral without collecting vehicle identi
 });
 
 test('public pages deliver security headers and render under the script and style policy', async ({ page }) => {
+  const performanceScript = 'https://static.cloudflareinsights.com/beacon.min.js/test-version';
+  await page.route(performanceScript, route => route.fulfill({ contentType: 'text/javascript', body: '/* Cloudflare test stub */' }));
   await page.addInitScript(() => {
     window.cspViolations = [];
     document.addEventListener('securitypolicyviolation', event => {
@@ -128,6 +130,15 @@ test('public pages deliver security headers and render under the script and styl
     expect(headers['x-frame-options']).toBe('DENY');
     expect(headers['content-security-policy']).toContain("script-src 'self'");
     expect(headers['content-security-policy']).toContain("form-action 'self'");
+    if (path === '/') {
+      await page.evaluate(src => new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.addEventListener('load', resolve);
+        script.addEventListener('error', () => reject(new Error('Cloudflare performance script did not load')));
+        document.head.append(script);
+      }), performanceScript);
+    }
     expect(await page.evaluate(() => window.cspViolations)).toEqual([]);
   }
 });
