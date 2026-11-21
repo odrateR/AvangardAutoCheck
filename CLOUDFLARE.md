@@ -140,8 +140,12 @@ persist, so reproduce the failure while the stream is open.
 
 Official log guide: https://developers.cloudflare.com/pages/functions/debugging-and-logging/
 
-Pages does not inherit the Worker's rate-limit binding; configure a Pages rate
-limit for `/api/contact` when activating the contact form.
+Production and preview Pages deployments use the `CONTACT_RATE_LIMIT_SERVICE`
+service binding. In the Pages project settings, bind it to the `avatest` Worker's
+`ContactRateLimit` entrypoint. Deploy the Worker before deploying Pages with this
+binding. Both deployments limit valid contact and callback submissions to five
+per minute per source IP at a Cloudflare location. If the limiter is unavailable,
+the endpoint reports HTTP 503 before contacting Resend.
 
 ## Local development
 
@@ -176,9 +180,5 @@ and robots file defaults to `https://avangardautocheck.com`.
 
 The VIN section shows the carVertical logo, a 20% discount offer and the
 copyable AVANGARD voucher, and preserves the original affiliate URL.
-The code is normalized and forwarded in the original `sub3` affiliate tracking
-parameter. carVertical performs the search and payment on its site and may ask
-the visitor to enter the code again. `sub3` is tracking metadata, not a verified
-VIN autofill parameter. Autofill requires carVertical to provide or confirm a
-VIN-enabled affiliate/deep link for this offer; do not replace the working
-affiliate URL with an unverified destination. This site does not purchase paid reports.
+Visitors enter the VIN or license plate directly on carVertical. The affiliate
+link carries only the referral parameters. carVertical handles the lookup and payment.

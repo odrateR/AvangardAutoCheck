@@ -824,6 +824,10 @@ details[open] > summary .plus {
   font-size: 10px;
   transition: background .2s, box-shadow .2s;
 }
+.hotspot[data-inspection="0"] { --x: 50%; --y: 28%; }
+.hotspot[data-inspection="1"] { --x: 73%; --y: 48%; }
+.hotspot[data-inspection="2"] { --x: 50%; --y: 58%; }
+.hotspot[data-inspection="3"] { --x: 26%; --y: 75%; }
 .scan-bottomline {
   align-items: center;
 }
@@ -3666,24 +3670,6 @@ body {
   line-height: 1.8;
   margin-bottom: 22px;
 }
-.vin-card label {
-  display: block;
-  font-size: 12px;
-  font-weight: 700;
-  margin-bottom: 9px;
-}
-.vin-card input {
-  width: 100%;
-  background: #152025;
-  border: 1px solid #3c5053;
-  padding: 16px;
-  color: #eff4f7;
-  font-size: 15px;
-  border-radius: 0;
-}
-.vin-card input::placeholder {
-  color: #8c9da9;
-}
 .vin-card .button {
   width: 100%;
   justify-content: center;
@@ -3691,7 +3677,6 @@ body {
   font-size: 16px;
   font-weight: 600;
   letter-spacing: .065em;
-  margin-top: 16px;
   color: #fff;
   background:
     linear-gradient(
@@ -3703,27 +3688,11 @@ body {
 .vin-card .button:hover {
   filter: brightness(1.12);
 }
-.vin-alt-link {
-  display: inline-block;
-  font-size: 13px;
-  color: #89c7ff;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  margin-top: 15px;
-}
 .vin-note {
   font-size: 10px;
   color: #9fb9c9;
   line-height: 1.9;
   margin-top: 21px;
-}
-.vin-card input[aria-invalid=true] {
-  border-color: #d58b72;
-}
-.vin-error {
-  color: #ffc2ae;
-  font-size: 12px;
-  margin-top: 9px;
 }
 @media (max-width: 1150px) {
   .vin-layout {
@@ -3771,9 +3740,6 @@ body {
   }
   .vin-card {
     padding: 24px 20px;
-  }
-  .vin-card input {
-    font-size: 16px;
   }
   .vin-lead {
     font-size: 13px;

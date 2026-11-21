@@ -1,5 +1,9 @@
 import { test, expect } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('avangard-tracking-consent-v1', 'denied'));
+});
+
 test('partner borders stay equal and aligned on hover, and inspection checks remain readable', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   for (const width of [1440, 768, 390, 320]) {
@@ -95,29 +99,37 @@ test('inspection diagram supports keyboard selection and service links populate 
   await expect(page.locator('#service-select')).toHaveValue('Pachet 1 + 1 = 3');
 });
 
-test('VIN submission retains affiliate attribution and normalizes the vehicle code', async ({ page, context }) => {
+test('carVertical handoff retains the referral without collecting vehicle identifiers', async ({ page, context }) => {
   await context.route('https://www.carvertical.deal/**', route => route.fulfill({ contentType: 'text/html', body: '<title>Affiliate handoff</title>' }));
   await page.goto('/');
-  await page.locator('#vin-affiliate-input').fill('wvgzzz1tzkw000001');
+  await expect(page.locator('.vin-card input')).toHaveCount(0);
+  await expect(page.locator('.vin-card')).toContainText('direct pe carVertical');
   const popupPromise = page.waitForEvent('popup');
-  await page.locator('#vin-affiliate-form [type=submit]').click();
+  await page.locator('.vin-card .button').click();
   const popup = await popupPromise;
   await popup.waitForLoadState();
   const url = new URL(popup.url());
   expect(url.hostname).toBe('www.carvertical.deal');
-  expect(url.searchParams.get('source_id')).toBe('AFF');
-  expect(url.searchParams.get('sub1')).toBe('avangard');
-  expect(url.searchParams.get('sub3')).toBe('WVGZZZ1TZKW000001');
+  expect(Object.fromEntries(url.searchParams)).toEqual({ source_id: 'AFF', sub1: 'avangard' });
   expect(await popup.evaluate(() => window.opener)).toBeNull();
 });
 
-test('invalid VIN is rejected and can be corrected', async ({ page }) => {
-  await page.goto('/');
-  await page.locator('#vin-affiliate-input').fill('INVALID!');
-  await page.locator('#vin-affiliate-form [type=submit]').click();
-  await expect(page.locator('#vin-error')).toBeVisible();
-  await page.locator('#vin-affiliate-input').fill('ABC 123');
-  await expect(page.locator('#vin-error')).toBeHidden();
+test('public pages deliver security headers and render under the script and style policy', async ({ page }) => {
+  await page.addInitScript(() => {
+    window.cspViolations = [];
+    document.addEventListener('securitypolicyviolation', event => {
+      window.cspViolations.push(event.effectiveDirective);
+    });
+  });
+  for (const path of ['/', '/verificare-auto-999', '/blog-article.html', '/unknown/security-check']) {
+    const response = await page.goto(path);
+    const headers = response.headers();
+    expect(headers['strict-transport-security']).toBe('max-age=15552000');
+    expect(headers['x-frame-options']).toBe('DENY');
+    expect(headers['content-security-policy']).toContain("script-src 'self'");
+    expect(headers['content-security-policy']).toContain("form-action 'self'");
+    expect(await page.evaluate(() => window.cspViolations)).toEqual([]);
+  }
 });
 
 async function fillContact(page) {

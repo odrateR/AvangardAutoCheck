@@ -67,35 +67,63 @@ export function trackEvent(event, details = {}) {
   } catch { /* Tracking must never interrupt booking or contact submission. */ }
 }
 
-function setConsent(value) {
+function applyConsent(value) {
+  if (value === consent) return;
   consent = value;
-  try { localStorage.setItem(consentKey, value); } catch {}
-  if (value === 'granted') {
+  if (!initialized) {
     initialize();
-    if (initialized) {
-      window.gtag?.('consent', 'update', googleConsent(true));
-      window.fbq?.('consent', 'grant');
-    }
-  } else {
-    window.gtag?.('consent', 'update', googleConsent(false));
-    window.fbq?.('consent', 'revoke');
+    return;
   }
-  document.querySelector('#tracking-consent')?.setAttribute('hidden', '');
+  const granted = value === 'granted';
+  window.gtag?.('consent', 'update', googleConsent(granted));
+  window.fbq?.('consent', granted ? 'grant' : 'revoke');
 }
 
 if (enabled) {
   const providers = [adsId || analyticsId ? 'Google' : '', metaId ? 'Meta' : ''].filter(Boolean).join(' și ');
   const banner = document.createElement('aside');
+  let settingsOpener;
   banner.id = 'tracking-consent';
-  banner.setAttribute('aria-label', 'Preferințe de confidențialitate');
+  banner.setAttribute('aria-labelledby', 'tracking-consent-title');
   banner.hidden = consent === 'granted' || consent === 'denied';
-  banner.innerHTML = `<div><strong>Tu alegi ce măsurăm.</strong><p>Cu acordul tău, folosim ${providers} pentru statistici și reclame. <a href="confidentialitate.html">Detalii</a></p></div><div class="consent-actions"><button type="button" class="button button-outline" data-tracking-choice="denied">Refuz</button><button type="button" class="button button-primary" data-tracking-choice="granted">Accept</button></div>`;
+  banner.innerHTML = `<h2 id="tracking-consent-title">Preferințe cookie</h2>
+    <p>Cu acordul tău, folosim ${providers} pentru a măsura vizitele și rezultatele reclamelor.</p>
+    <div class="consent-actions">
+      <button type="button" data-tracking-choice="denied">Refuz</button>
+      <button type="button" data-tracking-choice="granted">Accept</button>
+    </div>
+    <a href="/confidentialitate.html">Politica de confidențialitate</a>`;
   document.body.append(banner);
-  banner.querySelectorAll('[data-tracking-choice]').forEach(button => button.addEventListener('click', () => setConsent(button.dataset.trackingChoice)));
+  function closeSettings() {
+    banner.hidden = true;
+    settingsOpener?.focus({ preventScroll: true });
+    settingsOpener = undefined;
+  }
+  banner.querySelectorAll('[data-tracking-choice]').forEach(button => button.addEventListener('click', () => {
+    const value = button.dataset.trackingChoice;
+    try { localStorage.setItem(consentKey, value); } catch {}
+    applyConsent(value);
+    closeSettings();
+  }));
+  banner.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && settingsOpener) closeSettings();
+  });
   document.querySelectorAll('[data-tracking-settings]').forEach(button => {
     button.hidden = false;
-    button.addEventListener('click', () => { banner.hidden = false; banner.querySelector('button').focus(); });
+    button.addEventListener('click', () => {
+      settingsOpener = button;
+      banner.hidden = false;
+      banner.querySelector('[data-tracking-choice="denied"]').focus({ preventScroll: true });
+    });
   });
+  function syncConsent() {
+    try { applyConsent(localStorage.getItem(consentKey)); } catch {}
+    if (!settingsOpener) banner.hidden = consent === 'granted' || consent === 'denied';
+  }
+  window.addEventListener('storage', event => {
+    if (event.storageArea === localStorage && (event.key === consentKey || event.key === null)) syncConsent();
+  });
+  window.addEventListener('pageshow', event => { if (event.persisted) syncConsent(); });
   initialize();
 }
 document.querySelectorAll('a[href^="tel:"]').forEach(link => link.addEventListener('click', () => trackEvent('phone_click')));

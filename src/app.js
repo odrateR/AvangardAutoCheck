@@ -149,30 +149,6 @@ voucherButton?.addEventListener('click', async () => {
   }
 });
 
-// Preserve the original affiliate attribution and forward the vehicle for tracking.
-// carVertical performs the actual lookup on its own site.
-const vinForm = document.querySelector('#vin-affiliate-form');
-const vinInput = document.querySelector('#vin-affiliate-input');
-const vinError = document.querySelector('#vin-error');
-vinInput?.addEventListener('input', () => {
-  vinInput.setCustomValidity('');
-  vinInput.removeAttribute('aria-invalid');
-  vinError.hidden = true;
-});
-vinForm?.addEventListener('submit', event => {
-  const vehicle = vinInput.value.trim().toUpperCase().replace(/[\s-]+/g, '');
-  if (!/^[A-Z0-9]{3,17}$/.test(vehicle) || (vehicle.length === 17 && /[IOQ]/.test(vehicle))) {
-    event.preventDefault();
-    vinError.textContent = 'Introdu un VIN valid de 17 caractere sau numărul de înmatriculare.';
-    vinError.hidden = false;
-    vinInput.setAttribute('aria-invalid', 'true');
-    vinInput.setCustomValidity(vinError.textContent);
-    vinInput.reportValidity();
-    return;
-  }
-  vinInput.value = vehicle;
-});
-
 const filterButtons = document.querySelectorAll('[data-filter]');
 const articleCards = document.querySelectorAll('[data-category]');
 const filterStatus = document.querySelector('#filter-status');

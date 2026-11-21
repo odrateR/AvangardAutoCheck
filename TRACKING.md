@@ -26,8 +26,9 @@ tracking needs both the Ads ID and the conversion action label.
 
 When configured, visitors can accept or decline measurement. Scripts only
 load after acceptance. The footer's “Preferințe cookie” button reopens the
-choice. Consent is stored locally; revocation updates Google's four consent
-signals and revokes Meta consent. Events collected before consent are not
+choice. Consent is stored locally and shared across open tabs on the same origin.
+Revocation updates Google's four consent signals and revokes Meta consent.
+Events collected before consent are not
 replayed later.
 
 ## Events

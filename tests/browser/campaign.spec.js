@@ -1,5 +1,9 @@
 import { test, expect } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('avangard-tracking-consent-v1', 'denied'));
+});
+
 test('campaign has five focused sections and fits desktop, tablet and small phones', async ({ page }) => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));

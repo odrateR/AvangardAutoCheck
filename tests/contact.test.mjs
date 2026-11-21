@@ -5,7 +5,7 @@ import { onRequest } from '../functions/api/contact.js';
 import worker from '../worker.js';
 
 const valid = { name: 'Client Test', email: 'client@example.com', phone: '+373 69000000', service: 'Premium Check', message: 'Verificare automobil', consent: 'on' };
-const env = { RESEND_API_KEY: 're_test_only_key' };
+const env = { RESEND_API_KEY: 're_test_only_key', CONTACT_RATE_LIMITER: { limit: async () => ({ success: true }) } };
 const accepted = () => Response.json({ id: 'test-message-id' });
 function request(body = valid, headers = {}, method = 'POST') {
   return new Request('https://avangardautocheck.com/api/contact', {
@@ -41,7 +41,7 @@ test('sends through Resend with the verified sender, fixed recipient and custome
 });
 
 test('supports a sender on a separately verified domain and trims configuration', async () => {
-  const response = await handleContact(request(), { RESEND_API_KEY: ' re_test_only_key ', RESEND_FROM_EMAIL: ' website@mail.avangardautocheck.com ' }, async (_url, options) => {
+  const response = await handleContact(request(), { ...env, RESEND_API_KEY: ' re_test_only_key ', RESEND_FROM_EMAIL: ' website@mail.avangardautocheck.com ' }, async (_url, options) => {
     assert.equal(options.headers.Authorization, 'Bearer re_test_only_key');
     assert.equal(JSON.parse(options.body).from, 'Avangard Autocheck <website@mail.avangardautocheck.com>');
     return accepted();
@@ -170,6 +170,27 @@ test('honors Cloudflare rate limiting before contacting Resend', async () => {
   assert.equal(called, false);
 });
 
+test('Pages rejects a submission when its rate limiter is missing or unavailable', async t => {
+  const send = t.mock.method(globalThis, 'fetch', async () => accepted());
+  const requestFromVisitor = () => request(valid, { 'CF-Connecting-IP': '192.0.2.10' });
+  const pagesEnv = { RESEND_API_KEY: env.RESEND_API_KEY };
+  const unavailable = await onRequest({ request: requestFromVisitor(), env: pagesEnv });
+  assert.equal(unavailable.status, 503);
+  assert.equal(unavailable.headers.get('Strict-Transport-Security'), 'max-age=15552000');
+  assert.equal((await onRequest({
+    request: requestFromVisitor(),
+    env: { ...pagesEnv, CONTACT_RATE_LIMIT_SERVICE: { limit: async () => { throw new Error('Unavailable'); } } }
+  })).status, 503);
+  assert.equal((await onRequest({
+    request: requestFromVisitor(),
+    env: { ...pagesEnv, CONTACT_RATE_LIMIT_SERVICE: { limit: async key => {
+      assert.equal(key, '192.0.2.10');
+      return { success: false };
+    } } }
+  })).status, 429);
+  assert.equal(send.mock.callCount(), 0);
+});
+
 test('honeypot submissions never reach Resend', async () => {
   let called = false;
   const response = await handleContact(request({ ...valid, website: 'spam.example' }), env, () => { called = true; });
@@ -194,7 +215,13 @@ test('Pages and Worker endpoints both use the shared Resend handler', async t =>
     calls++;
     return accepted();
   });
-  assert.equal((await onRequest({ request: request(), env })).status, 200);
+  assert.equal((await onRequest({
+    request: request(),
+    env: { RESEND_API_KEY: env.RESEND_API_KEY, CONTACT_RATE_LIMIT_SERVICE: { limit: async key => {
+      assert.equal(key, valid.email);
+      return { success: true };
+    } } }
+  })).status, 200);
   assert.equal((await worker.fetch(request(), env)).status, 200);
   assert.equal(calls, 2);
   assert.equal((await worker.fetch(new Request('https://example.com/api/missing'), env)).status, 404);

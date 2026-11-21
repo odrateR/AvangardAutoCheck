@@ -1,5 +1,12 @@
-import { test, expect } from '@playwright/test';
+import { test as consentTest, expect } from '@playwright/test';
 import { build } from 'esbuild';
+
+const test = consentTest.extend({
+  page: async ({ page }, use) => {
+    await page.addInitScript(() => localStorage.setItem('avangard-tracking-consent-v1', 'denied'));
+    await use(page);
+  }
+});
 
 const openBooking = page => page.locator('.hero-actions .button-primary').click();
 async function fillBooking(page) {
@@ -121,7 +128,7 @@ test('the shared booking modal works on journal pages', async ({ page }) => {
   await page.keyboard.press('Escape');
 });
 
-test('empty tracking IDs never load advertising scripts or show a consent prompt', async ({ page }) => {
+consentTest('empty tracking IDs never load advertising scripts or show a consent prompt', async ({ page }) => {
   await useTrackingConfig(page, { metaPixelId: '', googleAdsId: '', googleAdsLeadLabel: '', ga4MeasurementId: '' });
   const requests = [];
   page.on('request', request => { if (/googletagmanager|facebook\.net|facebook\.com\/tr/.test(request.url())) requests.push(request.url()); });
@@ -131,7 +138,7 @@ test('empty tracking IDs never load advertising scripts or show a consent prompt
   expect(requests).toEqual([]);
 });
 
-test('configured pixels wait for consent and record one lead only after a successful submission', async ({ page }) => {
+consentTest('configured pixels wait for consent and record one lead only after a successful submission', async ({ page }) => {
   const fixture = { metaPixelId: '123456789', googleAdsId: 'AW-123456789', googleAdsLeadLabel: 'test_label', ga4MeasurementId: 'G-TEST123' };
   await useTrackingConfig(page, fixture);
   const scripts = [];
@@ -166,4 +173,45 @@ test('configured pixels wait for consent and record one lead only after a succes
   await openBooking(page);
   const after = await page.evaluate(() => window.fbq.queue.filter(args => args[1] === 'BookingOpen').length);
   expect(after).toBe(events.meta.filter(args => args[1] === 'BookingOpen').length);
+});
+
+consentTest('the consent prompt is centered and offers equally sized choices on desktop and mobile', async ({ page }) => {
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }, { width: 320, height: 360 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    const prompt = page.getByRole('complementary', { name: 'Preferințe cookie' });
+    const decline = prompt.getByRole('button', { name: 'Refuz' });
+    const accept = prompt.getByRole('button', { name: 'Accept' });
+    const bounds = await prompt.boundingBox();
+    expect(bounds.x + bounds.width / 2).toBeCloseTo(viewport.width / 2, 0);
+    expect(bounds.y + bounds.height / 2).toBeCloseTo(viewport.height / 2, 0);
+    expect((await decline.boundingBox()).width).toBeCloseTo((await accept.boundingBox()).width, 0);
+  }
+  await page.getByRole('button', { name: 'Refuz' }).click();
+  const settings = page.locator('[data-tracking-settings]');
+  await settings.click();
+  await expect(page.getByRole('button', { name: 'Refuz' })).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(settings).toBeFocused();
+});
+
+consentTest('revoking tracking in one tab stops events in another open tab', async ({ page, context }) => {
+  await context.route('https://connect.facebook.net/**', route => route.fulfill({ contentType: 'text/javascript', body: '/* Meta test stub */' }));
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Accept' }).click();
+
+  const other = await context.newPage();
+  await other.goto('/');
+  await expect.poll(() => other.evaluate(() => Boolean(window.fbq))).toBe(true);
+  await page.locator('[data-tracking-settings]').click();
+  await page.getByRole('button', { name: 'Refuz' }).click();
+
+  await expect.poll(() => other.evaluate(() => window.fbq.queue.at(-1)?.[1])).toBe('revoke');
+  await other.locator('a[href^="tel:"]').first().evaluate(link => {
+    link.addEventListener('click', event => event.preventDefault(), { once: true });
+    link.click();
+  });
+  expect(await other.evaluate(() => window.fbq.queue.some(args => args[1] === 'PhoneClick'))).toBe(false);
+  await other.reload();
+  expect(await other.evaluate(() => Boolean(window.fbq))).toBe(false);
 });
