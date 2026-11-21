@@ -42,6 +42,9 @@ test('clean builds are reproducible and every generated local link and asset res
   }
   assert.deepEqual(JSON.parse(second.get('_routes.json')), { version: 1, include: ['/api/*'], exclude: [] });
 
+  const siteOrigin = (process.env.PUBLIC_SITE_URL || 'https://avangardautocheck.com').replace(/\/+$/, '');
+  const canonicalUrls = [];
+  const pagePath = file => file === 'index.html' ? '/' : '/' + file.replace(/\.html$/, '');
   for (const [path, buffer] of second) {
     if (!/\.(html|css)$/.test(path)) continue;
     const text = buffer.toString();
@@ -49,19 +52,31 @@ test('clean builds are reproducible and every generated local link and asset res
       ? [...text.matchAll(/(?:href|src)="([^"]+)"/g)].map(match => match[1])
       : [...text.matchAll(/url\(["']?([^\s"')]+)["']?\)/g)].map(match => match[1]);
     for (const reference of references) {
-      const url = new URL(reference, 'https://site.test/' + path);
+      const url = new URL(reference, 'https://site.test' + pagePath(path));
       if (url.origin !== 'https://site.test') continue;
-      const destination = decodeURIComponent(url.pathname.slice(1)) || 'index.html';
+      const requestedFile = decodeURIComponent(url.pathname.slice(1));
+      const destination = requestedFile
+        ? (second.has(requestedFile) ? requestedFile : requestedFile + '.html')
+        : 'index.html';
       assert.ok(second.has(destination), `${path} references missing ${destination}`);
-      if (url.hash && destination.endsWith('.html')) {
-        const fragment = decodeURIComponent(url.hash.slice(1));
-        assert.ok(second.get(destination).toString().includes(`id="${fragment}"`), `${path} references missing anchor ${reference}`);
+      if (destination.endsWith('.html')) {
+        assert.equal(url.pathname, pagePath(destination), `${path} links to a non-canonical page URL`);
+        if (url.hash) {
+          const fragment = decodeURIComponent(url.hash.slice(1));
+          assert.ok(second.get(destination).toString().includes(`id="${fragment}"`), `${path} references missing anchor ${reference}`);
+        }
       }
     }
     if (path.endsWith('.css')) assert.doesNotMatch(text, /@import\b/);
     if (path.endsWith('.html')) {
       assert.equal([...text.matchAll(/rel="stylesheet"/g)].length, 1, path);
       assert.doesNotMatch(text, /RESEND_API_KEY|SMTP_PASS|class="toast"/);
+      const canonicals = [...text.matchAll(/<link rel="canonical" href="([^"]+)">/g)].map(match => match[1]);
+      const expected = path === '404.html' ? [] : [siteOrigin + pagePath(path)];
+      assert.deepEqual(canonicals, expected, path);
+      canonicalUrls.push(...canonicals);
     }
   }
+  const sitemapUrls = [...second.get('sitemap.xml').toString().matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
+  assert.deepEqual(sitemapUrls.sort(), canonicalUrls.sort());
 });

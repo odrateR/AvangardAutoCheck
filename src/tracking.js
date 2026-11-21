@@ -92,7 +92,7 @@ if (enabled) {
       <button type="button" data-tracking-choice="denied">Refuz</button>
       <button type="button" data-tracking-choice="granted">Accept</button>
     </div>
-    <a href="/confidentialitate.html">Politica de confidențialitate</a>`;
+    <a href="/confidentialitate">Politica de confidențialitate</a>`;
   document.body.append(banner);
   function closeSettings() {
     banner.hidden = true;
