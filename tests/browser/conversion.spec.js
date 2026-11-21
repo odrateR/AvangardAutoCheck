@@ -3,7 +3,7 @@ import { build } from 'esbuild';
 
 const test = consentTest.extend({
   page: async ({ page }, use) => {
-    await page.addInitScript(() => localStorage.setItem('avangard-tracking-consent-v1', 'denied'));
+    await page.addInitScript(() => localStorage.setItem('avangard-tracking-consent-v2', 'denied'));
     await use(page);
   }
 });
@@ -129,7 +129,7 @@ test('the shared booking modal works on journal pages', async ({ page }) => {
 });
 
 consentTest('empty tracking IDs never load advertising scripts or show a consent prompt', async ({ page }) => {
-  await useTrackingConfig(page, { metaPixelId: '', googleAdsId: '', googleAdsLeadLabel: '', ga4MeasurementId: '' });
+  await useTrackingConfig(page, { metaPixelId: '', googleTagManagerId: '', googleAdsId: '', googleAdsLeadLabel: '', ga4MeasurementId: '' });
   const requests = [];
   page.on('request', request => { if (/googletagmanager|facebook\.net|facebook\.com\/tr/.test(request.url())) requests.push(request.url()); });
   await page.goto('/');
@@ -207,15 +207,27 @@ consentTest('the cookie dialog dims the screen and keeps focus on the bottom car
   await expect(settings).toBeFocused();
 });
 
-consentTest('the privacy policy is accessible before making a choice and settings can save consent', async ({ page }) => {
+consentTest('previous approval requires a fresh choice and settings load the configured GTM container', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('avangard-tracking-consent-v1', 'granted'));
+  const containerRequests = [];
+  await page.route('https://www.googletagmanager.com/**', route => {
+    containerRequests.push(route.request().url());
+    return route.fulfill({ contentType: 'text/javascript', body: '/* Google test stub */' });
+  });
   await page.route('https://connect.facebook.net/**', route => route.fulfill({ contentType: 'text/javascript', body: '/* Meta test stub */' }));
   await page.goto('/');
   await page.getByRole('dialog').getByRole('link', { name: 'Politica de confidențialitate' }).click();
   await expect(page).toHaveURL(/\/confidentialitate$/);
   await expect(page.locator('#tracking-consent')).toBeHidden();
-  expect(await page.evaluate(() => localStorage.getItem('avangard-tracking-consent-v1'))).toBeNull();
+  expect(await page.evaluate(() => localStorage.getItem('avangard-tracking-consent-v2'))).toBeNull();
 
   await page.goto('/');
+  expect(containerRequests).toEqual([]);
+  await page.getByRole('button', { name: 'Acceptă doar necesare' }).click();
+  await page.reload();
+  await expect(page.locator('#tracking-consent')).toBeHidden();
+  expect(containerRequests).toEqual([]);
+  await page.locator('[data-tracking-settings]').click();
   await page.getByRole('button', { name: 'Setări cookie-uri' }).click();
   const settingsDialog = page.getByRole('dialog', { name: 'Setări cookie-uri' });
   const optional = settingsDialog.getByRole('checkbox', { name: 'Statistici și publicitate' });
@@ -225,10 +237,12 @@ consentTest('the privacy policy is accessible before making a choice and setting
   await settingsDialog.getByRole('button', { name: 'Salvează preferințele' }).click();
   await expect(page.locator('#tracking-consent')).toBeHidden();
   await expect.poll(() => page.evaluate(() => Boolean(window.fbq))).toBe(true);
-  expect(await page.evaluate(() => localStorage.getItem('avangard-tracking-consent-v1'))).toBe('granted');
+  await expect.poll(() => containerRequests).toEqual(['https://www.googletagmanager.com/gtm.js?id=GTM-PVCPG7RW']);
+  expect(await page.evaluate(() => localStorage.getItem('avangard-tracking-consent-v2'))).toBe('granted');
 });
 
 consentTest('revoking tracking in one tab stops events in another open tab', async ({ page, context }) => {
+  await context.route('https://www.googletagmanager.com/**', route => route.fulfill({ contentType: 'text/javascript', body: '/* Google test stub */' }));
   await context.route('https://connect.facebook.net/**', route => route.fulfill({ contentType: 'text/javascript', body: '/* Meta test stub */' }));
   await page.goto('/');
   await page.getByRole('button', { name: 'Acceptă toate' }).click();
@@ -240,11 +254,14 @@ consentTest('revoking tracking in one tab stops events in another open tab', asy
   await page.getByRole('button', { name: 'Acceptă doar necesare' }).click();
 
   await expect.poll(() => other.evaluate(() => window.fbq.queue.at(-1)?.[1])).toBe('revoke');
+  await expect.poll(() => other.evaluate(() => Array.from(window.dataLayer.at(-1)))).toEqual(['consent', 'update', {
+    ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied'
+  }]);
   await other.locator('a[href^="tel:"]').first().evaluate(link => {
     link.addEventListener('click', event => event.preventDefault(), { once: true });
     link.click();
   });
   expect(await other.evaluate(() => window.fbq.queue.some(args => args[1] === 'PhoneClick'))).toBe(false);
   await other.reload();
-  expect(await other.evaluate(() => Boolean(window.fbq))).toBe(false);
+  expect(await other.evaluate(() => Boolean(window.fbq || window.gtag))).toBe(false);
 });

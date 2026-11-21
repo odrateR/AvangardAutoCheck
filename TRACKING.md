@@ -12,13 +12,14 @@ Edit `content/tracking.json` and rebuild:
 ```json
 {
   "metaPixelId": "123456789012345",
+  "googleTagManagerId": "GTM-EXAMPLE",
   "googleAdsId": "AW-123456789",
   "googleAdsLeadLabel": "YOUR_CONVERSION_LABEL",
   "ga4MeasurementId": "G-YOURMEASUREMENTID"
 }
 ```
 
-Meta Pixel is configured. Google Ads and GA4 are optional. Empty or invalid account IDs do not load
+Meta Pixel and Google Tag Manager are configured. Direct Google Ads and GA4 integrations are optional. Empty or invalid account IDs do not load
 Google or Meta scripts. No cookie banner appears until at least one valid ID
 is configured. IDs are public identifiers; never put account access tokens
 or API secrets in this file. Google Ads lead conversion
@@ -30,6 +31,10 @@ choice. Consent is stored locally and shared across open tabs on the same origin
 Revocation updates Google's four consent signals and revokes Meta consent.
 Events collected before consent are not
 replayed later.
+
+Google Tag Manager loads the published container after consent. Configure its
+tags and triggers in Google Tag Manager, including consent requirements for
+each tag. Use one integration per Google Ads or GA4 destination to avoid duplicate events.
 
 ## Events
 

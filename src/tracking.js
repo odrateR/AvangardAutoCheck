@@ -2,13 +2,21 @@ import settings from '../content/tracking.json';
 
 // Public IDs only. Empty IDs keep all advertising and analytics scripts disabled.
 const metaId = /^\d+$/.test(settings.metaPixelId) ? settings.metaPixelId : '';
+const tagManagerId = /^GTM-[A-Z0-9]+$/.test(settings.googleTagManagerId) ? settings.googleTagManagerId : '';
 const adsId = /^AW-\d+$/.test(settings.googleAdsId) ? settings.googleAdsId : '';
 const analyticsId = /^G-[A-Z0-9]+$/.test(settings.ga4MeasurementId) ? settings.ga4MeasurementId : '';
-const enabled = Boolean(metaId || adsId || analyticsId);
-const consentKey = 'avangard-tracking-consent-v1';
+const googleEnabled = Boolean(tagManagerId || adsId || analyticsId);
+const enabled = Boolean(metaId || googleEnabled);
+const consentKey = 'avangard-tracking-consent-v2';
+const previousConsentKey = 'avangard-tracking-consent-v1';
 let consent = null;
 let initialized = false;
-try { consent = localStorage.getItem(consentKey); } catch {}
+
+function readConsent() {
+  // Preserve opt-outs, but ask again before loading the newly added Google container.
+  return localStorage.getItem(consentKey) ?? (localStorage.getItem(previousConsentKey) === 'denied' ? 'denied' : null);
+}
+try { consent = readConsent(); } catch {}
 
 const googleConsent = granted => ({
   ad_storage: granted ? 'granted' : 'denied',
@@ -25,7 +33,7 @@ function loadScript(src) {
 function initialize() {
   if (!enabled || initialized || consent !== 'granted') return;
   initialized = true;
-  if (adsId || analyticsId) {
+  if (googleEnabled) {
     window.dataLayer ||= [];
     window.gtag = function () { window.dataLayer.push(arguments); };
     window.gtag('consent', 'default', googleConsent(false));
@@ -35,7 +43,8 @@ function initialize() {
     window.gtag('set', { page_location: location.origin + location.pathname, page_referrer: '', allow_enhanced_conversions: false });
     if (adsId) window.gtag('config', adsId, { allow_enhanced_conversions: false });
     if (analyticsId) window.gtag('config', analyticsId, { allow_google_signals: false, allow_ad_personalization_signals: false });
-    loadScript('https://www.googletagmanager.com/gtag/js?id=' + (adsId || analyticsId));
+    if (tagManagerId) loadScript('https://www.googletagmanager.com/gtm.js?id=' + tagManagerId);
+    if (adsId || analyticsId) loadScript('https://www.googletagmanager.com/gtag/js?id=' + (adsId || analyticsId));
   }
   if (metaId) {
     const fbq = window.fbq = function () { fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments); };
@@ -80,7 +89,7 @@ function applyConsent(value) {
 }
 
 if (enabled) {
-  const providers = [adsId || analyticsId ? 'Google' : '', metaId ? 'Meta' : ''].filter(Boolean).join(' și ');
+  const providers = [googleEnabled ? 'Google' : '', metaId ? 'Meta' : ''].filter(Boolean).join(' și ');
   const dialog = document.createElement('dialog');
   let opener;
   dialog.id = 'tracking-consent';
@@ -159,13 +168,13 @@ if (enabled) {
     });
   });
   function syncConsent() {
-    try { applyConsent(localStorage.getItem(consentKey)); } catch {}
+    try { applyConsent(readConsent()); } catch {}
     if (opener) optional.checked = consent === 'granted';
     else if (hasChoice()) closeDialog();
     else if (!dialog.open && !isPrivacyPage) openDialog();
   }
   window.addEventListener('storage', event => {
-    if (event.storageArea === localStorage && (event.key === consentKey || event.key === null)) syncConsent();
+    if (event.storageArea === localStorage && [consentKey, previousConsentKey, null].includes(event.key)) syncConsent();
   });
   window.addEventListener('pageshow', event => { if (event.persisted) syncConsent(); });
   if (!hasChoice() && !isPrivacyPage) openDialog();
