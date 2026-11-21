@@ -175,7 +175,7 @@ consentTest('configured pixels wait for consent and record one lead only after a
   expect(after).toBe(events.meta.filter(args => args[1] === 'BookingOpen').length);
 });
 
-consentTest('the consent prompt is centered and offers equally sized choices on desktop and mobile', async ({ page }) => {
+consentTest('the consent bar spans the bottom and offers equally sized choices on desktop and mobile', async ({ page }) => {
   for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }, { width: 320, height: 360 }]) {
     await page.setViewportSize(viewport);
     await page.goto('/');
@@ -183,11 +183,17 @@ consentTest('the consent prompt is centered and offers equally sized choices on 
     const decline = prompt.getByRole('button', { name: 'Refuz' });
     const accept = prompt.getByRole('button', { name: 'Accept' });
     const bounds = await prompt.boundingBox();
-    expect(bounds.x + bounds.width / 2).toBeCloseTo(viewport.width / 2, 0);
-    expect(bounds.y + bounds.height / 2).toBeCloseTo(viewport.height / 2, 0);
+    expect(bounds.x).toBeCloseTo(0, 0);
+    expect(bounds.width).toBeCloseTo(viewport.width, 0);
+    expect(bounds.y + bounds.height).toBeCloseTo(viewport.height, 0);
     expect((await decline.boundingBox()).width).toBeCloseTo((await accept.boundingBox()).width, 0);
   }
+  await page.locator('.process').scrollIntoViewIfNeeded();
+  const bookingBar = page.locator('.mobile-booking');
+  await expect(bookingBar).not.toHaveAttribute('hidden', '');
+  await expect(bookingBar).toBeHidden();
   await page.getByRole('button', { name: 'Refuz' }).click();
+  await expect(bookingBar).toBeVisible();
   const settings = page.locator('[data-tracking-settings]');
   await settings.click();
   await expect(page.getByRole('button', { name: 'Refuz' })).toBeFocused();
