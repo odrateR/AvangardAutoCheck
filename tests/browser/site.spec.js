@@ -145,6 +145,10 @@ test('public pages deliver security headers and render under the script and styl
   for (const script of allowedScripts) {
     await page.route(script, route => route.fulfill({ contentType: 'text/javascript', body: '/* CSP test stub */' }));
   }
+  const adsMeasurementPixel = 'https://ad.doubleclick.net/ccm/s/collect';
+  await page.route(adsMeasurementPixel, route => route.fulfill({
+    contentType: 'image/gif', body: Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64')
+  }));
   await page.addInitScript(() => {
     window.cspViolations = [];
     document.addEventListener('securitypolicyviolation', event => {
@@ -168,6 +172,11 @@ test('public pages deliver security headers and render under the script and styl
           document.head.append(script);
         }), url);
       }
+      await page.evaluate(src => {
+        const image = new Image();
+        image.src = src;
+        return image.decode();
+      }, adsMeasurementPixel);
     }
     expect(await page.evaluate(() => window.cspViolations)).toEqual([]);
   }
