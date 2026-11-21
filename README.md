@@ -7,7 +7,7 @@ to build and preview the site at http://127.0.0.1:4173 in Cloudflare's runtime.
 - `src/conversion.css`: shared type and control sizes, compact mobile layouts and booking dialog styles.
 - `src/landing-999.html`, `src/landing-999.css`: five-section advertising page at `/verificare-auto-999`, using the shared two-field booking modal.
 - `src/booking.js`, `src/forms.js`: quick booking dialog and shared form delivery.
-- `src/tracking.js`, `content/tracking.json`: optional consent-gated Meta, Google Ads and GA4 integrations (IDs are currently empty).
+- `src/tracking.js`, `content/tracking.json`: consent-gated Meta Pixel and optional Google Ads and GA4 integrations.
 - `content/articles.json`: journal content used by the page generator.
 - `public/`: images, fonts and Cloudflare static-file settings.
 - `lib/contact.js`: shared email handler for Pages and Workers.

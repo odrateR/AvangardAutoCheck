@@ -7,6 +7,22 @@ async function fillBooking(page) {
   await page.locator('#booking-phone').fill('+373 (69) 448-878');
 }
 
+async function useTrackingConfig(page, settings) {
+  const bundle = await build({
+    entryPoints: ['src/app.js'],
+    bundle: true,
+    write: false,
+    format: 'iife',
+    plugins: [{
+      name: 'test-tracking-config',
+      setup(builder) {
+        builder.onLoad({ filter: /tracking\.json$/ }, () => ({ contents: JSON.stringify(settings), loader: 'json' }));
+      }
+    }]
+  });
+  await page.route(/\/app\.[a-f0-9]+\.js$/, route => route.fulfill({ contentType: 'text/javascript', body: bundle.outputFiles[0].text }));
+}
+
 test('CTAs are legible, mobile content is compact, and booking fits all viewport sizes', async ({ page }) => {
   for (const viewport of [{ width: 1440, height: 900 }, { width: 768, height: 1024 }, { width: 390, height: 844 }, { width: 320, height: 640 }]) {
     await page.setViewportSize(viewport);
@@ -106,6 +122,7 @@ test('the shared booking modal works on journal pages', async ({ page }) => {
 });
 
 test('empty tracking IDs never load advertising scripts or show a consent prompt', async ({ page }) => {
+  await useTrackingConfig(page, { metaPixelId: '', googleAdsId: '', googleAdsLeadLabel: '', ga4MeasurementId: '' });
   const requests = [];
   page.on('request', request => { if (/googletagmanager|facebook\.net|facebook\.com\/tr/.test(request.url())) requests.push(request.url()); });
   await page.goto('/');
@@ -116,8 +133,7 @@ test('empty tracking IDs never load advertising scripts or show a consent prompt
 
 test('configured pixels wait for consent and record one lead only after a successful submission', async ({ page }) => {
   const fixture = { metaPixelId: '123456789', googleAdsId: 'AW-123456789', googleAdsLeadLabel: 'test_label', ga4MeasurementId: 'G-TEST123' };
-  const bundle = await build({ entryPoints: ['src/app.js'], bundle: true, write: false, format: 'iife', plugins: [{ name: 'test-tracking-config', setup(builder) { builder.onLoad({ filter: /tracking\.json$/ }, () => ({ contents: JSON.stringify(fixture), loader: 'json' })); } }] });
-  await page.route(/\/app\.[a-f0-9]+\.js$/, route => route.fulfill({ contentType: 'text/javascript', body: bundle.outputFiles[0].text }));
+  await useTrackingConfig(page, fixture);
   const scripts = [];
   await page.route(/https:\/\/(www\.googletagmanager\.com|connect\.facebook\.net)\//, route => { scripts.push(route.request().url()); return route.fulfill({ contentType: 'text/javascript', body: '/* Pixel test stub: no external calls. */' }); });
   await page.goto('/');

@@ -84,11 +84,12 @@ function setConsent(value) {
 }
 
 if (enabled) {
+  const providers = [adsId || analyticsId ? 'Google' : '', metaId ? 'Meta' : ''].filter(Boolean).join(' și ');
   const banner = document.createElement('aside');
   banner.id = 'tracking-consent';
   banner.setAttribute('aria-label', 'Preferințe de confidențialitate');
   banner.hidden = consent === 'granted' || consent === 'denied';
-  banner.innerHTML = '<div><strong>Tu alegi ce măsurăm.</strong><p>Cu acordul tău, folosim Google și Meta pentru statistici și reclame. <a href="confidentialitate.html">Detalii</a></p></div><div class="consent-actions"><button type="button" class="button button-outline" data-tracking-choice="denied">Refuz</button><button type="button" class="button button-primary" data-tracking-choice="granted">Accept</button></div>';
+  banner.innerHTML = `<div><strong>Tu alegi ce măsurăm.</strong><p>Cu acordul tău, folosim ${providers} pentru statistici și reclame. <a href="confidentialitate.html">Detalii</a></p></div><div class="consent-actions"><button type="button" class="button button-outline" data-tracking-choice="denied">Refuz</button><button type="button" class="button button-primary" data-tracking-choice="granted">Accept</button></div>`;
   document.body.append(banner);
   banner.querySelectorAll('[data-tracking-choice]').forEach(button => button.addEventListener('click', () => setConsent(button.dataset.trackingChoice)));
   document.querySelectorAll('[data-tracking-settings]').forEach(button => {

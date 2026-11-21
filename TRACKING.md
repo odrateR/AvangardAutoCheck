@@ -5,7 +5,7 @@ service field preserves the selected offer. It uses `/api/contact`, the same
 Resend delivery and rate limiting as the detailed contact form. Email remains
 required for the detailed form; callback requests do not need an email.
 
-## Add account IDs later
+## Configure tracking IDs
 
 Edit `content/tracking.json` and rebuild:
 
@@ -18,10 +18,10 @@ Edit `content/tracking.json` and rebuild:
 }
 ```
 
-All values currently stay empty. Empty or invalid account IDs do not load
+Meta Pixel is configured. Google Ads and GA4 are optional. Empty or invalid account IDs do not load
 Google or Meta scripts. No cookie banner appears until at least one valid ID
 is configured. IDs are public identifiers; never put account access tokens
-or API secrets in this file. GA4 is optional. Google Ads lead conversion
+or API secrets in this file. Google Ads lead conversion
 tracking needs both the Ads ID and the conversion action label.
 
 When configured, visitors can accept or decline measurement. Scripts only
@@ -34,6 +34,7 @@ replayed later.
 
 | Action | GA4 | Meta | Google Ads |
 | --- | --- | --- | --- |
+| View a page | `page_view` | Standard `PageView` | — |
 | Open booking | `booking_open` | Custom `BookingOpen` | — |
 | Tap a phone link | `phone_click` | Custom `PhoneClick` | — |
 | Server accepts either contact form | `generate_lead` | Standard `Lead` | `conversion`, using the configured label |
