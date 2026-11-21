@@ -73,6 +73,7 @@ export function trackEvent(event, details = {}) {
   try {
     if (analyticsId) window.gtag?.('event', event, { ...payload, send_to: analyticsId });
     if (event === 'generate_lead') {
+      if (tagManagerId) window.dataLayer.push({ event: 'lead_form_submit' });
       if (adsId && settings.googleAdsLeadLabel) window.gtag?.('event', 'conversion', { send_to: `${adsId}/${settings.googleAdsLeadLabel}` });
       window.fbq?.('track', 'Lead', { content_name: payload.service || 'Solicitare de apel', content_category: payload.source });
     } else if (event === 'phone_click') window.fbq?.('trackCustom', 'PhoneClick', payload);

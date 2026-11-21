@@ -247,6 +247,49 @@ consentTest('consent loads a single Google container and routes site events to t
   ]);
 });
 
+consentTest('GTM records only accepted leads from either form after tracking consent', async ({ page }) => {
+  await page.route(/https:\/\/(www\.googletagmanager\.com|connect\.facebook\.net)\//, route =>
+    route.fulfill({ contentType: 'text/javascript', body: '/* Tracking test stub */' }));
+  let success = true;
+  await page.route('**/api/contact', route => route.fulfill({
+    status: success ? 200 : 502, json: { success, message: 'Rezultat test' }
+  }));
+  const leadEvents = () => page.evaluate(() => window.dataLayer?.filter(entry => entry.event === 'lead_form_submit') ?? []);
+  const lead = { event: 'lead_form_submit' };
+
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Acceptă doar necesare' }).click();
+  await openBooking(page);
+  await fillBooking(page);
+  await page.locator('#booking-form [type=submit]').click();
+  await expect(page.locator('#booking-success')).toBeVisible();
+  expect(await leadEvents()).toEqual([]);
+  await page.keyboard.press('Escape');
+
+  await page.locator('[data-tracking-settings]').click();
+  await page.getByRole('button', { name: 'Acceptă toate' }).click();
+  await openBooking(page);
+  await fillBooking(page);
+  success = false;
+  await page.locator('#booking-form [type=submit]').click();
+  await expect(page.locator('#booking-form [role=status]')).toHaveAttribute('data-state', 'error');
+  expect(await leadEvents()).toEqual([]);
+  success = true;
+  await page.locator('#booking-form [type=submit]').click();
+  await expect(page.locator('#booking-success')).toBeVisible();
+  expect(await leadEvents()).toEqual([lead]);
+  await page.keyboard.press('Escape');
+
+  const contactForm = page.locator('#contact-form');
+  await contactForm.locator('[name=name]').fill('Client Test');
+  await contactForm.locator('[name=email]').fill('client@example.com');
+  await contactForm.locator('[name=phone]').fill('069000000');
+  await contactForm.locator('[name=consent]').check();
+  await contactForm.locator('[type=submit]').click();
+  await expect(contactForm.locator('[role=status]')).toHaveAttribute('data-state', 'success');
+  expect(await leadEvents()).toEqual([lead, lead]);
+});
+
 consentTest('revoking tracking in one tab stops events in another open tab', async ({ page, context }) => {
   await context.route('https://www.googletagmanager.com/**', route => route.fulfill({ contentType: 'text/javascript', body: '/* Google test stub */' }));
   await context.route('https://connect.facebook.net/**', route => route.fulfill({ contentType: 'text/javascript', body: '/* Meta test stub */' }));

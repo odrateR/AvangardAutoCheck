@@ -54,6 +54,9 @@ input, pending requests and failed delivery do not record conversions. A phone
 click measures intent to call, not a completed call. We send only the service
 and form source; names, phone numbers, email addresses and message text are
 excluded. Automatic Meta configuration and enhanced conversions are disabled.
+For Google Ads through GTM, use the Custom Event trigger `lead_form_submit`
+on the Google Ads Conversion Tracking tag. Both forms push that event after
+the server accepts the request and the visitor has granted tracking consent.
 Do not also configure a second Google Ads conversion for the same GA4 lead
 unless you intentionally want separate conversion actions.
 
