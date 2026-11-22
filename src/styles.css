@@ -1915,13 +1915,7 @@ details[open] > summary .plus {
     height: 360px;
   }
 }
-@media (max-width: 640px) {
-  html {
-    scroll-padding-top: 78px;
-  }
-  .wrap {
-    width: calc(100% - 40px);
-  }
+@media (max-width: 800px) {
   .site-header {
     height: 74px;
     padding: 0 20px;
@@ -1966,6 +1960,14 @@ details[open] > summary .plus {
   }
   .menu-toggle[aria-expanded=true] span:last-child {
     transform: translateY(-4px) rotate(-45deg);
+  }
+}
+@media (max-width: 640px) {
+  html {
+    scroll-padding-top: 78px;
+  }
+  .wrap {
+    width: calc(100% - 40px);
   }
   .hero {
     height: auto;

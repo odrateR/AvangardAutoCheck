@@ -1,4 +1,5 @@
 import settings from '../content/tracking.json';
+import { localizedPath, text } from './i18n.js';
 
 // Public IDs only. Empty IDs keep all advertising and analytics scripts disabled.
 const metaId = /^\d+$/.test(settings.metaPixelId) ? settings.metaPixelId : '';
@@ -94,49 +95,52 @@ function applyConsent(value) {
 }
 
 if (enabled) {
-  const providers = [googleEnabled ? 'Google' : '', metaId ? 'Meta' : ''].filter(Boolean).join(' și ');
+  const providers = [googleEnabled ? 'Google' : '', metaId ? 'Meta' : ''].filter(Boolean).join(text(' și '));
+  const withProviders = value => text(value).replace('{providers}', providers);
   const dialog = document.createElement('dialog');
   let opener;
   dialog.id = 'tracking-consent';
   dialog.setAttribute('aria-labelledby', 'tracking-consent-title');
-  dialog.innerHTML = `<h2 id="tracking-consent-title" tabindex="-1">Folosim cookie-uri</h2>
+  dialog.innerHTML = `<div class="consent-heading"><h2 id="tracking-consent-title" tabindex="-1">${text('Folosim cookie-uri')}</h2></div>
     <div data-consent-choices>
-      <p>Cookie-urile necesare ajută site-ul să funcționeze. Cu acordul tău, ${providers} măsoară vizitele și rezultatele reclamelor. Poți schimba alegerea din „Preferințe cookie”, în subsol.</p>
-      <a class="consent-privacy" href="/confidentialitate">Politica de confidențialitate</a>
+      <p>${withProviders('Cookie-urile necesare ajută site-ul să funcționeze. Cu acordul tău, {providers} măsoară vizitele și rezultatele reclamelor. Poți schimba alegerea din „Preferințe cookie”, în subsol.')}</p>
+      <a class="consent-privacy" href="${localizedPath('/confidentialitate')}">${text('Politica de confidențialitate')}</a>
       <div class="consent-actions">
-        <button type="button" data-consent-settings>Setări cookie-uri</button>
+        <button type="button" data-consent-settings>${text('Setări cookie-uri')}</button>
         <div class="consent-choices">
-          <button type="button" data-tracking-choice="denied">Acceptă doar necesare</button>
-          <button type="button" class="consent-primary" data-tracking-choice="granted">Acceptă toate</button>
+          <button type="button" data-tracking-choice="denied">${text('Acceptă doar necesare')}</button>
+          <button type="button" class="consent-primary" data-tracking-choice="granted">${text('Acceptă toate')}</button>
         </div>
       </div>
     </div>
     <div data-consent-preferences hidden>
       <div class="consent-category">
-        <strong>Necesare</strong>
-        <span>Mereu active</span>
-        <p>Permit funcționarea site-ului și memorarea alegerii tale.</p>
+        <strong>${text('Necesare')}</strong>
+        <span>${text('Mereu active')}</span>
+        <p>${text('Permit funcționarea site-ului și memorarea alegerii tale.')}</p>
       </div>
       <label class="consent-category">
-        <strong id="consent-optional-title">Statistici și publicitate</strong>
+        <strong id="consent-optional-title">${text('Statistici și publicitate')}</strong>
         <input type="checkbox" aria-labelledby="consent-optional-title" aria-describedby="consent-optional-description" data-consent-optional>
-        <span id="consent-optional-description">Permite măsurarea vizitelor și rezultatelor reclamelor prin ${providers}.</span>
+        <span id="consent-optional-description">${withProviders('Permite măsurarea vizitelor și rezultatelor reclamelor prin {providers}.')}</span>
       </label>
       <div class="consent-actions">
-        <button type="button" data-consent-back>Înapoi</button>
-        <button type="button" class="consent-primary" data-consent-save>Salvează preferințele</button>
+        <button type="button" data-consent-back>${text('Înapoi')}</button>
+        <button type="button" class="consent-primary" data-consent-save>${text('Salvează preferințele')}</button>
       </div>
     </div>`;
+  const languageSwitcher = document.querySelector('[data-language-switcher]');
+  if (languageSwitcher) dialog.querySelector('.consent-heading').append(languageSwitcher.cloneNode(true));
   document.body.append(dialog);
   const title = dialog.querySelector('#tracking-consent-title');
   const choices = dialog.querySelector('[data-consent-choices]');
   const preferences = dialog.querySelector('[data-consent-preferences]');
   const optional = dialog.querySelector('[data-consent-optional]');
-  const isPrivacyPage = /^\/confidentialitate(?:\.html)?\/?$/.test(location.pathname);
+  const isPrivacyPage = location.pathname.replace(/(?:\.html)?\/?$/, '') === localizedPath('/confidentialitate');
   const hasChoice = () => consent === 'granted' || consent === 'denied';
 
   function openDialog(showPreferences = false) {
-    title.textContent = showPreferences ? 'Setări cookie-uri' : 'Folosim cookie-uri';
+    title.textContent = text(showPreferences ? 'Setări cookie-uri' : 'Folosim cookie-uri');
     choices.hidden = showPreferences;
     preferences.hidden = !showPreferences;
     if (showPreferences) optional.checked = consent === 'granted';

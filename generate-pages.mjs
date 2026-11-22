@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build, transform } from 'esbuild';
+import { languages, localizePage, pagePath } from './lib/localize-page.mjs';
 
 const projectRoot = resolve(fileURLToPath(new URL('.', import.meta.url)));
 const outputRoot = resolve(projectRoot, 'dist');
@@ -10,12 +11,12 @@ const outputRoot = resolve(projectRoot, 'dist');
 if (!outputRoot.startsWith(projectRoot + sep)) throw new Error('Invalid build output directory');
 const readText = async path => (await readFile(resolve(projectRoot, path), 'utf8')).replaceAll('\r\n', '\n');
 const hash = content => createHash('sha256').update(content).digest('hex').slice(0, 12);
-const [index, notFound, articleJSON, script, baseStyles, conversionStyles, campaign, campaignStyles, inspection, inspectionStyles] = await Promise.all([
+const [index, notFound, articleJSON, script, baseStyles, conversionStyles, campaign, campaignStyles, inspection, inspectionStyles, languageStyles] = await Promise.all([
   readText('src/index.html'), readText('src/404.html'), readText('content/articles.json'), readText('src/app.js'),
   readText('src/styles.css'), readText('src/conversion.css'), readText('src/landing-999.html'), readText('src/landing-999.css'),
-  readText('src/pre-purchase.html'), readText('src/pre-purchase.css')
+  readText('src/pre-purchase.html'), readText('src/pre-purchase.css'), readText('src/languages.css')
 ]);
-const cssSource = [baseStyles, conversionStyles, campaignStyles, inspectionStyles].join('\n');
+const cssSource = [baseStyles, conversionStyles, campaignStyles, inspectionStyles, languageStyles].join('\n');
 const articles = JSON.parse(articleJSON);
 const [css, js] = await Promise.all([
   transform(cssSource, { loader: 'css', minify: true, charset: 'utf8', target: ['chrome109', 'firefox115', 'safari16'], legalComments: 'none' }),
@@ -26,7 +27,7 @@ const cssFile = `site.${hash(css.code)}.css`;
 const jsFile = `app.${hash(js.code)}.js`;
 const pages = new Map([['index.html', index], ['404.html', notFound], ['verificare-auto-999.html', campaign]]);
 const addPage = (path, html) => pages.set(path, html);
-const publicPath = file => file === 'index.html' ? '/' : '/' + file.replace(/\.html$/, '');
+const publicPath = file => pagePath(file);
 
 await mkdir(outputRoot, { recursive: true });
 // Keep the directory itself so Windows previews can watch it during rebuilds.
@@ -69,21 +70,25 @@ for (const article of articles) {
 }
 const privacy = `<section class="page-intro wrap"><p class="eyebrow"><span class="square"></span> AVANGARD AUTOCHECK</p><h1>Datele tale.<br><span class="muted">Explicate simplu.</span></h1></section><div class="wrap legal-content"><h2>Contactul prin acest site</h2><p>La trimiterea formularului de contact sau a cererii de apel, datele completate sunt transmise serverului site-ului pentru a trimite un email către avangardautocheck@gmail.com. Programarea este confirmată separat de echipa Avangard. Dacă trimiterea nu este confirmată, formularul afișează un mesaj și păstrează datele introduse.</p><h2>Ce informații incluzi</h2><p>Solicitarea poate conține numele, numărul de telefon, adresa de email, serviciul ales și detaliile despre mașină. Formularul de programare rapidă solicită doar numele și numărul de telefon. Aceste informații sunt folosite de echipa Avangard pentru a răspunde solicitării și pentru a discuta o eventuală programare. Evită trimiterea documentelor de identitate sau a datelor bancare prin acest formular.</p><h2>Preferințe și servicii externe</h2><p>Introduci VIN-ul sau numărul de înmatriculare direct pe site-ul carVertical. carVertical gestionează căutarea, raportul și plata conform propriilor condiții. Site-ul memorează local preferința privind animațiile și, când măsurarea este activată, alegerea privind cookie-urile. Poți șterge această preferință din setările browserului. Imaginile și fonturile sunt servite local. Linkurile către Instagram, TikTok sau parteneri deschid servicii externe, care aplică propriile politici. Cloudflare găzduiește site-ul și măsoară performanța paginilor fără cookie-uri.</p><h2>Statistici și reclame</h2><p>Dacă sunt configurate, instrumentele Google și Meta se încarcă doar după ce accepți măsurarea. Le folosim pentru a înțelege interacțiunile cu site-ul și cererile primite prin formulare. Măsurarea poate include serviciul ales și tipul formularului. Numele, telefonul, emailul și mesajul rămân în formularul de contact și în cererea trimisă echipei. Poți refuza măsurarea sau îți poți schimba alegerea din „Preferințe cookie”, în subsolul paginii, când această opțiune este disponibilă.</p><h2>Întrebări despre datele trimise</h2><p>Pentru întrebări sau solicitări privind informațiile transmise echipei, scrie la <a href="mailto:avangardautocheck@gmail.com">avangardautocheck@gmail.com</a> sau sună la <a href="tel:+37369448878">069 448 878</a>.</p><a class="inline-link" href="/#contact">Înapoi la contact <span>↗</span></a></div>`;
 addPage('confidentialitate.html', page('Confidențialitate', 'Cum funcționează formularul de contact și preferințele locale pe site-ul Avangard Autocheck.', privacy));
-const origin = (process.env.PUBLIC_SITE_URL || 'https://avangardautocheck.com').replace(/\/+$/, '');
-const canonicalUrls = new Map([...pages.keys()]
-  .filter(file => file !== '404.html')
-  .map(file => [file, origin + publicPath(file)]));
+const origin = (process.env.PUBLIC_SITE_URL || 'https://avangardautocheck.md').replace(/\/+$/, '');
+const locales = Object.keys(languages);
+const routes = new Map([...pages.keys()].map(file => [publicPath(file), file]));
+const canonicalUrls = [...pages.keys()].filter(file => file !== '404.html')
+  .flatMap(file => locales.map(language => origin + pagePath(file, language)));
 const output = new Map([
   [cssFile, css.code], [jsFile, js.code],
-  ['sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${[...canonicalUrls.values()].map(url => `<url><loc>${esc(url)}</loc></url>`).join('')}</urlset>\n`],
+  ['sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${canonicalUrls.map(url => `<url><loc>${esc(url)}</loc></url>`).join('')}</urlset>\n`],
   ['robots.txt', `User-agent: *\nAllow: /\nSitemap: ${origin}/sitemap.xml\n`]
 ]);
 for (const [file, html] of pages) {
-  const canonicalUrl = canonicalUrls.get(file);
-  const withCanonical = canonicalUrl ? html.replace('</head>', `<link rel="canonical" href="${esc(canonicalUrl)}"></head>`) : html;
-  const withBooking = !withCanonical.includes('id="booking-dialog"') && /src="\/?app\.js"/.test(withCanonical) ? withCanonical.replace('</body>', booking + '</body>') : withCanonical;
-  output.set(file, withBooking.replace(/((?:href|src)=")(\/?)(site\.css|app\.js)(")/g,
-    (_, prefix, slash, asset, suffix) => `${prefix}${slash}${asset === 'site.css' ? cssFile : jsFile}${suffix}`));
+  const withBooking = !html.includes('id="booking-dialog"') && /src="\/?app\.js"/.test(html) ? html.replace('</body>', booking + '</body>') : html;
+  const withAssets = withBooking.replace(/((?:href|src)=")(\/?)(site\.css|app\.js)(")/g,
+    (_, prefix, slash, asset, suffix) => `${prefix}${slash}${asset === 'site.css' ? cssFile : jsFile}${suffix}`);
+  for (const language of locales) {
+    const outputFile = language === 'ro' ? file : `${language}/${file}`;
+    output.set(outputFile, localizePage(withAssets, { file, language, origin, routes }));
+  }
 }
+await Promise.all(locales.filter(language => language !== 'ro').map(language => mkdir(resolve(outputRoot, language), { recursive: true })));
 await Promise.all([...output].map(([file, content]) => writeFile(resolve(outputRoot, file), content)));
-console.log(`Built ${pages.size} pages. CSS: ${Buffer.byteLength(cssSource)} → ${Buffer.byteLength(css.code)} bytes; JS: ${Object.values(js.metafile.inputs).reduce((total, input) => total + input.bytes, 0)} → ${Buffer.byteLength(js.code)} bytes.`);
+console.log(`Built ${pages.size * locales.length} pages. CSS: ${Buffer.byteLength(cssSource)} → ${Buffer.byteLength(css.code)} bytes; JS: ${Object.values(js.metafile.inputs).reduce((total, input) => total + input.bytes, 0)} → ${Buffer.byteLength(js.code)} bytes.`);

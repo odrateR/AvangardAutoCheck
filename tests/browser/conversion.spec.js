@@ -314,3 +314,51 @@ consentTest('revoking tracking in one tab stops events in another open tab', asy
   await other.reload();
   expect(await other.evaluate(() => Boolean(window.fbq || window.gtag))).toBe(false);
 });
+
+consentTest('Romanian is the default and the language dropdown works in the consent dialog and on every page', async ({ page }) => {
+  await page.goto('/?utm_source=language-test#servicii');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'ro');
+  const consent = page.locator('#tracking-consent');
+  const consentDropdown = consent.locator('[data-language-switcher]');
+  const consentToggle = consentDropdown.locator('summary');
+  const russian = consentDropdown.getByRole('link', { name: 'Русский' });
+  await expect(consentToggle).toHaveText('RO');
+  await expect(russian).toBeHidden();
+  await consentToggle.press('Enter');
+  await expect(russian).toBeVisible();
+  await russian.press('Escape');
+  await expect(russian).toBeHidden();
+  await expect(consentToggle).toBeFocused();
+  await expect(consent).toBeVisible();
+  await consentToggle.click();
+  await russian.click();
+  await expect(page).toHaveURL(/\/ru\/\?utm_source=language-test#servicii$/);
+  await expect(page.locator('html')).toHaveAttribute('lang', 'ru');
+  await expect(consent).toHaveAccessibleName('Мы используем cookie');
+  await consent.getByRole('button', { name: 'Только необходимые' }).click();
+  await page.getByRole('navigation', { name: 'Основная навигация' }).getByRole('link', { name: 'Автожурнал' }).click();
+  await expect(page).toHaveURL(/\/ru\/blog$/);
+  await page.locator('.blog-feature').click();
+  await expect(page).toHaveURL(/\/ru\/blog-article$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Что проверить перед покупкой автомобиля');
+  const headerDropdown = page.locator('.site-header [data-language-switcher]');
+  await expect(headerDropdown.locator('summary')).toHaveText('RU');
+  await headerDropdown.locator('summary').click();
+  await headerDropdown.getByRole('link', { name: 'English' }).click();
+  await expect(page).toHaveURL(/\/en\/blog-article$/);
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('What to check before buying a car');
+  await expect(page.locator('head [hreflang="x-default"]')).toHaveAttribute('href', /\/blog-article$/);
+
+  await page.goto('/ru/');
+  await page.route('**/api/contact', route => {
+    expect(route.request().postDataJSON()).toMatchObject({ type: 'callback', service: 'Premium Check' });
+    return route.fulfill({ json: { success: true, message: 'Cererea a fost trimisă! Te contactăm pentru a confirma detaliile programării.' } });
+  });
+  await openBooking(page);
+  await expect(page.locator('#booking-title')).toHaveText('Проверим ваш автомобиль.');
+  await expect(page.locator('#booking-dialog a[href$="/confidentialitate"]')).toHaveAttribute('href', '/ru/confidentialitate');
+  await fillBooking(page);
+  await page.getByRole('button', { name: 'Заказать звонок' }).click();
+  await expect(page.locator('#booking-title')).toHaveText('Спасибо! Скоро свяжемся с вами.');
+});

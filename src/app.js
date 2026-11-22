@@ -1,5 +1,6 @@
 import './booking.js';
 import { bindLeadForm } from './forms.js';
+import { articleCount, text } from './i18n.js';
 
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 let motionPaused = reducedMotion.matches;
@@ -10,7 +11,7 @@ function updateMotion() {
   root.classList.toggle('motion-paused', motionPaused);
   motionButtons.forEach(button => {
     button.setAttribute('aria-pressed', String(motionPaused));
-    button.innerHTML = motionPaused ? 'Pornește animațiile <span>▷</span>' : 'Oprește animațiile <span>Ⅱ</span>';
+    button.innerHTML = motionPaused ? `${text('Pornește animațiile')} <span>▷</span>` : `${text('Oprește animațiile')} <span>Ⅱ</span>`;
   });
 }
 updateMotion();
@@ -27,7 +28,7 @@ const menu = document.querySelector('#main-nav');
 const navigationLinks = menu?.querySelectorAll('a') || [];
 function closeMenu(restoreFocus = false) {
   menuButton?.setAttribute('aria-expanded', 'false');
-  menuButton?.setAttribute('aria-label', 'Deschide meniul');
+  menuButton?.setAttribute('aria-label', text('Deschide meniul'));
   menu?.classList.remove('is-open');
   document.body.classList.remove('menu-open');
   if (restoreFocus) menuButton?.focus();
@@ -35,7 +36,7 @@ function closeMenu(restoreFocus = false) {
 menuButton?.addEventListener('click', () => {
   const open = menuButton.getAttribute('aria-expanded') !== 'true';
   menuButton.setAttribute('aria-expanded', String(open));
-  menuButton.setAttribute('aria-label', open ? 'Închide meniul' : 'Deschide meniul');
+  menuButton.setAttribute('aria-label', text(open ? 'Închide meniul' : 'Deschide meniul'));
   menu.classList.toggle('is-open', open); document.body.classList.toggle('menu-open', open);
 });
 navigationLinks.forEach(link => link.addEventListener('click', () => closeMenu()));
@@ -48,7 +49,7 @@ document.addEventListener('keydown', event => {
     else if (!event.shiftKey && document.activeElement === menuButton) { event.preventDefault(); first.focus(); }
   }
 });
-matchMedia('(min-width: 641px)').addEventListener('change', event => { if (event.matches) closeMenu(); });
+matchMedia('(min-width: 801px)').addEventListener('change', event => { if (event.matches) closeMenu(); });
 let ticking = false;
 const heroPhoto = document.querySelector('.hero-photo img');
 const hero = document.querySelector('.hero');
@@ -104,7 +105,7 @@ function selectSystem(index, focusTab = false) {
     else button.setAttribute('aria-pressed', String(active));
   });
   inspectionPanel.setAttribute('aria-labelledby', 'tab-' + index);
-  inspectionPanel.innerHTML = `<p class="eyebrow panel-label">${system.label}</p><h3>${system.title}</h3><p class="panel-description">${system.description}</p><ul class="check-list">${system.checks.map(check => `<li>${check}</li>`).join('')}</ul>`;
+  inspectionPanel.innerHTML = `<p class="eyebrow panel-label">${text(system.label)}</p><h3>${text(system.title)}</h3><p class="panel-description">${text(system.description)}</p><ul class="check-list">${system.checks.map(check => `<li>${text(check)}</li>`).join('')}</ul>`;
   const parent = inspectionPanel.parentElement;
   parent.classList.remove('panel-change'); requestAnimationFrame(() => parent.classList.add('panel-change'));
   if (focusTab) inspectionTabs[index].focus();
@@ -132,8 +133,8 @@ const reviewAuthor = document.querySelector('#review-author');
 const reviewCounter = document.querySelector('#review-index');
 document.querySelectorAll('[data-review]').forEach(button => button.addEventListener('click', () => {
   reviewIndex = (reviewIndex + Number(button.dataset.review) + reviews.length) % reviews.length;
-  reviewQuote.textContent = reviews[reviewIndex].quote;
-  reviewAuthor.innerHTML = reviews[reviewIndex].author + ' <small>— recenzie de pe site-ul Avangard</small>';
+  reviewQuote.textContent = text(reviews[reviewIndex].quote);
+  reviewAuthor.innerHTML = `${reviews[reviewIndex].author} <small>${text('— recenzie de pe site-ul Avangard')}</small>`;
   reviewCounter.textContent = `0${reviewIndex + 1} / 03`;
 }));
 bindLeadForm(document.querySelector('#contact-form'));
@@ -143,9 +144,9 @@ const voucherStatus = document.querySelector('.vin-copy-status');
 voucherButton?.addEventListener('click', async () => {
   try {
     await navigator.clipboard.writeText(voucherButton.dataset.copy);
-    voucherStatus.textContent = 'Cod copiat: AVANGARD';
+    voucherStatus.textContent = text('Cod copiat: AVANGARD');
   } catch {
-    voucherStatus.textContent = 'Copiază manual codul: AVANGARD';
+    voucherStatus.textContent = text('Copiază manual codul: AVANGARD');
   }
 });
 
@@ -160,6 +161,6 @@ filterButtons.forEach(button => button.addEventListener('click', () => {
     card.hidden = filter !== 'all' && card.dataset.category !== filter;
     if (!card.hidden) count++;
   });
-  if (filterStatus) filterStatus.textContent = `${count} articole afișate`;
+  if (filterStatus) filterStatus.textContent = articleCount(count);
 }));
 document.querySelectorAll('[data-year]').forEach(element => element.textContent = new Date().getFullYear());

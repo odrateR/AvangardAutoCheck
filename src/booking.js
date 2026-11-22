@@ -1,5 +1,6 @@
 import { bindLeadForm } from './forms.js';
 import { trackEvent } from './tracking.js';
+import { text } from './i18n.js';
 
 const dialog = document.querySelector('#booking-dialog');
 const form = document.querySelector('#booking-form');
@@ -22,8 +23,8 @@ function openBooking(trigger) {
   opener = trigger;
   const selectedService = trigger.dataset.service || 'Premium Check';
   form.elements.service.value = selectedService;
-  document.querySelector('#booking-service').textContent = selectedService === 'Premium Check' ? 'Premium Check · 69 € / mașină' : selectedService;
-  document.querySelector('#booking-title').textContent = 'Hai să verificăm mașina.';
+  document.querySelector('#booking-service').textContent = text(selectedService === 'Premium Check' ? 'Premium Check · 69 € / mașină' : selectedService);
+  document.querySelector('#booking-title').textContent = text('Hai să verificăm mașina.');
   document.querySelector('#booking-description').hidden = false;
   form.hidden = false;
   success.hidden = true;
@@ -68,7 +69,7 @@ bindLeadForm(form, () => {
   document.activeElement?.blur();
   form.hidden = true;
   document.querySelector('#booking-description').hidden = true;
-  document.querySelector('#booking-title').textContent = 'Mulțumim. Vorbim curând!';
+  document.querySelector('#booking-title').textContent = text('Mulțumim. Vorbim curând!');
   success.hidden = false;
   success.focus({ preventScroll: true });
   updateViewport();

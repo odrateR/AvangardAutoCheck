@@ -36,16 +36,16 @@ test('clean builds are reproducible and every generated local link and asset res
   const paths = [...second.keys()];
   assert.equal(paths.filter(path => /^site\.[a-f0-9]{12}\.css$/.test(path)).length, 1);
   assert.equal(paths.filter(path => /^app\.[a-f0-9]{12}\.js$/.test(path)).length, 1);
-  assert.equal(paths.filter(path => path.endsWith('.html')).length, 12);
+  assert.equal(paths.filter(path => path.endsWith('.html')).length, 36);
   assert.ok(second.has('verificare-auto-inainte-de-cumparare.html'));
   for (const obsolete of ['styles.css', 'dark.css', 'topbar.css', 'fonts.css', 'app.js', 'assets/partner-aquart.png', 'assets/partner-retus-auto.png']) {
     assert.equal(second.has(obsolete), false, obsolete);
   }
   assert.deepEqual(JSON.parse(second.get('_routes.json')), { version: 1, include: ['/api/*'], exclude: [] });
 
-  const siteOrigin = (process.env.PUBLIC_SITE_URL || 'https://avangardautocheck.com').replace(/\/+$/, '');
+  const siteOrigin = (process.env.PUBLIC_SITE_URL || 'https://avangardautocheck.md').replace(/\/+$/, '');
   const canonicalUrls = [];
-  const pagePath = file => file === 'index.html' ? '/' : '/' + file.replace(/\.html$/, '');
+  const pagePath = file => '/' + file.replace(/(?:^|(?<=\/))index\.html$/, '').replace(/\.html$/, '');
   for (const [path, buffer] of second) {
     if (!/\.(html|css)$/.test(path)) continue;
     const text = buffer.toString();
@@ -56,9 +56,8 @@ test('clean builds are reproducible and every generated local link and asset res
       const url = new URL(reference, 'https://site.test' + pagePath(path));
       if (url.origin !== 'https://site.test') continue;
       const requestedFile = decodeURIComponent(url.pathname.slice(1));
-      const destination = requestedFile
-        ? (second.has(requestedFile) ? requestedFile : requestedFile + '.html')
-        : 'index.html';
+      const destination = !requestedFile || requestedFile.endsWith('/') ? requestedFile + 'index.html'
+        : second.has(requestedFile) ? requestedFile : requestedFile + '.html';
       assert.ok(second.has(destination), `${path} references missing ${destination}`);
       if (destination.endsWith('.html')) {
         assert.equal(url.pathname, pagePath(destination), `${path} links to a non-canonical page URL`);
@@ -73,8 +72,17 @@ test('clean builds are reproducible and every generated local link and asset res
       assert.equal([...text.matchAll(/rel="stylesheet"/g)].length, 1, path);
       assert.doesNotMatch(text, /RESEND_API_KEY|SMTP_PASS|class="toast"/);
       const canonicals = [...text.matchAll(/<link rel="canonical" href="([^"]+)">/g)].map(match => match[1]);
-      const expected = path === '404.html' ? [] : [siteOrigin + pagePath(path)];
+      const is404 = /(?:^|\/)404\.html$/.test(path);
+      const expected = is404 ? [] : [siteOrigin + pagePath(path)];
       assert.deepEqual(canonicals, expected, path);
+      assert.match(text, new RegExp(`<html lang="${path.match(/^(ru|en)\//)?.[1] ?? 'ro'}">`), path);
+      const romanianPath = pagePath(path.replace(/^(ru|en)\//, ''));
+      if (!is404) {
+        for (const language of ['ro', 'ru', 'en', 'x-default']) {
+          const prefix = language === 'ru' || language === 'en' ? `/${language}` : '';
+          assert.ok(text.includes(`<link rel="alternate" hreflang="${language}" href="${siteOrigin}${prefix}${romanianPath}">`), path);
+        }
+      }
       canonicalUrls.push(...canonicals);
     }
   }
