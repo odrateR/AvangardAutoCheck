@@ -62,7 +62,7 @@
 }
 
 .pre-purchase-offer p:first-child strong {
-  font: 700 clamp(36px, 4vw, 52px)/1 var(--display);
+  font: 700 clamp(36px, 4vw, 52px)/1 var(--display-latin);
 }
 
 .pre-purchase-actions {

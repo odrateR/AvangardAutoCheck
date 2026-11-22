@@ -315,23 +315,16 @@ consentTest('revoking tracking in one tab stops events in another open tab', asy
   expect(await other.evaluate(() => Boolean(window.fbq || window.gtag))).toBe(false);
 });
 
-consentTest('Romanian is the default and the language dropdown works in the consent dialog and on every page', async ({ page }) => {
+consentTest('Romanian is the default and the language switcher navigates directly between Romanian and Russian', async ({ page }) => {
   await page.goto('/?utm_source=language-test#servicii');
   await expect(page.locator('html')).toHaveAttribute('lang', 'ro');
   const consent = page.locator('#tracking-consent');
-  const consentDropdown = consent.locator('[data-language-switcher]');
-  const consentToggle = consentDropdown.locator('summary');
-  const russian = consentDropdown.getByRole('link', { name: 'Русский' });
-  await expect(consentToggle).toHaveText('RO');
-  await expect(russian).toBeHidden();
-  await consentToggle.press('Enter');
-  await expect(russian).toBeVisible();
-  await russian.press('Escape');
-  await expect(russian).toBeHidden();
-  await expect(consentToggle).toBeFocused();
-  await expect(consent).toBeVisible();
-  await consentToggle.click();
-  await russian.click();
+  const consentSwitcher = consent.locator('[data-language-switcher]');
+  const russian = consentSwitcher.getByRole('link', { name: 'Русский' });
+  await expect(consentSwitcher.locator('[aria-current]')).toHaveText('RO');
+  await expect(consentSwitcher.getByRole('link')).toHaveCount(1);
+  await expect(russian).toHaveText('RU');
+  await russian.press('Enter');
   await expect(page).toHaveURL(/\/ru\/\?utm_source=language-test#servicii$/);
   await expect(page.locator('html')).toHaveAttribute('lang', 'ru');
   await expect(consent).toHaveAccessibleName('Мы используем cookie');
@@ -341,14 +334,19 @@ consentTest('Romanian is the default and the language dropdown works in the cons
   await page.locator('.blog-feature').click();
   await expect(page).toHaveURL(/\/ru\/blog-article$/);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Что проверить перед покупкой автомобиля');
-  const headerDropdown = page.locator('.site-header [data-language-switcher]');
-  await expect(headerDropdown.locator('summary')).toHaveText('RU');
-  await headerDropdown.locator('summary').click();
-  await headerDropdown.getByRole('link', { name: 'English' }).click();
+  const headerSwitcher = page.locator('.site-header [data-language-switcher]');
+  await expect(headerSwitcher.locator('[aria-current]')).toHaveText('RU');
+  await expect(headerSwitcher.getByRole('link')).toHaveCount(1);
+  await headerSwitcher.getByRole('link', { name: 'Română' }).click();
+  await expect(page).toHaveURL(/\/blog-article$/);
+  await expect(page.locator('html')).toHaveAttribute('lang', 'ro');
+
+  await page.goto('/en/blog-article');
   await expect(page).toHaveURL(/\/en\/blog-article$/);
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('What to check before buying a car');
   await expect(page.locator('head [hreflang="x-default"]')).toHaveAttribute('href', /\/blog-article$/);
+  await expect(headerSwitcher.getByRole('link')).toHaveText(['RO', 'RU']);
 
   await page.goto('/ru/');
   await page.route('**/api/contact', route => {

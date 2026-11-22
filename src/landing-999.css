@@ -17,11 +17,12 @@
 .campaign-hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px; align-items: center; }
 .campaign-page h1 { font: 650 clamp(64px, 5.9vw, 86px)/.99 var(--display); letter-spacing: -.018em; }
 .campaign-page em { font-style: normal; color: #81d39a; }
+.campaign-page h1 em { font-family: var(--display-latin); }
 .campaign-promise { font-size: 23px; line-height: 1.4; font-weight: 650; margin: 20px 0 12px; max-width: 430px; }
 .campaign-lead { color: #b5c6d2; font-size: 16px; max-width: 440px; margin: 0; line-height: 1.65; }
 .campaign-offer { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid #2b3e49; padding-top: 20px; margin-block: 24px 20px; max-width: 440px; }
 .campaign-offer > div > span { font-size: 13px; color: #c1d1db; }
-.campaign-offer strong { display: flex; align-items: baseline; gap: 8px; font: 650 64px/1.1 var(--display); }
+.campaign-offer strong { display: flex; align-items: baseline; gap: 8px; font: 650 64px/1.1 var(--display-latin); }
 .campaign-offer small { font-size: 29px; font-weight: 550; }
 .campaign-offer small > span { font: 500 13px var(--body); color: #afc1cd; }
 .campaign-duration { color: #a5bac8; font-size: 12px; line-height: 1.8; text-align: right; }
@@ -47,7 +48,7 @@
 .campaign-risks { background: #101b25; }
 .campaign-risk-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .campaign-risk-grid article { position: relative; padding: 24px; border: 1px solid #35434e; border-radius: 8px; background: #131f2a; }
-.campaign-risk-number { display: block; font: 600 14px var(--display); color: #e5b5a4; margin-bottom: 18px; }
+.campaign-risk-number { display: block; font: 600 14px var(--display-latin); color: #e5b5a4; margin-bottom: 18px; }
 .campaign-page .campaign-risk-grid h3 { font-size: 19px; font-weight: 700; line-height: 1.4; }
 .campaign-risk-grid p { font-size: 15px; color: #b3c3d0; line-height: 1.65; margin: 10px 0 0; }
 .campaign-risk-note { color: #afc2cf; margin: 24px 0 0; font-size: 15px; }
@@ -75,7 +76,7 @@
 .campaign-final-grid > div > p:last-child { color: #c0d6d2; max-width: 430px; font-size: 16px; margin-top: 20px; }
 .campaign-final-action { max-width: 440px; }
 .campaign-final-action > p { font-size: 14px; color: #c5dcd5; margin: 0 0 20px; }
-.campaign-final-action > p strong { display: block; color: #f0f6f4; font: 600 52px/1.2 var(--display); margin-top: 6px; }
+.campaign-final-action > p strong { display: block; color: #f0f6f4; font: 600 52px/1.2 var(--display-latin); margin-top: 6px; }
 .campaign-final-action > p strong > span { font: 500 14px var(--body); color: #bed2cb; }
 .campaign-final-action .button { width: 100%; background: #81d39a; color: #0b2315; }
 .campaign-final-action .button:hover { background: #a1e4b3; }

@@ -86,6 +86,46 @@ test('hero text clears the header divider and actions stay above the statistics'
   }
 });
 
+test('mobile process titles clear their step numbers and use the same number font in Romanian and Russian', async ({ page }) => {
+  for (const width of [320, 390]) {
+    await page.setViewportSize({ width, height: 840 });
+    for (const path of ['/', '/ru/']) {
+      await page.goto(path);
+      await page.evaluate(() => document.fonts.ready);
+      await expect(page.locator('.process-steps article > span').first()).toHaveCSS('font-family', /^Barlow,/);
+      const gaps = await page.locator('.process-steps article').evaluateAll(rows => rows.map(row => {
+        const number = document.createRange();
+        number.selectNodeContents(row.querySelector('span'));
+        return row.querySelector('h3').getBoundingClientRect().left - number.getBoundingClientRect().right;
+      }));
+      expect(gaps).toHaveLength(3);
+      for (const gap of gaps) expect(gap, `${path} at ${width}px`).toBeGreaterThanOrEqual(8);
+    }
+  }
+});
+
+test('Russian headings, navigation and the inspection diagram fit a narrow phone', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 640 });
+  for (const path of ['/ru/blog', '/ru/article-1-verificare-profesionala', '/ru/article-5-fluide-motor', '/ru/pagina-inexistenta']) {
+    await page.goto(path);
+    await page.evaluate(() => document.fonts.ready);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth), path).toBe(320);
+  }
+
+  await page.goto('/ru/');
+  await page.locator('.menu-toggle').click();
+  await page.evaluate(() => document.fonts.ready);
+  expect(await page.locator('#main-nav').evaluate(nav => nav.scrollWidth <= nav.clientWidth)).toBe(true);
+  await page.keyboard.press('Escape');
+
+  const diagram = page.locator('.inspection-map');
+  if (await diagram.getAttribute('open') === null) await diagram.locator('summary').click();
+  await expect.poll(() => diagram.evaluate(panel => {
+    const icon = panel.querySelector('summary > span');
+    return icon.getBoundingClientRect().right <= panel.getBoundingClientRect().right;
+  })).toBe(true);
+});
+
 test('mobile menu opens, closes after navigation and restores focus on Escape', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');

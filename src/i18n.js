@@ -16,9 +16,6 @@ export function articleCount(count) {
 }
 
 document.addEventListener('click', event => {
-  for (const switcher of document.querySelectorAll('[data-language-switcher][open]')) {
-    if (!switcher.contains(event.target)) switcher.open = false;
-  }
   const link = event.target.closest?.('[data-language-switcher] a');
   if (!link) return;
   const destination = new URL(link.href);
@@ -26,18 +23,3 @@ document.addEventListener('click', event => {
   destination.hash = location.hash;
   link.href = destination.href;
 });
-
-document.addEventListener('focusout', event => {
-  const switcher = event.target.closest?.('[data-language-switcher][open]');
-  if (switcher && event.relatedTarget && !switcher.contains(event.relatedTarget)) switcher.open = false;
-});
-
-document.addEventListener('keydown', event => {
-  if (event.key !== 'Escape') return;
-  const switcher = event.target.closest?.('[data-language-switcher][open]');
-  if (!switcher) return;
-  event.preventDefault();
-  event.stopPropagation();
-  switcher.open = false;
-  switcher.querySelector('summary').focus();
-}, { capture: true });

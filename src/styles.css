@@ -117,7 +117,8 @@
 :root {
   --accent-cyan:#00BCD4;
   --accent:var(--primary-blue);
-  --display:Barlow,"Arial Narrow",Impact,sans-serif;
+  --display-latin:Barlow,Manrope,"Arial Narrow",Impact,sans-serif;
+  --display:var(--display-latin);
   --body:Manrope,Arial,sans-serif;
   color-scheme: dark;
   --ink:#080e14;
@@ -416,17 +417,13 @@ em {
 }
 .header-cta {
   font-weight: 700;
-  border: 1px solid #ffffff45;
+  border: 1px solid transparent;
   display: flex;
   align-items: center;
   white-space: nowrap;
 }
 .header-cta span {
   font-size: 20px;
-}
-.header-cta:hover {
-  background: var(--accent);
-  border-color: var(--accent);
 }
 .nav-contact {
   display: none;
@@ -578,7 +575,7 @@ em {
   gap: 18px;
 }
 .hero-bottom strong {
-  font-family: var(--display);
+  font-family: var(--display-latin);
   font-size: 44px;
   font-weight: 600;
   line-height: 1;
@@ -935,7 +932,7 @@ details[open] > summary .plus {
 }
 .process-steps article > span {
   display: block;
-  font-family: var(--display);
+  font-family: var(--display-latin);
   font-size: 32px;
   margin-bottom: 24px;
 }
@@ -1003,7 +1000,6 @@ details[open] > summary .plus {
   border-bottom: 1px solid var(--line);
 }
 .promo-value {
-  font-family: var(--display);
   line-height: 1;
 }
 .fieldwork {
@@ -1255,7 +1251,7 @@ details[open] > summary .plus {
   margin: 25px 0 30px;
 }
 .contact-phone {
-  font-family: var(--display);
+  font-family: var(--display-latin);
   font-size: 42px;
   line-height: 1.5;
   display: inline-flex;
@@ -2152,15 +2148,18 @@ details[open] > summary .plus {
     gap: 25px;
   }
   .process-steps article {
-    position: relative;
-    padding: 0 0 22px 55px;
+    display: grid;
+    grid-template-columns: minmax(52px, max-content) minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: 10px;
+    padding-bottom: 22px;
     border-bottom: 1px solid var(--line);
   }
   .process-steps article > span {
-    position: absolute;
-    left: 0;
-    top: -5px;
     font-size: 30px;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+    white-space: nowrap;
     margin: 0;
   }
   .process-steps h3 {
@@ -2168,6 +2167,7 @@ details[open] > summary .plus {
     margin-bottom: 10px;
   }
   .process-steps p {
+    grid-column: 2;
     font-size: 12px;
     max-width: 310px;
   }
@@ -2694,14 +2694,13 @@ details[open] > summary .plus {
   align-items: baseline;
   gap: 9px;
   margin: 14px 0 8px;
-  font-family: var(--display);
+  font-family: var(--display-latin);
   font-size: 1em;
   font-weight: 700;
   line-height: 1;
   white-space: nowrap;
 }
 .price-amount {
-  font-family: var(--display);
   font-size: clamp(76px, 7vw, 104px);
   font-weight: 700;
   letter-spacing: -.055em;
